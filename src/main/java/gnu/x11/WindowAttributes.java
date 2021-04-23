@@ -3,192 +3,172 @@ package gnu.x11;
 /** X window attributes. */
 public class WindowAttributes extends ValueList {
 
-    public WindowAttributes(int count) {
-        super(count);
-    }
+	public WindowAttributes(int count) {
+		super(count);
+	}
 
-    public final static WindowAttributes EMPTY = new WindowAttributes();
+	public final static WindowAttributes EMPTY = new WindowAttributes();
 
-    public WindowAttributes() {
+	public WindowAttributes() {
 
-        super(15);
-    }
+		super(15);
+	}
 
-    /**
-     * @param p
-     *            possible: {@link Pixmap#NONE} (default),
-     *            {@link Pixmap#PARENT_RELATIVE}
-     */
-    public void setBackground(Pixmap p) {
+	/**
+	 * @param p possible: {@link Pixmap#NONE} (default),
+	 *          {@link Pixmap#PARENT_RELATIVE}
+	 */
+	public void setBackground(Pixmap p) {
 
-        set(0, p.id);
-    }
+		set(0, p.id);
+	}
 
-    /**
-     * @see #setBackground(int)
-     */
-    public void setBackground(Color c) {
+	/**
+	 * @see #setBackground(int)
+	 */
+	public void setBackground(Color c) {
 
-        setBackground(c.getPixel());
-    }
+		setBackground(c.getPixel());
+	}
 
-    public void setBackground(int pixel) {
+	public void setBackground(int pixel) {
 
-        set(1, pixel);
-    }
+		set(1, pixel);
+	}
 
-    /**
-     * @param p
-     *                possible: {@link Pixmap#COPY_FROM_PARENT} (default)
-     */
-    public void setBorder(Pixmap p) {
+	/**
+	 * @param p possible: {@link Pixmap#COPY_FROM_PARENT} (default)
+	 */
+	public void setBorder(Pixmap p) {
 
-        set(2, p.id);
-    }
+		set(2, p.id);
+	}
 
-    /**
-     * @see #setBorder(int)
-     */
-    public void setBorder(Color c) {
+	/**
+	 * @see #setBorder(int)
+	 */
+	public void setBorder(Color c) {
 
-        setBorder(c.getPixel());
-    }
+		setBorder(c.getPixel());
+	}
 
-    public void setBorder(int pixel) {
+	public void setBorder(int pixel) {
 
-        set(3, pixel);
-    }
+		set(3, pixel);
+	}
 
-    public enum Gravity {
-        FORGET(0),
-        NORTH_WEST(1),
-        NORTH(2),
-        NORTH_EAST(3),
-        WEST(4),
-        CENTER(5),
-        EAST(6),
-        SOUTH_WEST(7),
-        SOUTH(8),
-        SOUTH_EAST(9),
-        STATIC(10);
-        
-        private int code;
-        
-        
-        private Gravity(int code) {
-            this.code = code;
-        }
-        
-        
-        public int getCode() {
+	public enum Gravity {
+		FORGET(0), NORTH_WEST(1), NORTH(2), NORTH_EAST(3), WEST(4), CENTER(5), EAST(6), SOUTH_WEST(7), SOUTH(8),
+		SOUTH_EAST(9), STATIC(10);
 
-            return code;
-        }
-    }
+		private int code;
 
-    /**
-     * @param gravity
-     */
-    public void setWinGravity(Gravity gravity) {
+		private Gravity(int code) {
+			this.code = code;
+		}
 
-        set(5, gravity.getCode());
-    }
+		public int getCode() {
 
-    public void setBackingStore(Screen.BackingStore bs) {
+			return code;
+		}
+	}
 
-        set(6, bs.getCode());
-    }
+	/**
+	 * @param gravity
+	 */
+	public void setWinGravity(Gravity gravity) {
 
-    /**
-     * @param i
-     *                default: all ones
-     */
-    public void setBackingPlane(int i) {
+		set(5, gravity.getCode());
+	}
 
-        set(7, i);
-    }
+	public void setBackingStore(Screen.BackingStore bs) {
 
-    /**
-     * #set_backing(int)
-     */
-    public void setBacking(Color c) {
+		set(6, bs.getCode());
+	}
 
-        setBacking(c.getPixel());
-    }
+	/**
+	 * @param i default: all ones
+	 */
+	public void setBackingPlane(int i) {
 
-    public void setBacking(int pixel) {
+		set(7, i);
+	}
 
-        set(8, pixel);
-    }
+	/**
+	 * #set_backing(int)
+	 */
+	public void setBacking(Color c) {
 
-    /**
-     * @param b
-     *                default: false
-     */
-    public void setOverrideRedirect(boolean b) {
+		setBacking(c.getPixel());
+	}
 
-        set(9, b);
-    }
+	public void setBacking(int pixel) {
 
-    /**
-     * @param b
-     *                default: false
-     */
-    public void setSaveUnder(boolean b) {
+		set(8, pixel);
+	}
 
-        set(10, b);
-    }
+	/**
+	 * @param b default: false
+	 */
+	public void setOverrideRedirect(boolean b) {
 
-    /**
-     * @param i
-     *                default: {}
-     */
-    public void setEventMask(int i) { //todo should use Event.EventMask
+		set(9, b);
+	}
 
-        set(11, i);
-    }
+	/**
+	 * @param b default: false
+	 */
+	public void setSaveUnder(boolean b) {
 
-    public void addEventMask(int i) {
+		set(10, b);
+	}
 
-        setEventMask(eventMask() | i);
-    }
+	/**
+	 * @param i default: {}
+	 */
+	public void setEventMask(int i) { // todo should use Event.EventMask
 
-    public int eventMask() {
+		set(11, i);
+	}
 
-        return data[11];
-    }
+	public void addEventMask(int i) {
 
-    /**
-     * @param i
-     *                default: {}
-     */
-    public void setDoNotPropagateMask(int i) {
+		setEventMask(eventMask() | i);
+	}
 
-        set(12, i);
-    }
+	public int eventMask() {
 
-    /**
-     * @param c
-     *                possible: {@link Colormap#COPY_FROM_PARENT} (default)
-     */
-    public void setColormap(Colormap c) {
+		return data[11];
+	}
 
-        set(13, c.id);
-    }
+	/**
+	 * @param i default: {}
+	 */
+	public void setDoNotPropagateMask(int i) {
 
-    /**
-     * @param c
-     *                possible: {@link Cursor#NONE}
-     */
-    public void setCursor(Cursor c) {
+		set(12, i);
+	}
 
-        set(14, c.id);
-    }
+	/**
+	 * @param c possible: {@link Colormap#COPY_FROM_PARENT} (default)
+	 */
+	public void setColormap(Colormap c) {
 
-    public Object clone() {
+		set(13, c.id);
+	}
 
-        WindowAttributes attr = new WindowAttributes();
-        attr.copy(this);
-        return attr;
-    }
+	/**
+	 * @param c possible: {@link Cursor#NONE}
+	 */
+	public void setCursor(Cursor c) {
+
+		set(14, c.id);
+	}
+
+	public Object clone() {
+
+		WindowAttributes attr = new WindowAttributes();
+		attr.copy(this);
+		return attr;
+	}
 }

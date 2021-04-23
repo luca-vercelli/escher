@@ -9,47 +9,47 @@ import java.io.InputStreamReader;
 
 public class PPM extends ZPixmap { // TODO
 
-    public PPM(Display display, java.io.InputStream in, VisualInfo xVisual) throws IOException {
+	public PPM(Display display, java.io.InputStream in, VisualInfo xVisual) throws IOException {
 
-        // WARNING: very naive parsing
+		// WARNING: very naive parsing
 
-        super(display, xVisual);
+		super(display, xVisual);
 
-        BufferedReader bin = new BufferedReader(new InputStreamReader(in));
+		BufferedReader bin = new BufferedReader(new InputStreamReader(in));
 
-        // format
+		// format
 
-        String format = bin.readLine();
-        if (!(format.equals("P6")))
-            throw new Error("Unsupported format: " + format);
+		String format = bin.readLine();
+		if (!(format.equals("P6")))
+			throw new Error("Unsupported format: " + format);
 
-        // dimension
+		// dimension
 
-        String dimension = bin.readLine();
-        int index = dimension.indexOf(' ');
-        try {
-            width = Integer.parseInt(dimension.substring(0, index));
-            height = Integer.parseInt(dimension.substring(index + 1));
+		String dimension = bin.readLine();
+		int index = dimension.indexOf(' ');
+		try {
+			width = Integer.parseInt(dimension.substring(0, index));
+			height = Integer.parseInt(dimension.substring(index + 1));
 
-        } catch (NumberFormatException e) {
-            throw new X11ClientException(e);
-        }
+		} catch (NumberFormatException e) {
+			throw new X11ClientException(e);
+		}
 
-        String color_count = bin.readLine();
+		String color_count = bin.readLine();
 
-        // fill up data
+		// fill up data
 
-        init();
-        Colormap cmap = display.getDefaultColormap();
+		init();
+		Colormap cmap = display.getDefaultColormap();
 
-        for (int y = 0; y < height; y++)
-            for (int x = 0; x < width; x++) {
-                int r = bin.read();
-                int g = bin.read();
-                int b = bin.read();
+		for (int y = 0; y < height; y++)
+			for (int x = 0; x < width; x++) {
+				int r = bin.read();
+				int g = bin.read();
+				int b = bin.read();
 
-                // FIXME cache and index color
-                putPixel(x, y, cmap.allocColor8(r, g, b));
-            }
-    }
+				// FIXME cache and index color
+				putPixel(x, y, cmap.allocColor8(r, g, b));
+			}
+	}
 }

@@ -1,65 +1,60 @@
 package gnu.x11;
 
-
 /** X color. */
 public class Color {
-  private String name;
-  private int pixel;
-  private RGB exact, visual;
+	private String name;
+	private int pixel;
+	private RGB exact, visual;
 
+	public Color(int pixel) {
+		this.pixel = pixel;
+	}
 
-  public Color (int pixel) {
-    this.pixel = pixel;
-  }
+	public String toString() {
+		String name0 = name == null ? "" : name + " ";
+		return "#Color " + name0 + "[" + pixel + " " + exact + "]";
+	}
 
+	// Set and Gets
 
-  public String toString () {
-    String name0 = name == null ? "" : name + " ";
-    return "#Color " + name0 + "[" + pixel + " " + exact + "]";
-  }
+	public String getName() {
 
+		return name;
+	}
 
+	public void setName(String name) {
 
-  // Set and Gets
-  
-    public String getName() {
+		this.name = name;
+	}
 
-        return name;
-    }
+	public int getPixel() {
 
-    public void setName(String name) {
+		return pixel;
+	}
 
-        this.name = name;
-    }
+	public void setPixel(int pixel) {
 
-    public int getPixel() {
+		this.pixel = pixel;
+	}
 
-        return pixel;
-    }
+	public RGB getExact() {
 
-    public void setPixel(int pixel) {
+		return exact;
+	}
 
-        this.pixel = pixel;
-    }
+	public void setExact(RGB exact) {
 
-    public RGB getExact() {
+		this.exact = exact;
+	}
 
-        return exact;
-    }
+	public RGB getVisual() {
 
-    public void setExact(RGB exact) {
+		return visual;
+	}
 
-        this.exact = exact;
-    }
+	public void setVisual(RGB visual) {
 
-    public RGB getVisual() {
-
-        return visual;
-    }
-
-    public void setVisual(RGB visual) {
-
-        this.visual = visual;
-    }
+		this.visual = visual;
+	}
 
 }

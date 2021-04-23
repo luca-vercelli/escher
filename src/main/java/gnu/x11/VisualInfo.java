@@ -318,4 +318,20 @@ public class VisualInfo {
     
         return blueBits;
     }
+
+	public static int getMask() {
+		return MASK;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public int getVisualClassID() {
+		return visualClassID;
+	}
+
+	public Visual getVisual() {
+		return visual;
+	}
 }

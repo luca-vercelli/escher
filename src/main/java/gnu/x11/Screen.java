@@ -4,210 +4,233 @@ package gnu.x11;
 /** X Screen. */
 public class Screen {
 
-    private Display display;
+	private Display display;
 
-    private int rootID;
+	private int rootID;
 
-    private int defaultColormapID;
+	private int defaultColormapID;
 
-    private int whitePixel;
+	private int whitePixel;
 
-    private int blackPixel;
+	private int blackPixel;
 
-    private int currentInputMasks;
+	private int currentInputMasks;
 
-    private int width;
+	private int width;
 
-    private int height;
+	private int height;
 
-    private int widthInMM;
+	private int widthInMM;
 
-    private int heightInMM;
+	private int heightInMM;
 
-    private int minInstalledMaps;
+	private int minInstalledMaps;
 
-    private int maxInstalledMaps;
+	private int maxInstalledMaps;
 
-    private int rootVisualID;
+	private int rootVisualID;
 
-    private BackingStore backingStores;
+	private BackingStore backingStores;
 
-    private boolean saveUnders;
+	private boolean saveUnders;
 
-    private int rootDepth;
+	private int rootDepth;
 
-    private Depth[] allowedDepths;
+	private Depth[] allowedDepths;
 
-    public enum BackingStore {
-        NEVER(0) { public String toString() { return "never"; } },
-        WHEN_MAPPED(1) { public String toString() { return "when-mapped"; } },
-        ALWAYS(2) { public String toString() { return "always"; }};
-        
-        private int code;
-        
-        private BackingStore(int code) {
-            this.code = code;
-        }
-        
-        public abstract String toString();
-        
-        public static BackingStore getCode(int code) {
-            switch (code) {
-                case 0:
-                    return NEVER;
-                case 1:
-                    return WHEN_MAPPED;
-                case 2:
-                    return ALWAYS;
-                default:
-                    return NEVER;
-            }
-        }
-        
-        public int getCode() {
-            return this.code;
-        }
-    }
-    
-    private GC defaultGCCache;
-    
-    public Screen(ResponseInputStream in, Display display) {
+	public enum BackingStore {
+		NEVER(0) {
+			public String toString() {
+				return "never";
+			}
+		},
+		WHEN_MAPPED(1) {
+			public String toString() {
+				return "when-mapped";
+			}
+		},
+		ALWAYS(2) {
+			public String toString() {
+				return "always";
+			}
+		};
 
-        this.display = display;
-        
-        rootID = in.readInt32();
-        defaultColormapID = in.readInt32();
-        whitePixel = in.readInt32();
-        blackPixel = in.readInt32();
-        currentInputMasks = in.readInt32();
-        width = in.readInt16();
-        height = in.readInt16();
-        widthInMM = in.readInt16();
-        heightInMM = in.readInt16();
-        minInstalledMaps = in.readInt16();
-        maxInstalledMaps = in.readInt16();
-        rootVisualID = in.readInt32();
-        backingStores = BackingStore.getCode(in.readInt8());
-        saveUnders = in.readBool();
-        rootDepth = in.readInt8();
-        
-        int num_depths = in.readInt8();
-        allowedDepths = new Depth[num_depths];
-        for (int i = 0; i < num_depths; i++) {
-            allowedDepths[i] = new Depth(in, this);
-        }
-    }
-    
-    /** Shared, read-only resource in general. */
-    public GC defaultGC() {
+		private int code;
 
-        if (defaultGCCache == null) {
-            GC.Values gv = new GC.Values();
-            gv.setForeground(blackPixel);
-            gv.setBackground(whitePixel);
+		private BackingStore(int code) {
+			this.code = code;
+		}
 
-            defaultGCCache = new GC(display, gv);
-        }
+		public abstract String toString();
 
-        return defaultGCCache;
-    }
+		public static BackingStore getCode(int code) {
+			switch (code) {
+			case 0:
+				return NEVER;
+			case 1:
+				return WHEN_MAPPED;
+			case 2:
+				return ALWAYS;
+			default:
+				return NEVER;
+			}
+		}
 
-    public Window root() {
+		public int getCode() {
+			return this.code;
+		}
+	}
 
-        return (Window) Window.intern(display, rootID);
-    }
+	private GC defaultGCCache;
 
-    public int rootVisualID() {
+	public Screen(ResponseInputStream in, Display display) {
 
-        return rootVisualID;
-    }
+		this.display = display;
 
-    public int rootDepth() {
+		rootID = in.readInt32();
+		defaultColormapID = in.readInt32();
+		whitePixel = in.readInt32();
+		blackPixel = in.readInt32();
+		currentInputMasks = in.readInt32();
+		width = in.readInt16();
+		height = in.readInt16();
+		widthInMM = in.readInt16();
+		heightInMM = in.readInt16();
+		minInstalledMaps = in.readInt16();
+		maxInstalledMaps = in.readInt16();
+		rootVisualID = in.readInt32();
+		backingStores = BackingStore.getCode(in.readInt8());
+		saveUnders = in.readBool();
+		rootDepth = in.readInt8();
 
-        return rootDepth;
-    }
+		int num_depths = in.readInt8();
+		allowedDepths = new Depth[num_depths];
+		for (int i = 0; i < num_depths; i++) {
+			allowedDepths[i] = new Depth(in, this);
+		}
+	}
 
-    public Colormap defaultColormap() {
+	/** Shared, read-only resource in general. */
+	public GC defaultGC() {
 
-        return new Colormap(display, defaultColormapID);
-    }
+		if (defaultGCCache == null) {
+			GC.Values gv = new GC.Values();
+			gv.setForeground(blackPixel);
+			gv.setBackground(whitePixel);
 
-    public Depth[] getDepths()
-    {
-        return this.allowedDepths;
-    }
+			defaultGCCache = new GC(display, gv);
+		}
 
-    public Display getDisplay() {
-        
-        return this.display;
-    }
-    
-    public String toString() {
+		return defaultGCCache;
+	}
 
-        return "#Screen" + "\n  root-id: " + rootID
-                + "\n  default-colormap-id: " + defaultColormapID
-                + "\n  white-pixel: " + whitePixel + "\n  black-pixel: "
-                + blackPixel + "\n  width: " + width + "\n  height: " + height
-                + "\n  width-mm: " + widthInMM + "\n  height-mm: "
-                + heightInMM + "\n  min-installed-maps: "
-                + minInstalledMaps + "\n  max-installed-maps: "
-                + maxInstalledMaps + "\n  root-visual-id: " + rootVisualID
-                + "\n  backing-stores: "
-                + backingStores.toString() + "\n  save-unders: "
-                + saveUnders + "\n  root-depth: " + rootDepth
-                + "\n  allowed-depth-count: " + allowedDepths.length;
-    }
+	public Window root() {
 
-    // Get and Sets
-    
-    public int getRootID() {
-    
-        return rootID;
-    }
+		return (Window) Window.intern(display, rootID);
+	}
 
-    
-    public int getBlackPixel() {
-    
-        return blackPixel;
-    }
+	public int rootVisualID() {
 
-    
-    public int getHeight() {
+		return rootVisualID;
+	}
 
-        return height;
-    }
-    
-    public int getHeightInMM() {
-    
-        return heightInMM;
-    }
+	public int rootDepth() {
 
-    
-    public int getRootVisualID() {
-    
-        return rootVisualID;
-    }
+		return rootDepth;
+	}
 
-    
-    public int getRootDepth() {
-    
-        return rootDepth;
-    }
-    
-    
-    public int getWhitePixel() {
+	public Colormap defaultColormap() {
 
-        return whitePixel;
-    }
-    
-    public int getWidth() {
+		return new Colormap(display, defaultColormapID);
+	}
 
-        return width;
-    }
-    
-    
-    public int getWidthInMM() {
+	public Depth[] getDepths() {
+		return this.allowedDepths;
+	}
 
-        return widthInMM;
-    }
+	public Display getDisplay() {
+
+		return this.display;
+	}
+
+	public String toString() {
+
+		return "#Screen" + "\n  root-id: " + rootID + "\n  default-colormap-id: " + defaultColormapID
+				+ "\n  white-pixel: " + whitePixel + "\n  black-pixel: " + blackPixel + "\n  width: " + width
+				+ "\n  height: " + height + "\n  width-mm: " + widthInMM + "\n  height-mm: " + heightInMM
+				+ "\n  min-installed-maps: " + minInstalledMaps + "\n  max-installed-maps: " + maxInstalledMaps
+				+ "\n  root-visual-id: " + rootVisualID + "\n  backing-stores: " + backingStores.toString()
+				+ "\n  save-unders: " + saveUnders + "\n  root-depth: " + rootDepth + "\n  allowed-depth-count: "
+				+ allowedDepths.length;
+	}
+
+	// Get and Sets
+
+	public int getRootID() {
+		return rootID;
+	}
+
+	public int getBlackPixel() {
+		return blackPixel;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public int getHeightInMM() {
+		return heightInMM;
+	}
+
+	public int getRootVisualID() {
+		return rootVisualID;
+	}
+
+	public int getRootDepth() {
+		return rootDepth;
+	}
+
+	public int getWhitePixel() {
+		return whitePixel;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getWidthInMM() {
+		return widthInMM;
+	}
+
+	public int getDefaultColormapID() {
+		return defaultColormapID;
+	}
+
+	public int getCurrentInputMasks() {
+		return currentInputMasks;
+	}
+
+	public int getMinInstalledMaps() {
+		return minInstalledMaps;
+	}
+
+	public int getMaxInstalledMaps() {
+		return maxInstalledMaps;
+	}
+
+	public BackingStore getBackingStores() {
+		return backingStores;
+	}
+
+	public boolean isSaveUnders() {
+		return saveUnders;
+	}
+
+	public Depth[] getAllowedDepths() {
+		return allowedDepths;
+	}
+
+	public GC getDefaultGCCache() {
+		return defaultGCCache;
+	}
 }

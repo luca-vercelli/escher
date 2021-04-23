@@ -1,9 +1,12 @@
 
 package gnu.x11.image;
 
-import gnu.x11.*;
-import gnu.x11.color.ColorMapper;
-import gnu.x11.image.Image.Format;
+import gnu.x11.Color;
+import gnu.x11.Display;
+import gnu.x11.Pixmap;
+import gnu.x11.RGB;
+import gnu.x11.VisualInfo;
+import gnu.x11.X11ClientException;
 
 public class ZPixmap extends Image {
 

@@ -1,86 +1,75 @@
 package gnu.x11;
 
-
 /** X value list. */
 public class ValueList {
-  public static final int ALL = 0xffff;
+	public static final int ALL = 0xffff;
 
+	protected int bitmask;
+	protected int[] data;
 
-  protected int bitmask;
-  protected int [] data;
+	public ValueList(int count) {
+		data = new int[count];
+	}
 
+	public void clear() {
+		bitmask = 0;
+	}
 
-  public ValueList (int count) {
-    data = new int [count];
-  }
+	public void aggregate(ValueList vl) {
+		for (int i = 0; i < vl.data.length && i < 32; i++)
+			if ((vl.bitmask & 1 << i) != 0)
+				set(i, vl.data[i]); // overwrite
+	}
 
+	public int count() {
+		int k = 0;
 
-  public void clear () { bitmask = 0; }
+		for (int i = 0; i < data.length && i < 32; i++)
+			if ((bitmask & 1 << i) != 0)
+				k++;
 
+		return k;
+	}
 
-  public void aggregate (ValueList vl) {
-    for (int i = 0; i < vl.data.length && i < 32; i++)
-      if ((vl.bitmask & 1 << i) != 0)
-        set (i, vl.data [i]);   // overwrite
-  }
+	public void copy(ValueList vl) {
+		bitmask = vl.bitmask;
+		System.arraycopy(data, 0, vl.data, 0, data.length);
+	}
 
+	public void set(int index, boolean value) {
+		set(index, value ? 1 : 0);
+	}
 
-  public int count () {
-    int k = 0;
+	public void set(int index, int value) {
+		bitmask |= (1 << index);
+		data[index] = value;
+	}
 
-    for (int i = 0; i < data.length && i < 32; i++)
-      if ((bitmask & 1 << i) != 0) k++;
+	public void write(RequestOutputStream o) {
 
-    return k;
-  }
+		for (int i = 0; i < data.length && i < 32; i++)
+			if ((bitmask & (1 << i)) != 0) {
+				o.writeInt32(data[i]);
+			}
+	}
 
+	public int getBitmask() {
 
-  public void copy (ValueList vl) {
-    bitmask = vl.bitmask;
-    System.arraycopy (data, 0, vl.data, 0, data.length);
-  }
+		return bitmask;
+	}
 
+	public void setBitmask(int bitmask) {
 
-  public void set (int index, boolean value) {  
-    set (index, value ? 1 : 0);
-  }
+		this.bitmask = bitmask;
+	}
 
+	public int[] getData() {
 
-  public void set (int index, int value) {
-    bitmask |= (1 << index);
-    data [index] = value;
-  }
+		return data;
+	}
 
+	public void setData(int[] data) {
 
-  public void write (RequestOutputStream o) {
-    
-    for (int i = 0; i < data.length && i < 32; i++)
-      if ((bitmask & (1 << i)) != 0) {
-        o.writeInt32 (data [i]);
-      }
-  }
-  
-  
-  public int getBitmask() {
-
-    return bitmask;
-  }
-
-  
-  public void setBitmask(int bitmask) {
-
-    this.bitmask = bitmask;
-  }
-
-  
-  public int[] getData() {
-
-    return data;
-  }
-  
-  
-  public void setData(int[] data) {
-
-    this.data = data;
-  }
+		this.data = data;
+	}
 }

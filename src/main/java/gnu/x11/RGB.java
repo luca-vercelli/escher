@@ -1,158 +1,148 @@
 package gnu.x11;
 
-
 /**
  * X RGB.
  *
  * Note, following the convention of X specification, these RGB values are
- * 16-bit, ranging from 0 to 65535, instead of 8-bit (0 to 255) in some
- * other areas.
+ * 16-bit, ranging from 0 to 65535, instead of 8-bit (0 to 255) in some other
+ * areas.
  */
 public class RGB {
-  public static final RGB RED = rgb8 (255, 0, 0);
-  public static final RGB SLATE_GREY = rgb8 (112, 128, 144);  
-  public static final RGB DIM_GREY = grey (105);
-  public static final RGB GREY = grey (190);
-  public static final RGB GREY64 = grey (163);
-  public static final RGB GREEN = rgb8 (0, 255, 0);
-  public static final RGB BLUE = rgb8 (0, 0, 255);
-  public static final RGB ANTIQUE_WHITE3 = rgb8 (205, 192, 176);
+	public static final RGB RED = rgb8(255, 0, 0);
+	public static final RGB SLATE_GREY = rgb8(112, 128, 144);
+	public static final RGB DIM_GREY = grey(105);
+	public static final RGB GREY = grey(190);
+	public static final RGB GREY64 = grey(163);
+	public static final RGB GREEN = rgb8(0, 255, 0);
+	public static final RGB BLUE = rgb8(0, 0, 255);
+	public static final RGB ANTIQUE_WHITE3 = rgb8(205, 192, 176);
 
-  public static final RGB JAVA_PRIMARY1 = rgb8 (0x66, 0x66, 0x99);
-  public static final RGB JAVA_PRIMARY2 = rgb8 (0x99, 0x99, 0xcc);
-  public static final RGB JAVA_PRIMARY3 = rgb8 (0xcc, 0xcc, 0xff);
-  public static final RGB JAVA_SECONDARY1 = rgb8 (0x66, 0x66, 0x66);
-  public static final RGB JAVA_SECONDARY2 = rgb8 (0x99, 0x99, 0x99);
-  public static final RGB JAVA_SECONDARY3 = rgb8 (0xcc, 0xcc, 0xcc);
-  public static final RGB JAVA_BLACK = rgb8 (0x00, 0x00, 0x00);
-  public static final RGB JAVA_WHITE = rgb8 (0xff, 0xff, 0xff);  
+	public static final RGB JAVA_PRIMARY1 = rgb8(0x66, 0x66, 0x99);
+	public static final RGB JAVA_PRIMARY2 = rgb8(0x99, 0x99, 0xcc);
+	public static final RGB JAVA_PRIMARY3 = rgb8(0xcc, 0xcc, 0xff);
+	public static final RGB JAVA_SECONDARY1 = rgb8(0x66, 0x66, 0x66);
+	public static final RGB JAVA_SECONDARY2 = rgb8(0x99, 0x99, 0x99);
+	public static final RGB JAVA_SECONDARY3 = rgb8(0xcc, 0xcc, 0xcc);
+	public static final RGB JAVA_BLACK = rgb8(0x00, 0x00, 0x00);
+	public static final RGB JAVA_WHITE = rgb8(0xff, 0xff, 0xff);
 
+	private int red, green, blue;
 
-  private int red, green, blue;
+	public RGB(String spec) {
+		System.out.println("not implemented");
+	}
 
+	public RGB(int red, int green, int blue) {
+		this.red = red;
+		this.green = green;
+		this.blue = blue;
+	}
 
-  public RGB (String spec) {
-    System.out.println ("not implemented");
-  }
+	public static RGB rgb8(int red8, int green8, int blue8) {
+		int factor = 0xffff / 0xff;
+		return new RGB(red8 * factor, green8 * factor, blue8 * factor);
+	}
 
+	public static RGB grey(int level) {
+		return rgb8(level, level, level);
+	}
 
-  public RGB (int red, int green, int blue) {
-    this.red = red;
-    this.green = green;
-    this.blue = blue;
-  }
+	public static RGB hsv(int hue, float saturation, float value) {
+		// from http://www.cs.rit.edu/~ncs/color/t_convert.html
 
+		float red = 0, green = 0, blue = 0;
 
-  public static RGB rgb8 (int red8, int green8, int blue8) {
-    int factor = 0xffff / 0xff;
-    return new RGB (red8*factor, green8*factor, blue8*factor);
-  }
+		if (saturation == 0)
+			// achromatic (grey)
+			red = green = blue = value;
 
+		else {
+			float h = hue / 60;
+			int sector = (int) Math.floor(h); // sector 0 to 5
+			float fraction = h - sector;
 
-  public static RGB grey (int level) {
-    return rgb8 (level, level, level);
-  }
+			float v = value;
+			float p = value * (1 - saturation);
+			float q = value * (1 - saturation * fraction);
+			float t = value * (1 - saturation * (1 - fraction));
 
+			switch (sector) {
+			case 0:
+				red = v;
+				green = t;
+				blue = p;
+				break;
 
-  public static RGB hsv (int hue, float saturation, float value) {
-    // from http://www.cs.rit.edu/~ncs/color/t_convert.html
+			case 1:
+				red = q;
+				green = v;
+				blue = p;
+				break;
 
-    float red = 0, green = 0, blue = 0;
+			case 2:
+				red = p;
+				green = v;
+				blue = t;
+				break;
 
-    if (saturation == 0)
-      // achromatic (grey)
-      red = green = blue = value;
+			case 3:
+				red = p;
+				green = q;
+				blue = v;
+				break;
 
-    else {
-      float h = hue / 60;      
-      int sector = (int) Math.floor (h); // sector 0 to 5
-      float fraction = h - sector;
+			case 4:
+				red = t;
+				green = p;
+				blue = v;
+				break;
 
-      float v = value;
-      float p = value * (1 - saturation);
-      float q = value * (1 - saturation * fraction);
-      float t = value * (1 - saturation * (1 - fraction));
+			case 5:
+				red = v;
+				green = p;
+				blue = q;
+				break;
+			}
+		}
 
-      switch (sector) {
-      case 0:
-        red = v;
-        green = t;
-        blue = p;
-        break;
+		return new RGB((int) red * 0xffff, (int) green * 0xffff, (int) blue * 0xffff);
+	}
 
-      case 1:
-        red = q;
-        green = v;
-        blue = p;
-        break;
+	public String spec() {
+		System.out.println("not implemented");
+		return "unknown";
+	}
 
-      case 2:
-        red = p;
-        green = v;
-        blue = t;
-        break;
+	public String toString() {
+		return "#RGB [" + red + " " + green + " " + blue + "]";
+	}
 
-      case 3:
-        red = p;
-        green = q;
-        blue = v;
-        break;
+	// Getters and setters
 
-      case 4:
-        red = t;
-        green = p;
-        blue = v;
-        break;
+	public int getRed() {
+		return red;
+	}
 
-      case 5:
-        red = v;
-        green = p;
-        blue = q;
-        break;
-      }
-    }
-    
-    return new RGB ((int) red*0xffff, (int) green*0xffff, (int) blue*0xffff);    
-  }
+	public int getGreen() {
+		return green;
+	}
 
+	public int getBlue() {
+		return blue;
+	}
 
-  public String spec () {
-    System.out.println ("not implemented");
-    return "unknown";
-  }
+	public void setRed(int red) {
+		this.red = red;
+	}
 
+	public void setGreen(int green) {
+		this.green = green;
+	}
 
-  public String toString () {
-    return "#RGB [" + red + " " + green + " " + blue + "]";
-  }
-  
-  // Getters and setters
-  
-  public int getRed() {
-    return red;
-  }
-  
-  public int getGreen() {
-      return green;
-  }
-  
-  public int getBlue() {
-    return blue;
-  }
- 
-  public void setRed(int red) {
-    this.red = red;
-  }
-
-  public void setGreen(int green) {
-    this.green = green;
-  }
-
-  public void setBlue(int blue) {
-    this.blue = blue;
-  }
-} 
-
+	public void setBlue(int blue) {
+		this.blue = blue;
+	}
+}
 
 // from `showrgb'
 
