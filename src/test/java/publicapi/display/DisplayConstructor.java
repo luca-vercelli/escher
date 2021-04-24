@@ -15,8 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class DisplayConstructor {
 	@Test
 	void constructor_null_socket() {
-		NullPointerException exception = assertThrows(NullPointerException.class, () -> new Display(null, 0, 0));
-		assertThat(exception).hasMessage("socket is marked non-null but is null");
+		assertThrows(IllegalArgumentException.class, () -> new Display(null, 0, 0));
 	}
 
 	@Test
