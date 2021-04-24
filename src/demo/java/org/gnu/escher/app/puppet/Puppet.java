@@ -1,22 +1,44 @@
 package org.gnu.escher.app.puppet;
 
-import java.util.*;
+import static java.awt.event.MouseEvent.BUTTON1;
+import static java.awt.event.MouseEvent.BUTTON2;
+import static java.awt.event.MouseEvent.BUTTON3;
+import static org.gnu.escher.x11.enums.ChangeOperation.INSERT;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
 
 import org.gnu.escher.app.Application;
-import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.Atom;
+import org.gnu.escher.x11.Cursor;
+import org.gnu.escher.x11.Display;
+import org.gnu.escher.x11.Input;
+import org.gnu.escher.x11.Window;
+import org.gnu.escher.x11.X11ServiceException;
 import org.gnu.escher.x11.X11ServiceException.ErrorCode;
 import org.gnu.escher.x11.enums.GrabMode;
 import org.gnu.escher.x11.enums.GrabStatus;
+import org.gnu.escher.x11.enums.MapState;
 import org.gnu.escher.x11.enums.WMInitialState;
-import org.gnu.escher.x11.event.*;
+import org.gnu.escher.x11.event.ButtonPress;
+import org.gnu.escher.x11.event.ClientMessage;
+import org.gnu.escher.x11.event.ConfigureRequest;
+import org.gnu.escher.x11.event.DestroyNotify;
+import org.gnu.escher.x11.event.Event;
+import org.gnu.escher.x11.event.EventCode;
+import org.gnu.escher.x11.event.EventMask;
+import org.gnu.escher.x11.event.KeyPress;
+import org.gnu.escher.x11.event.KeyRelease;
+import org.gnu.escher.x11.event.MapNotify;
+import org.gnu.escher.x11.event.MapRequest;
+import org.gnu.escher.x11.event.PropertyNotify;
+import org.gnu.escher.x11.event.UnmapNotify;
 import org.gnu.escher.x11.extension.ExtensionNotFoundException;
 import org.gnu.escher.x11.extension.XTest;
 import org.gnu.escher.x11.geometric.Point;
 import org.gnu.escher.x11.geometric.Rectangle;
 import org.gnu.escher.x11.keysym.Misc;
-
-import static java.awt.event.MouseEvent.*;
-import static org.gnu.escher.x11.Host.ChangeOperation.INSERT;
 
 /**
  * Window manager.
@@ -1548,8 +1570,7 @@ public class Puppet extends Application {
 		Client fall_back = null;
 
 		if (client.class_hint != null)
-			for (Iterator it = clients.iterator(); it.hasNext();) {
-				Client c = (Client) it.next();
+			for (Client c : clients) {
 
 				if (c != client // another!
 						&& c.class_hint.equals(client.class_hint) && !c.early_unmapped && !c.early_destroyed) {
@@ -1617,7 +1638,7 @@ public class Puppet extends Application {
 			 * Children of root to be managed: (1) not override redirect (pop-up and
 			 * transient windows). (2) VIEWABLE (previously mapped)
 			 */
-			if (client.attributes.overrideRedirect() || client.attributes.mapState() != Window.MapState.VIEWABLE)
+			if (client.attributes.overrideRedirect() || client.attributes.mapState() != MapState.VIEWABLE)
 
 				continue; // not managed
 
@@ -1837,7 +1858,7 @@ public class Puppet extends Application {
 
 		if (!system_key_pressed && !focus_key_pressed) {
 			GrabStatus status = root.grabKeyboard(false, GrabMode.ASYNCHRONOUS, GrabMode.ASYNCHRONOUS,
-					display.CURRENT_TIME);
+					Display.CURRENT_TIME);
 			if (status != GrabStatus.SUCCESS)
 				throw new RuntimeException("Failed to grab keyboard");
 
@@ -2059,17 +2080,14 @@ public class Puppet extends Application {
 	}
 
 	public void unhide_all() {
-		for (Iterator it = clients.iterator(); it.hasNext();) {
-			unhide((Client) it.next());
+		for (Client c : clients) {
+			unhide(c);
 		}
 	}
 
 	public void unhide_same_class(Client client) {
-		for (Iterator it = clients.iterator(); it.hasNext();) {
-			Client c = (Client) it.next();
-
+		for (Client c : clients) {
 			if (c.state == HIDDEN && c.class_hint != null && c.class_hint.classEquals(client.class_hint))
-
 				unhide(c);
 		}
 	}
