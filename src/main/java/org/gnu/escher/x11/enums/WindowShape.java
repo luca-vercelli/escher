@@ -1,11 +1,11 @@
 package org.gnu.escher.x11.enums;
 
-public enum Shape {
+public enum WindowShape {
 	DESTROY(0), RETAIN_PERMANENT(1), RETAIN_TEMPORARY(2);
 
 	private int code;
 
-	Shape(int cd) {
+	WindowShape(int cd) {
 		this.code = cd;
 	}
 
@@ -13,16 +13,16 @@ public enum Shape {
 		return code;
 	}
 
-	public static Shape getFamily(int code) {
+	public static WindowShape getFamily(int code) {
 		switch (code) {
 		case 0:
-			return Shape.DESTROY;
+			return WindowShape.DESTROY;
 		case 1:
-			return Shape.RETAIN_PERMANENT;
+			return WindowShape.RETAIN_PERMANENT;
 		case 2:
-			return Shape.RETAIN_TEMPORARY;
+			return WindowShape.RETAIN_TEMPORARY;
 		default:
-			return Shape.DESTROY;
+			return WindowShape.DESTROY;
 		}
 	}
 }

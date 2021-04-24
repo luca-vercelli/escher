@@ -1,6 +1,7 @@
 package org.gnu.escher.app.x11.test;
 
-import org.gnu.escher.x11.Drawable;
+import org.gnu.escher.x11.enums.CoordinateMode;
+import org.gnu.escher.x11.enums.Fill;
 import org.gnu.escher.x11.geometric.Point;
 
 
@@ -41,8 +42,8 @@ public class Polygon extends Graphics {
       new Point (100, 75)
       };
 
-    window.fillPoly (display.getDefaultGC(), points, Drawable.Fill.CONVEX,
-                      Drawable.CoordinateMode.ORIGIN);
+    window.fillPoly (display.getDefaultGC(), points, Fill.CONVEX,
+                      CoordinateMode.ORIGIN);
     display.flush ();
   }
 

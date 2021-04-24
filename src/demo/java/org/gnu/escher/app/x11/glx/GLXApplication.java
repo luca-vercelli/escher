@@ -4,6 +4,7 @@ import java.lang.*;
 import java.lang.Error;
 
 import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.enums.WinClass;
 import org.gnu.escher.x11.event.*;
 import org.gnu.escher.x11.extension.glx.*;
 
@@ -120,7 +121,7 @@ public abstract class GLXApplication extends org.gnu.escher.app.Application {
 		attr.setEventMask(event_mask | more);
 
 		window = new Window(display.getDefaultRoot(), 10, 10, width, height);
-		window.create(5, depth, Window.WinClass.INPUT_OUTPUT, vid, attr);
+		window.create(5, depth, WinClass.INPUT_OUTPUT, vid, attr);
 
 		window.setWM(this, "main");
 		window.setWMDeleteWindow();

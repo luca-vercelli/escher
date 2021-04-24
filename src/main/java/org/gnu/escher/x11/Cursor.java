@@ -1,5 +1,6 @@
 package org.gnu.escher.x11;
 
+import org.gnu.escher.x11.enums.CursorShape;
 
 /** X cursor. */
 public class Cursor extends Resource {
@@ -11,103 +12,6 @@ public class Cursor extends Resource {
   public static final Cursor NONE = new Cursor (0);
   public static final Cursor CURRENT = new Cursor (1);
 
-  /**
-   * This enum represents the shape of a Cursor.
-   */
-  public enum Shape {
-    X_CURSOR(0), 
-    ARROW(2),
-    BASED_ARROW_DOWN(4),
-    BASED_ARROW_UP(6),
-    BOAT(8),
-    BOGOSITY(10),
-    BOTTOM_LEFT_CORNER(12),
-    BOTTOM_RIGHT_CORNER(14),
-    BOTTOM_SIDE(16),
-    BOTTOM_TEE(18),
-    BOX_SPIRAL(20),
-    CENTER_PTR(22),
-    CIRCLE(24),
-    CLOCK(26),
-    COFFEE_MUG(28),
-    CROSS(30),
-    CROSS_REVERSE(32),
-    CROSSHAIR(34),
-    DIAMOND_CROSS(36),
-    DOT(38),
-    DOTBOX(40),
-    DOUBLE_ARROW(42),
-    DRAFT_LARGE(44),
-    DRAFT_SMALL(46),
-    DRAPED_BOX(48),
-    EXCHANGE(50),
-    FLEUR(52),
-    GOBBLER(54),
-    GUMBY(56),
-    HAND1(58),
-    HAND2(60),
-    HEART(62),
-    ICON(64),
-    IRON_CROSS(66),
-    LEFT_PTR(68),
-    LEFT_SIDE(70),
-    LEFT_TEE(72),
-    LEFTBUTTON(74),
-    LL_ANGLE(76),
-    LR_ANGLE(78),
-    MAN(80),
-    MIDDLEBUTTON(82),
-    MOUSE(84),
-    PENCIL(86),
-    PIRATE(88),
-    PLUS(90),
-    QUESTION_ARROW(92),
-    RIGHT_PTR(94),
-    RIGHT_SIDE(96),
-    RIGHT_TEE(98),
-    RIGHTBUTTON(100),
-    RTL_LOGO(102),
-    SAILBOAT(104),
-    SB_DOWN_ARROW(106),
-    SB_H_DOUBLE_ARROW(108),
-    SB_LEFT_ARROW(110),
-    SB_RIGHT_ARROW(112),
-    SB_UP_ARROW(114),
-    SB_V_DOUBLE_ARROW(116),
-    SHUTTLE(118),
-    SIZING(120),
-    SPIDER(122),
-    SPRAYCAN(124),
-    STAR(126),
-    TARGET(128),
-    TCROSS(130),
-    TOP_LEFT_ARROW(132),
-    TOP_LEFT_CORNER(134),
-    TOP_RIGHT_CORNER(136),
-    TOP_SIDE(138),
-    TOP_TEE(140),
-    TREK(142),
-    UL_ANGLE(144),
-    UMBRELLA(146),
-    UR_ANGLE(148),
-    WATCH(150),
-    XTERM(152);
-    
-    private int cursorID;
-
-    private Shape(int id) {
-      this.cursorID = id;
-    }
-    
-    public int getShapeID() {
-      return this.cursorID;
-    }
-    
-    public String getShapeName() {
-      return this.name();
-    }
-  }
-  
   // cursor font
   public static Font FONT = null;
 
@@ -119,7 +23,7 @@ public class Cursor extends Resource {
   /**
    * @see <a href="XCreateFontCursor.html">XCreateFontCursor</a>
    */  
-  public Cursor (Display display, Shape shape) {
+  public Cursor (Display display, CursorShape shape) {
     super (display);
     
     // X predefined special font
@@ -138,8 +42,8 @@ public class Cursor extends Resource {
   /**
    * @see <a href="XCreateGlyphCursor.html">XCreateGlyphCursor</a>
    */
-  public Cursor (Font src, Font mask, Shape source_char,  
-    Shape mask_char, int fg_r, int fg_g, int fg_b, 
+  public Cursor (Font src, Font mask, CursorShape source_char,  
+    CursorShape mask_char, int fg_r, int fg_g, int fg_b, 
     int bg_r, int bg_g, int bg_b) { 
 
     super (src.display);
@@ -155,8 +59,8 @@ public class Cursor extends Resource {
    * @param mask possible: {@link Pixmap#NONE}
    * @see <a href="XCreatePixmapCursor.html">XCreatePixmapCursor</a>
    */
-  public Cursor (Pixmap src, Pixmap mask, Shape source_char,  
-                 Shape mask_char, int fg_r, int fg_g, int fg_b, 
+  public Cursor (Pixmap src, Pixmap mask, CursorShape source_char,  
+                 CursorShape mask_char, int fg_r, int fg_g, int fg_b, 
                  int bg_r, int bg_g, int bg_b, int x, int y) { 
     super (src.display);
 

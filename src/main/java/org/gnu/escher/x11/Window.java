@@ -1,8 +1,17 @@
 
 package org.gnu.escher.x11;
 
+import org.gnu.escher.x11.enums.BackingStore;
 import org.gnu.escher.x11.enums.ChangeOperation;
+import org.gnu.escher.x11.enums.CirculateDirection;
+import org.gnu.escher.x11.enums.GrabMode;
+import org.gnu.escher.x11.enums.GrabStatus;
+import org.gnu.escher.x11.enums.MapState;
+import org.gnu.escher.x11.enums.PropertyMode;
+import org.gnu.escher.x11.enums.RevertTo;
 import org.gnu.escher.x11.enums.Visual;
+import org.gnu.escher.x11.enums.WMInitialState;
+import org.gnu.escher.x11.enums.WinClass;
 import org.gnu.escher.x11.enums.X11CoreCommand;
 import org.gnu.escher.x11.event.Event;
 import org.gnu.escher.x11.extension.glx.GLXDrawable;
@@ -56,174 +65,6 @@ public class Window extends Drawable implements GLXDrawable {
 	private int x, y;
 
 	private Window parent;
-
-	public enum WinClass {
-		COPY_FROM_PARENT(0), INPUT_OUTPUT(1), INPUT_ONLY(2);
-
-		private int code;
-
-		WinClass(int cd) {
-			this.code = cd;
-		}
-
-		public int getCode() {
-			return code;
-		}
-
-		public static WinClass getByID(int id) {
-			switch (id) {
-			case 0:
-				return COPY_FROM_PARENT;
-			case 1:
-				return INPUT_OUTPUT;
-			case 2:
-				return INPUT_ONLY;
-			default:
-				return COPY_FROM_PARENT;
-			}
-		}
-	}
-
-	public enum MapState {
-		UNMAPPED(0), UNVIEWABLE(1), VIEWABLE(2);
-
-		private int code;
-
-		private MapState(int code) {
-			this.code = code;
-		}
-
-		public int getCode() {
-			return code;
-		}
-
-		public static MapState getByCode(int code) {
-			switch (code) {
-			case 0:
-				return UNMAPPED;
-			case 1:
-				return UNVIEWABLE;
-			case 2:
-				return VIEWABLE;
-			default:
-				return UNMAPPED;
-			}
-		}
-	}
-
-	public enum CirculateDirection {
-		RAISE_LOWEST(0), LOWER_HIGHEST(1);
-
-		private int code;
-
-		CirculateDirection(int code) {
-			this.code = code;
-		}
-
-		public int getCode() {
-			return code;
-		}
-	}
-
-	public enum PropertyMode {
-		REPLACE(0), PREPEND(1), APPEND(2);
-
-		private int code;
-
-		PropertyMode(int code) {
-			this.code = code;
-		}
-
-		public int getCode() {
-			return code;
-		}
-	}
-
-	public enum GrabMode {
-		SYNCHRONOUS(0), ASYNCHRONOUS(1);
-
-		private int code;
-
-		GrabMode(int code) {
-			this.code = code;
-		}
-
-		public int getCode() {
-			return code;
-		}
-	}
-
-	public enum GrabStatus {
-		SUCCESS(0), ALREADY_GRABBED(1), INVALID_TIME(2), NOT_VIEWABLE(3), FROZEN(4);
-
-		private int code;
-
-		GrabStatus(int code) {
-			this.code = code;
-		}
-
-		public int getCode() {
-			return code;
-		}
-
-		public static GrabStatus getByCode(int code) {
-			switch (code) {
-			case 0:
-				return SUCCESS;
-			case 1:
-				return ALREADY_GRABBED;
-			case 2:
-				return INVALID_TIME;
-			case 3:
-				return NOT_VIEWABLE;
-			case 4:
-				return FROZEN;
-			default:
-				return SUCCESS;
-			}
-		}
-	}
-
-	public enum RevertTo {
-		TO_NONE(0), TO_POINTER_ROOT(1), TO_PARENT(2);
-
-		private int code;
-
-		RevertTo(int code) {
-			this.code = code;
-		}
-
-		public int getCode() {
-			return code;
-		}
-	}
-
-	public enum WMInitialState {
-		WITHDRAWN(0), NORMAL(1), ICONIC(3);
-
-		private int code;
-
-		WMInitialState(int code) {
-			this.code = code;
-		}
-
-		public int getCode() {
-			return code;
-		}
-
-		public static WMInitialState getByCode(int code) {
-			switch (code) {
-			case 0:
-				return WITHDRAWN;
-			case 1:
-				return NORMAL;
-			case 2:
-				return ICONIC;
-			default:
-				return WITHDRAWN;
-			}
-		}
-	}
 
 	/** X window changes. */
 	public static class Changes extends ValueList {
@@ -439,7 +280,7 @@ public class Window extends Drawable implements GLXDrawable {
 	/** Reply of {@link #getAttributes()}. */
 	public static class AttributesReply {
 
-		private Screen.BackingStore backingStore;
+		private BackingStore backingStore;
 
 		private Visual visualID;
 
@@ -477,7 +318,7 @@ public class Window extends Drawable implements GLXDrawable {
 			int code = in.readInt8();
 			assert code == 1 : "Errors and events should be catched in Connection";
 
-			backingStore = Screen.BackingStore.getCode(in.readInt8());
+			backingStore = BackingStore.getCode(in.readInt8());
 
 			in.readInt16(); // Sequence number, not needed.
 
@@ -762,13 +603,11 @@ public class Window extends Drawable implements GLXDrawable {
 
 	/** Predefined. */
 	public Window(int id) {
-
 		super(id);
 	}
 
 	/** Intern. */
 	public Window(Display display, int id) {
-
 		super(display, id);
 	}
 
@@ -776,12 +615,10 @@ public class Window extends Drawable implements GLXDrawable {
 	 * @see #Window(Window, int, int, int, int)
 	 */
 	public Window(Window parent, Rectangle geometry) {
-
 		this(parent, geometry.getX(), geometry.getY(), geometry.getWidth(), geometry.getHeight());
 	}
 
 	public Window(Window parent, Rectangle geometry, int borderWidth, WindowAttributes attr) {
-
 		this(parent, geometry.getX(), geometry.getY(), geometry.getWidth(), geometry.getHeight(), borderWidth, attr);
 	}
 
@@ -836,13 +673,11 @@ public class Window extends Drawable implements GLXDrawable {
 	}
 
 	public void create(int borderWidth, WindowAttributes attr) {
-
 		create(borderWidth, WinClass.COPY_FROM_PARENT.getCode(), WinClass.COPY_FROM_PARENT,
 				WinClass.COPY_FROM_PARENT.getCode(), attr);
 	}
 
 	public void create() {
-
 		create(0, WindowAttributes.EMPTY);
 	}
 

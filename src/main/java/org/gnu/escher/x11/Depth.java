@@ -2,7 +2,7 @@
 package org.gnu.escher.x11;
 
 /** X depth. */
-public class Depth {
+public class Depth implements StreamObject {
 
 	private int depth;
 	private VisualInfo[] visualTypes;

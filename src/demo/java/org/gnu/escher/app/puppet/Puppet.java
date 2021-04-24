@@ -4,9 +4,10 @@ import java.util.*;
 
 import org.gnu.escher.app.Application;
 import org.gnu.escher.x11.*;
-import org.gnu.escher.x11.Window.GrabMode;
-import org.gnu.escher.x11.Window.GrabStatus;
 import org.gnu.escher.x11.X11ServiceException.ErrorCode;
+import org.gnu.escher.x11.enums.GrabMode;
+import org.gnu.escher.x11.enums.GrabStatus;
+import org.gnu.escher.x11.enums.WMInitialState;
 import org.gnu.escher.x11.event.*;
 import org.gnu.escher.x11.extension.ExtensionNotFoundException;
 import org.gnu.escher.x11.extension.XTest;
@@ -784,7 +785,7 @@ public class Puppet extends Application {
 		 * <p>Do it before <code>client.unmap ()</code>.
 		 */
 		client.state = HIDDEN;
-		client.setWMState(Window.WMInitialState.ICONIC);
+		client.setWMState(WMInitialState.ICONIC);
 
 		client.unmap();
 		last_hide = client;
@@ -1621,14 +1622,14 @@ public class Puppet extends Application {
 				continue; // not managed
 
 			Window.WMState wm_state = client.wmState();
-			if (wm_state != null && wm_state.state() == Window.WMInitialState.ICONIC) {
+			if (wm_state != null && wm_state.state() == WMInitialState.ICONIC) {
 				hide(client); // respect its iconic state
 
 			} else {
 				// maintain our state variable
 				client.state = NORMAL;
 				// in case someone screws this up
-				client.setWMState(Window.WMInitialState.NORMAL);
+				client.setWMState(WMInitialState.NORMAL);
 			}
 
 			if (client.state == NORMAL || client.state == HIDDEN)
@@ -1761,7 +1762,7 @@ public class Puppet extends Application {
 
 		Atom type = event.type();
 		if (event.format() == 32 && type.getName().equals("WM_CHANGE_STATE")
-				&& event.wm_data() == Window.WMInitialState.ICONIC.getCode()) {
+				&& event.wm_data() == WMInitialState.ICONIC.getCode()) {
 
 			hide(client);
 
@@ -1939,7 +1940,7 @@ public class Puppet extends Application {
 
 		// assume NORMAL if initial_state not specified
 		if (wm_hints == null || (wm_hints.flags() & Window.WMHints.STATE_HINT_MASK) == 0
-				|| wm_hints.initialState() == Window.WMInitialState.NORMAL) {
+				|| wm_hints.initialState() == WMInitialState.NORMAL) {
 
 			/*
 			 * Do not do any visible operations on the window such as focusing and warping
@@ -1951,7 +1952,7 @@ public class Puppet extends Application {
 
 		} else { // must be iconic
 			client.state = HIDDEN;
-			client.setWMState(Window.WMInitialState.ICONIC);
+			client.setWMState(WMInitialState.ICONIC);
 		}
 	}
 
@@ -1989,7 +1990,7 @@ public class Puppet extends Application {
 		 */
 		if (client.state != NO_FOCUS)
 			client.state = NORMAL;
-		client.setWMState(Window.WMInitialState.NORMAL);
+		client.setWMState(WMInitialState.NORMAL);
 
 		/*
 		 * We can set focus to a window only when it is ready, ie. MapNotify, not
@@ -2034,7 +2035,7 @@ public class Puppet extends Application {
 			 * Then, what's the use of synthetic UnmapNotify event?
 			 */
 			client.state = UNMANAGED;
-			client.setWMState(Window.WMInitialState.WITHDRAWN);
+			client.setWMState(WMInitialState.WITHDRAWN);
 			client.changeSaveSet(INSERT);
 		}
 	}

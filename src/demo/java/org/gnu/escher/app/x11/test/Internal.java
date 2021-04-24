@@ -1,6 +1,6 @@
 package org.gnu.escher.app.x11.test;
 
-import static org.gnu.escher.x11.Cursor.Shape.X_CURSOR;
+import static org.gnu.escher.x11.Cursor.CursorShape.X_CURSOR;
 
 import org.gnu.escher.app.Application;
 import org.gnu.escher.x11.Cursor;

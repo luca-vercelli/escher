@@ -18,7 +18,7 @@ public abstract class Fontable extends Resource {
 	}
 
 	/** Reply of {@link #info()}. */
-	public class FontInfo {
+	public class FontInfo implements StreamObject {
 
 		private CharInfo min_bounds;
 		private CharInfo max_bounds;
@@ -61,7 +61,7 @@ public abstract class Fontable extends Resource {
 		/**
 		 * Encapsulate an additional font property.
 		 */
-		public class FontProperty {
+		public class FontProperty implements StreamObject {
 
 			private int name_id;
 			private int value;
@@ -100,7 +100,7 @@ public abstract class Fontable extends Resource {
 		/**
 		 * Encapsulates information about one character.
 		 */
-		public class CharInfo {
+		public class CharInfo implements StreamObject {
 
 			private int leftSideBearing;
 			private int rightSideBearing;

@@ -1,3 +1,25 @@
+La filosofia di questa libreria è iù xlib che xcb
+
+
+
+
 DisplayName: incapsula localhost:123.123 e ha un metodo connect()
 Display: è la connessione
 ha un sacco di metodi tipo setScreenSaver() che inviano dati al server
+
+Un display può controllare uno o più Screen
+
+Ogni Screen ha una Window principale (root) e tutte le altre sono sue figlie
+
+Ogni Screen ammette una o più Depth, e ciascuna ha uno o più VisualInfo: sembrerebbero informazioni legate al colore
+
+La Window ha un metodo create() che invia la richiesta al server, e analogamente un destroyWindow() 
+e diversi altri opcode
+
+
+La classe Drawable sembra gestire diversi opcode per il disegno
+
+La classe Cursor sembra gestire diversi opcode per il cursore
+
+
+

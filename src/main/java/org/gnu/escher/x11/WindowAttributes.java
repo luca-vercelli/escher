@@ -1,5 +1,7 @@
 package org.gnu.escher.x11;
 
+import org.gnu.escher.x11.enums.BackingStore;
+
 /** X window attributes. */
 public class WindowAttributes extends ValueList {
 
@@ -81,7 +83,7 @@ public class WindowAttributes extends ValueList {
 		set(5, gravity.getCode());
 	}
 
-	public void setBackingStore(Screen.BackingStore bs) {
+	public void setBackingStore(BackingStore bs) {
 
 		set(6, bs.getCode());
 	}
