@@ -2,20 +2,20 @@ package org.gnu.escher.utils;
 
 
 /** 4-element vector of <code>double</code> in mathematics. */
-public class Vector4d {
-  public static final Vector4d ZERO = new Vector4d ();
+public class Vector4Double {
+  public static final Vector4Double ZERO = new Vector4Double ();
   private double [] vector = new double [4];
 
 
-  public Vector4d () {}
+  public Vector4Double () {}
 
 
-  public Vector4d (double [] v) {
+  public Vector4Double (double [] v) {
     this.vector = v;
   }
 
 
-  public Vector4d (double x, double y, double z, double w) {
+  public Vector4Double (double x, double y, double z, double w) {
     vector [0] = x;
     vector [1] = y;
     vector [2] = z;
@@ -32,7 +32,7 @@ public class Vector4d {
   }
 
 
-  public Vector4d cross (Vector4d A, Vector4d B) {
+  public Vector4Double cross (Vector4Double A, Vector4Double B) {
     double [] C = vector;
     if (A == this || B == this) C = new double [4];
     vector = cross (A.vector, B.vector, C);
@@ -61,7 +61,7 @@ public class Vector4d {
   }
 
 
-  public Vector4d minus (Vector4d A, Vector4d B) {
+  public Vector4Double minus (Vector4Double A, Vector4Double B) {
     minus (A.vector, B.vector, vector);
     return this;
   }
@@ -77,12 +77,12 @@ public class Vector4d {
   }
   
 
-  public Vector4d multiplyRight (Matrix4d A) {
+  public Vector4Double multiplyRight (Matrix4x4Double A) {
     return multiplyRight (this, A);
   }
 
 
-  public Vector4d multiplyRight (Vector4d V, Matrix4d A) {
+  public Vector4Double multiplyRight (Vector4Double V, Matrix4x4Double A) {
     double [] B = vector;
     if (V == this) B = new double [4];
     vector = multiplyRight (V.vector, A.getMatrix(), B);
@@ -106,12 +106,12 @@ public class Vector4d {
   }    
 
 
-  public Vector4d negate () {
+  public Vector4Double negate () {
     return negate (this);
   }
 
 
-  public Vector4d negate (Vector4d A) {
+  public Vector4Double negate (Vector4Double A) {
     negate (A.vector, vector);
     return this;
   }
@@ -123,12 +123,12 @@ public class Vector4d {
   }
 
 
-  public Vector4d normalize () {
+  public Vector4Double normalize () {
     return normalize (this);
   }
 
 
-  public Vector4d normalize (Vector4d A) {
+  public Vector4Double normalize (Vector4Double A) {
     normalize (A.vector, vector);
     return this;
   }
@@ -156,7 +156,7 @@ public class Vector4d {
   }
     
 
-  public Vector4d scalarMinus (double d) {
+  public Vector4Double scalarMinus (double d) {
     scalarMinus (vector, d, vector);
     return this;
   } 
@@ -167,12 +167,12 @@ public class Vector4d {
   }
 
 
-  public Vector4d scalarMultiply (double d) {
+  public Vector4Double scalarMultiply (double d) {
     return scalarMultiply (this, d);
   }
 
 
-  private Vector4d scalarMultiply (Vector4d A, double d) {
+  private Vector4Double scalarMultiply (Vector4Double A, double d) {
     scalarMultiply (A.vector, d, vector);
     return this;
   }

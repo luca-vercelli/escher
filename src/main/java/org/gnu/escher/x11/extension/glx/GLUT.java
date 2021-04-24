@@ -277,13 +277,13 @@ public class GLUT { // TODO
 
 	private void triangle(float[] x0, float[] x1, float[] x2, int type) {
 		// TODO subdivide
-		Vector3f A = new Vector3f(x0).normalize();
-		Vector3f B = new Vector3f(x1).normalize();
-		Vector3f C = new Vector3f(x2).normalize();
+		Vector3Float A = new Vector3Float(x0).normalize();
+		Vector3Float B = new Vector3Float(x1).normalize();
+		Vector3Float C = new Vector3Float(x2).normalize();
 
-		Vector3f AB = new Vector3f().minus(A, B);
-		Vector3f AC = new Vector3f().minus(A, C);
-		Vector3f n = new Vector3f().cross(AC, AB).normalize();
+		Vector3Float AB = new Vector3Float().minus(A, B);
+		Vector3Float AC = new Vector3Float().minus(A, C);
+		Vector3Float n = new Vector3Float().cross(AC, AB).normalize();
 
 		gl.begin(type);
 		gl.normal3fv(n.getVector());

@@ -1,7 +1,7 @@
 package org.gnu.escher.x11.extension.glx;
 
-import org.gnu.escher.utils.Matrix4d;
-import org.gnu.escher.utils.Vector4d;
+import org.gnu.escher.utils.Matrix4x4Double;
+import org.gnu.escher.utils.Vector4Double;
 
 /**
  * OpenGL utility library. The specification can be found
@@ -30,13 +30,13 @@ public class GLU { // TODO
 	public void look_at(double eyex, double eyey, double eyez, double centerx, double centery, double centerz,
 			double upx, double upy, double upz) {
 
-		Matrix4d matrix = new Matrix4d();
-		Vector4d eye = new Vector4d(eyex, eyey, eyez, 1.0);
-		Vector4d center = new Vector4d(centerx, centery, centerz, 1.0);
-		Vector4d up = new Vector4d(upx, upy, upz, 1.0);
+		Matrix4x4Double matrix = new Matrix4x4Double();
+		Vector4Double eye = new Vector4Double(eyex, eyey, eyez, 1.0);
+		Vector4Double center = new Vector4Double(centerx, centery, centerz, 1.0);
+		Vector4Double up = new Vector4Double(upx, upy, upz, 1.0);
 
-		Vector4d forward = new Vector4d();
-		Vector4d side = new Vector4d();
+		Vector4Double forward = new Vector4Double();
+		Vector4Double side = new Vector4Double();
 
 		// -- make rotation matrix
 
@@ -53,7 +53,7 @@ public class GLU { // TODO
 		 * [side_x up_x -forward_x 0] [side_y up_y -forward_y 0] [side_z up_z -forward_z
 		 * 0] [ 0 0 0 1]
 		 */
-		matrix.setColumn(side, up, forward.negate(), Vector4d.ZERO);
+		matrix.setColumn(side, up, forward.negate(), Vector4Double.ZERO);
 		matrix.setRow(3, 0.0, 0.0, 0.0, 1.0);
 		gl.mult_matrixd(matrix.getMatrix());
 
@@ -88,7 +88,7 @@ public class GLU { // TODO
 	public double[] project(double object_x, double object_y, double object_z, double[] modelview, double[] projection,
 			int[] viewport) {
 
-		Vector4d window = new Vector4d();
+		Vector4Double window = new Vector4Double();
 		return window.getVector();
 	}
 
@@ -98,12 +98,12 @@ public class GLU { // TODO
 	public double[] un_project(double window_x, double window_y, double window_z, double[] modelview,
 			double[] projection, int[] viewport) {
 
-		Matrix4d product = new Matrix4d();
-		Matrix4d.multiply(modelview, projection, product.getMatrix());
+		Matrix4x4Double product = new Matrix4x4Double();
+		Matrix4x4Double.multiply(modelview, projection, product.getMatrix());
 		if (product.invert() == null)
 			return null;
 
-		Vector4d A = new Vector4d(window_x, window_y, window_z, 1.0);
+		Vector4Double A = new Vector4Double(window_x, window_y, window_z, 1.0);
 
 		// map x and y from window coordinates
 		A.getVector()[0] = (A.getVector()[0] - viewport[0]) / viewport[2];

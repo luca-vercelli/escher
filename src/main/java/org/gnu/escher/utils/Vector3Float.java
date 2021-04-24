@@ -2,19 +2,19 @@ package org.gnu.escher.utils;
 
 
 /** 3-element vector of <code>float</code> in mathematics. */
-public class Vector3f {
-  public final Vector3f ZERO = new Vector3f ();
+public class Vector3Float {
+  public final Vector3Float ZERO = new Vector3Float ();
   private float [] vector = new float [3];
 
-  public Vector3f () {}
+  public Vector3Float () {}
 
 
-  public Vector3f (float [] v) {
+  public Vector3Float (float [] v) {
     this.vector = v;
   }
 
 
-  public Vector3f (float x, float y, float z, float w) {
+  public Vector3Float (float x, float y, float z, float w) {
     vector [0] = x;
     vector [1] = y;
     vector [2] = z;
@@ -30,7 +30,7 @@ public class Vector3f {
   }
 
 
-  public Vector3f cross (Vector3f A, Vector3f B) {
+  public Vector3Float cross (Vector3Float A, Vector3Float B) {
     float [] C = vector;
     if (A == this || B == this) C = new float [3];
     vector = cross (A.vector, B.vector, C);
@@ -54,7 +54,7 @@ public class Vector3f {
   }
 
 
-  public Vector3f minus (Vector3f A, Vector3f B) {
+  public Vector3Float minus (Vector3Float A, Vector3Float B) {
     minus (A.vector, B.vector, vector);
     return this;
   }
@@ -68,11 +68,11 @@ public class Vector3f {
     return C;
   }
   
-  public Vector3f normalize () {
+  public Vector3Float normalize () {
     return normalize (this);
   }
 
-  private Vector3f normalize (Vector3f A) {
+  private Vector3Float normalize (Vector3Float A) {
     normalize (A.vector, vector);
     return this;
   }
