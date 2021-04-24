@@ -1,6 +1,8 @@
 
 package org.gnu.escher.x11;
 
+import org.gnu.escher.x11.geometric.Arc;
+import org.gnu.escher.x11.geometric.Point;
 import org.gnu.escher.x11.image.*;
 
 /** X drawable. */

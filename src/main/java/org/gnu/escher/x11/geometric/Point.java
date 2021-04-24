@@ -1,4 +1,4 @@
-package org.gnu.escher.x11;
+package org.gnu.escher.x11.geometric;
 
 /** Point in geometry. */
 public class Point {

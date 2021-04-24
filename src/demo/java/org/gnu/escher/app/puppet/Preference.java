@@ -2,8 +2,8 @@ package org.gnu.escher.app.puppet;
 
 import java.util.Hashtable;
 
-import org.gnu.escher.x11.Point;
 import org.gnu.escher.x11.Rectangle;
+import org.gnu.escher.x11.geometric.Point;
 
 
 /**

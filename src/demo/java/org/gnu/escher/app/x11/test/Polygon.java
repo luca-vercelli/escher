@@ -1,7 +1,7 @@
 package org.gnu.escher.app.x11.test;
 
 import org.gnu.escher.x11.Drawable;
-import org.gnu.escher.x11.Point;
+import org.gnu.escher.x11.geometric.Point;
 
 
 /**

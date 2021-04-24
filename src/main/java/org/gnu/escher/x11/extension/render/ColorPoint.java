@@ -1,6 +1,6 @@
 package org.gnu.escher.x11.extension.render;
 
-import org.gnu.escher.x11.Point;
+import org.gnu.escher.x11.geometric.Point;
 
 /** Color point in RENDER. */
 public class ColorPoint extends Point {
