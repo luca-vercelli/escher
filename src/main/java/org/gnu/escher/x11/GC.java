@@ -9,6 +9,7 @@ import org.gnu.escher.x11.GC.Values.JoinStyle;
 import org.gnu.escher.x11.GC.Values.LineStyle;
 import org.gnu.escher.x11.GC.Values.RectangleOrder;
 import org.gnu.escher.x11.GC.Values.SubWindowMode;
+import org.gnu.escher.x11.geometric.Rectangle;
 
 
 /**

@@ -1,7 +1,9 @@
 
 package org.gnu.escher.x11;
 
-import static org.gnu.escher.utils.Strings.requiresNonBlank;
+import static org.gnu.escher.utils.Validation.requiresNonBlank;
+import static org.gnu.escher.utils.Validation.requiresNonNegative;
+import static org.gnu.escher.utils.Validation.requiresNonNull;
 
 import java.io.DataInput;
 import java.io.DataInputStream;
@@ -15,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.gnu.escher.x11.enums.XAuthorityFamily;
+
 /**
  * An XAuthority.
  * https://gitlab.freedesktop.org/xorg/lib/libxau/-/blob/master/include/X11/Xauth.h
@@ -22,29 +26,24 @@ import java.util.Optional;
  */
 public class XAuthority {
 
-	Family family;
+	XAuthorityFamily family;
 	byte[] address;
 	int displayNumber;
 	String protocolName;
 	byte[] protocolData;
 
-	public XAuthority(Family family, byte[] address, int displayNumber, String protocolName, byte[] protocolData) {
-		if (family == null) {
-			throw new IllegalArgumentException("Null family given");
-		}
-		if (address == null) {
-			throw new IllegalArgumentException("Null address given");
-		}
-		if (protocolData == null) {
-			throw new IllegalArgumentException("Null protocolData given");
-		}
+	public XAuthority(XAuthorityFamily family, byte[] address, int displayNumber, String protocolName,
+			byte[] protocolData) {
+		requiresNonNull("family", family);
+		requiresNonNull("address", address);
+		requiresNonNull("protocolData", protocolData);
+		requiresNonBlank("protocolName", protocolName);
+		requiresNonNegative("displayNumber", displayNumber);
+
 		this.family = family;
 		this.address = address;
-		if (displayNumber < 0) {
-			throw new IllegalArgumentException("displayNumber was \"" + displayNumber + "\" expected >= 0.");
-		}
 		this.displayNumber = displayNumber;
-		this.protocolName = requiresNonBlank("protocolName", protocolName);
+		this.protocolName = protocolName;
 		this.protocolData = protocolData;
 	}
 
@@ -58,6 +57,11 @@ public class XAuthority {
 		return getAuthorities(getXAuthorityFile());
 	}
 
+	/**
+	 * Search for authorities file name first in env, then in user home directory.
+	 * 
+	 * @return
+	 */
 	public static File getXAuthorityFile() {
 		String authFilename = System.getenv("XAUTHORITY");
 		if (authFilename == null || authFilename.equals("")) {
@@ -66,6 +70,12 @@ public class XAuthority {
 		return new File(authFilename);
 	}
 
+	/**
+	 * Deserialize list of authorities from given file
+	 * 
+	 * @param file
+	 * @return
+	 */
 	public static List<XAuthority> getAuthorities(File file) {
 		List<XAuthority> authorities = new ArrayList<>();
 		try (DataInputStream in = new DataInputStream(new FileInputStream(file))) {
@@ -81,9 +91,15 @@ public class XAuthority {
 		return authorities;
 	}
 
+	/**
+	 * Deserialize object from stream
+	 * 
+	 * @param in
+	 * @return
+	 */
 	public static Optional<XAuthority> read(DataInput in) {
 		try {
-			Family family = Family.getByCode(in.readUnsignedShort());
+			XAuthorityFamily family = XAuthorityFamily.getByCode(in.readUnsignedShort());
 			int dataLength = in.readUnsignedShort();
 			byte[] address = readBytes(in, dataLength);
 			int number = Integer.parseInt(in.readUTF());
@@ -96,6 +112,13 @@ public class XAuthority {
 		}
 	}
 
+	/**
+	 * Search inside authorities list either (1) a WILD authority, or (2) an
+	 * authority with corresponding InetAddress
+	 * 
+	 * @param hostName
+	 * @return
+	 */
 	public static Optional<XAuthority> getAuthority(String hostName) {
 		List<XAuthority> auths = getAuthorities();
 		for (int i = 0; i < auths.size(); i++) {
@@ -126,34 +149,11 @@ public class XAuthority {
 		return bytes;
 	}
 
-	public enum Family {
-		INTERNET(0), LOCAL(256), WILD(65535), KRB5PRINCIPAL(254), LOCALHOST(252);
-
-		private int code;
-
-		Family(int code) {
-			this.code = code;
-		}
-
-		public int getCode() {
-			return this.code;
-		}
-
-		public static Family getByCode(int code) {
-			for (Family family : Family.values()) {
-				if (family.code == code) {
-					return family;
-				}
-			}
-			throw new IllegalArgumentException("Unsupported code \"" + code + "\"");
-		}
-	}
-
-	public Family getFamily() {
+	public XAuthorityFamily getFamily() {
 		return family;
 	}
 
-	public void setFamily(Family family) {
+	public void setFamily(XAuthorityFamily family) {
 		this.family = family;
 	}
 

@@ -1,7 +1,5 @@
 package org.gnu.escher.x11.geometric;
 
-import org.gnu.escher.x11.Rectangle;
-
 /** Arc in geometry. */
 public class Arc {
   private int x, y, width, height, angle1, angle2;

@@ -41,6 +41,7 @@ import org.gnu.escher.x11.event.SelectionNotify;
 import org.gnu.escher.x11.event.SelectionRequest;
 import org.gnu.escher.x11.event.UnmapNotify;
 import org.gnu.escher.x11.event.VisibilityNotify;
+import org.gnu.escher.x11.extension.ErrorFactory;
 import org.gnu.escher.x11.extension.EventFactory;
 
 /**
@@ -74,7 +75,7 @@ public class ResponseInputStream extends FilterInputStream {
 	private X11ServiceException buildExtensionError(Display display, int code, int seqNo, int bad, int minorOpcode,
 			int majorOpcode) {
 
-		org.gnu.escher.x11.extension.ErrorFactory factory = display.extensionErrorFactories[code - 128];
+		ErrorFactory factory = display.extensionErrorFactories[code - 128];
 
 		if (factory == null) {
 			throw new java.lang.Error("Unsupported extension error: " + code);

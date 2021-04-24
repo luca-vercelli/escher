@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import org.gnu.escher.utils.Math;
 import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.geometric.Rectangle;
 
 /**
  * Primitive command-line option parsing.
@@ -28,6 +29,7 @@ import org.gnu.escher.x11.*;
  * variable because parsing is not done yet and <code>Display</code> may not be
  * initialized; a window can be created only after all parsings.
  */
+// TODO replace with some more standard way of retrieving args
 public class Option {
 	public String[] args;
 	public boolean noisy;
@@ -37,7 +39,6 @@ public class Option {
 
 	public Option(String[] args) {
 		this.args = args;
-
 		noisy = booleann("noisy-option-parser", "show working of option parsing", false);
 	}
 
@@ -48,7 +49,7 @@ public class Option {
 		try {
 			String opt = option(name);
 			if (opt != null)
-				retval = DisplayName.parse(opt);
+				retval = DisplayName.getFromConventionalString(opt);
 
 		} catch (RuntimeException e) {
 			invalidNames.append(name + ", ");
@@ -123,6 +124,14 @@ public class Option {
 			System.out.println(name + " --> " + return_value);
 	}
 
+	/**
+	 * Retrieve boolean option value named "--" + name
+	 * 
+	 * @param name
+	 * @param description
+	 * @param default_value
+	 * @return
+	 */
 	public boolean booleann(String name, String description, boolean default_value) {
 
 		boolean retval = default_value;
@@ -231,6 +240,9 @@ public class Option {
 		return retval;
 	}
 
+	/**
+	 * Return index of argument "--" + name, or -1
+	 */
 	protected int index(String name) {
 		for (int i = 0; i < args.length; i++)
 			if (args[i].equals("--" + name))
@@ -296,7 +308,6 @@ public class Option {
 			// fall through
 		}
 
-		String full_description = description + " from " + low + " to " + high;
 		retval = Math.clamp(retval, low, high);
 		add_spec(name, "int", description, String.valueOf(default_value), String.valueOf(retval));
 		return retval;
@@ -320,6 +331,9 @@ public class Option {
 		return retval;
 	}
 
+	/**
+	 * Return arg that follows "--" + name, or null
+	 */
 	public String option(String name) {
 		int index = index(name);
 		if (index == -1 || index == args.length - 1)

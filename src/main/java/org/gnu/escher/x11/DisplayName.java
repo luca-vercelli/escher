@@ -1,6 +1,6 @@
 package org.gnu.escher.x11;
 
-import static org.gnu.escher.utils.Strings.requiresNonBlank;
+import static org.gnu.escher.utils.Validation.requiresNonBlank;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,8 +12,10 @@ import org.newsclub.net.unix.AFUNIXSocketAddress;
 
 /**
  * X display name. Encapsulates display name conventions in unix for creating a
- * Display. If the connection is a unix socket the file is "/tmp/.X11-unix/X" +
- * displayNumber. If the connection is tcp the port is 6000 + displayNumber.
+ * Display.<br/>
+ * If the connection is a unix socket the file is "/tmp/.X11-unix/X" +
+ * displayNumber.<br/>
+ * If the connection is tcp the port is 6000 + displayNumber.
  */
 public class DisplayName {
 	private final String hostName;
@@ -43,19 +45,19 @@ public class DisplayName {
 	 * 
 	 * @return resulting DisplayName
 	 */
-	public static DisplayName parse() {
-		return parse(System.getenv("DISPLAY"));
+	public static DisplayName getFromEnv() {
+		return getFromConventionalString(System.getenv("DISPLAY"));
 	}
 
 	/**
 	 * Parses a DisplayName from convention. The convention for a display name is
-	 * <code>hostName:displayNumber.screenNumber</code>. hostName and screenNumber
-	 * are optional.
+	 * <code>hostName:displayNumber.screenNumber</code>.<br/>
+	 * hostName and screenNumber are optional.
 	 * 
 	 * @param convention of <code>hostName:displayNumber.screenNumber</code>
 	 * @return resulting DisplayName
 	 */
-	public static DisplayName parse(String convention) {
+	public static DisplayName getFromConventionalString(String convention) {
 		requiresNonBlank("convention", convention);
 
 		String hostName = null;

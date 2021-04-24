@@ -26,6 +26,6 @@ public class DisplayConnect {
 
 	@Test
 	void connect() {
-		parse(":1").connect();
+		getFromConventionalString(":1").connect();
 	}
 }

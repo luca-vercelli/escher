@@ -4,64 +4,64 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.gnu.escher.x11.XAuthority.Family;
+import org.gnu.escher.x11.enums.XAuthorityFamily;
 import org.junit.jupiter.api.Test;
 
 public class XAuthorityFamilyTest {
 	@Test
 	void internetCode() {
-		assertThat(Family.INTERNET.getCode()).isEqualTo(0);
+		assertThat(XAuthorityFamily.INTERNET.getCode()).isEqualTo(0);
 	}
 
 	@Test
 	void localCode() {
-		assertThat(Family.LOCAL.getCode()).isEqualTo(256);
+		assertThat(XAuthorityFamily.LOCAL.getCode()).isEqualTo(256);
 	}
 
 	@Test
 	void wildCode() {
-		assertThat(Family.WILD.getCode()).isEqualTo(65535);
+		assertThat(XAuthorityFamily.WILD.getCode()).isEqualTo(65535);
 	}
 
 	@Test
 	void krb5principalCode() {
-		assertThat(Family.KRB5PRINCIPAL.getCode()).isEqualTo(254);
+		assertThat(XAuthorityFamily.KRB5PRINCIPAL.getCode()).isEqualTo(254);
 	}
 
 	@Test
 	void localhostCode() {
-		assertThat(Family.LOCALHOST.getCode()).isEqualTo(252);
+		assertThat(XAuthorityFamily.LOCALHOST.getCode()).isEqualTo(252);
 	}
 
 	@Test
 	void internet_getByCode() {
-		assertThat(Family.getByCode(0)).isEqualTo(Family.INTERNET);
+		assertThat(XAuthorityFamily.getByCode(0)).isEqualTo(XAuthorityFamily.INTERNET);
 	}
 
 	@Test
 	void local_getByCode() {
-		assertThat(Family.getByCode(256)).isEqualTo(Family.LOCAL);
+		assertThat(XAuthorityFamily.getByCode(256)).isEqualTo(XAuthorityFamily.LOCAL);
 	}
 
 	@Test
 	void wild_getByCode() {
-		assertThat(Family.getByCode(65535)).isEqualTo(Family.WILD);
+		assertThat(XAuthorityFamily.getByCode(65535)).isEqualTo(XAuthorityFamily.WILD);
 	}
 
 	@Test
 	void krb_getByCode() {
-		assertThat(Family.getByCode(254)).isEqualTo(Family.KRB5PRINCIPAL);
+		assertThat(XAuthorityFamily.getByCode(254)).isEqualTo(XAuthorityFamily.KRB5PRINCIPAL);
 	}
 
 	@Test
 	void localhost_getByCode() {
-		assertThat(Family.getByCode(252)).isEqualTo(Family.LOCALHOST);
+		assertThat(XAuthorityFamily.getByCode(252)).isEqualTo(XAuthorityFamily.LOCALHOST);
 	}
 
 	@Test
 	void fail_getByCode() {
 		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-				() -> Family.getByCode(-1234));
+				() -> XAuthorityFamily.getByCode(-1234));
 		assertThat(exception).hasMessage("Unsupported code \"-1234\"");
 	}
 }

@@ -1,14 +1,15 @@
 package org.gnu.escher.x11;
 
+import org.gnu.escher.x11.enums.AccessControl;
 
 public class HostsInfo implements StreamObject {
 
-    public Host.AccessControl mode;
+    public AccessControl mode;
 
     Host[] hosts;
 
     HostsInfo(ResponseInputStream in) {
-        mode = Host.AccessControl.getControl(in.readBool());
+        mode = AccessControl.getControl(in.readBool());
         in.skip(6);
         int num_hosts = in.readInt16();
         in.skip(22);

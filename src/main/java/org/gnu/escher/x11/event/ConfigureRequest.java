@@ -1,9 +1,9 @@
 package org.gnu.escher.x11.event;
 
 import org.gnu.escher.x11.Display;
-import org.gnu.escher.x11.Rectangle;
 import org.gnu.escher.x11.ResponseInputStream;
 import org.gnu.escher.x11.Window;
+import org.gnu.escher.x11.geometric.Rectangle;
 
 /** X configure request event. */
 public final class ConfigureRequest extends Event {

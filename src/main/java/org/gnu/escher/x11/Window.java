@@ -1,9 +1,13 @@
 
 package org.gnu.escher.x11;
 
+import org.gnu.escher.x11.enums.ChangeOperation;
+import org.gnu.escher.x11.enums.Visual;
+import org.gnu.escher.x11.enums.X11CoreCommand;
 import org.gnu.escher.x11.event.Event;
 import org.gnu.escher.x11.extension.glx.GLXDrawable;
 import org.gnu.escher.x11.geometric.Point;
+import org.gnu.escher.x11.geometric.Rectangle;
 
 /** X window. */
 public class Window extends Drawable implements GLXDrawable {
@@ -916,7 +920,7 @@ public class Window extends Drawable implements GLXDrawable {
 	 * 
 	 * @see <a href="XChangeSaveSet.html">XChangeSaveSet</a>
 	 */
-	public void changeSaveSet(Host.ChangeOperation mode) {
+	public void changeSaveSet(ChangeOperation mode) {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {

@@ -9,7 +9,7 @@
 
 package org.gnu.escher.app;
 
-import static org.gnu.escher.x11.DisplayName.parse;
+import static org.gnu.escher.x11.DisplayName.getFromConventionalString;
 
 import org.gnu.escher.x11.Display;
 import org.gnu.escher.x11.GC;
@@ -65,7 +65,7 @@ public class Speedy extends org.gnu.escher.app.Application {
 //    } catch (SocketException ex) {
 //      ex.printStackTrace ();
 //    }
-		display = parse(":0").connect();
+		display = getFromConventionalString(":0").connect();
 		WindowAttributes atts = new WindowAttributes();
 		window = new Window(display.getDefaultRoot(), 0, 0, 600, 400, 0, atts);
 		window.map();

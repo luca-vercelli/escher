@@ -1,6 +1,6 @@
 package org.gnu.escher.app;
 
-import static org.gnu.escher.x11.DisplayName.parse;
+import static org.gnu.escher.x11.DisplayName.getFromConventionalString;
 
 import org.gnu.escher.x11.Display;
 import org.gnu.escher.x11.DisplayName;
@@ -44,7 +44,7 @@ public class Application {
 	protected Application(String[] args) {
 		this(args, new Option(args));
 		String env = System.getenv("DISPLAY");
-		DisplayName display_name = option.display_name("display", "X server to connect to", parse(env));
+		DisplayName display_name = option.display_name("display", "X server to connect to", getFromConventionalString(env));
 
 		if (help_option)
 			return;

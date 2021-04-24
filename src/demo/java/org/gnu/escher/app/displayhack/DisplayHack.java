@@ -9,6 +9,7 @@ import org.gnu.escher.app.Application;
 import org.gnu.escher.app.displayhack.eraser.Eraser;
 import org.gnu.escher.x11.*;
 import org.gnu.escher.x11.event.*;
+import org.gnu.escher.x11.geometric.Rectangle;
 
 /**
  * Base class for display hacks.

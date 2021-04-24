@@ -1,5 +1,5 @@
 
-package org.gnu.escher.x11;
+package org.gnu.escher.x11.enums;
 
 import java.util.EnumSet;
 import java.util.HashMap;

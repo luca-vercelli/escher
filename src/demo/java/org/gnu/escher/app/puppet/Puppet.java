@@ -11,6 +11,7 @@ import org.gnu.escher.x11.event.*;
 import org.gnu.escher.x11.extension.ExtensionNotFoundException;
 import org.gnu.escher.x11.extension.XTest;
 import org.gnu.escher.x11.geometric.Point;
+import org.gnu.escher.x11.geometric.Rectangle;
 import org.gnu.escher.x11.keysym.Misc;
 
 import static java.awt.event.MouseEvent.*;

@@ -1,4 +1,4 @@
-package org.gnu.escher.x11;
+package org.gnu.escher.x11.geometric;
 
 /** Position and size in geometry. */
 public class Rectangle {

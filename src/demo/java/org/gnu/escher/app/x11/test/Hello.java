@@ -10,7 +10,7 @@ import org.gnu.escher.x11.event.*;
  *
  * <p>
  * This program covers the basic elements of a primitive X application. It
- * intensionally does not base on {@link Graphics}.
+ * intentionally does not base on {@link Graphics}.
  *
  * @see <a href="../../../../etc/screenshot/gnu/x11/test/Hello.gif">
  *      screenshot</a>

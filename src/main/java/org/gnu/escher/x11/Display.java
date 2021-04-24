@@ -13,9 +13,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import org.gnu.escher.x11.enums.AccessControl;
+import org.gnu.escher.x11.enums.ChangeOperation;
+import org.gnu.escher.x11.enums.ForceScreenSaver;
+import org.gnu.escher.x11.enums.InternetFamily;
+import org.gnu.escher.x11.enums.ScreenSaverBlanking;
+import org.gnu.escher.x11.enums.ScreenSaverExposures;
+import org.gnu.escher.x11.enums.Shape;
 import org.gnu.escher.x11.event.Event;
 import org.gnu.escher.x11.extension.BigRequests;
 import org.gnu.escher.x11.extension.ErrorFactory;
@@ -27,12 +35,7 @@ import org.gnu.escher.x11.extension.XCMisc;
 // TODO Support Multiple Screens
 public class Display implements AutoCloseable {
 
-	private static java.util.logging.Logger logger;
-	static {
-
-		logger = java.util.logging.Logger.getLogger("gnu.x11.Display");
-		logger.setLevel(Level.ALL);
-	}
+	private static Logger logger = Logger.getLogger(Display.class.getName());
 
 	public static final int CURRENT_TIME = 0;
 
@@ -125,13 +128,13 @@ public class Display implements AutoCloseable {
 	private GC defaultGC;
 
 	// Resources
-	private Hashtable<Integer, Resource> resources = new Hashtable<Integer, Resource>(257);
+	private Map<Integer, Resource> resources = new HashMap<Integer, Resource>(257);
 
 	private int resourceIndex;
 
-	private Hashtable<Integer, Atom> atomIDs = new Hashtable<Integer, Atom>(257);
+	private Map<Integer, Atom> atomIDs = new HashMap<Integer, Atom>(257);
 
-	private Hashtable<String, Atom> atoms = new Hashtable<String, Atom>(257);
+	private Map<String, Atom> atoms = new HashMap<String, Atom>(257);
 
 	// XCMisc
 	private XCMisc xcmisc;
@@ -148,42 +151,6 @@ public class Display implements AutoCloseable {
 	private int extendedMaximumRequestLength;
 
 	// ScreenSaver blanking
-
-	public enum ScreenSaverBlanking {
-		NO(0), YES(1), DEFAULT(2);
-
-		private int codeID;
-
-		ScreenSaverBlanking(int opID) {
-			this.codeID = opID;
-		}
-
-		public int getCodeID() {
-			return codeID;
-		}
-
-		public static ScreenSaverBlanking getOption(boolean b) {
-			return (b) ? ScreenSaverBlanking.NO : ScreenSaverBlanking.YES;
-		}
-	}
-
-	public enum ScreenSaverExposures {
-		NO(0), YES(1), DEFAULT(2);
-
-		private int codeID;
-
-		ScreenSaverExposures(int opID) {
-			this.codeID = opID;
-		}
-
-		public int getCodeID() {
-			return codeID;
-		}
-
-		public static ScreenSaverExposures getOption(boolean b) {
-			return (b) ? ScreenSaverExposures.NO : ScreenSaverExposures.YES;
-		}
-	}
 
 	/**
 	 * Major opcodes 128 through 255 are reserved for extensions, totally 128.
@@ -573,7 +540,7 @@ public class Display implements AutoCloseable {
 	 * Information about an X extension.
 	 *
 	 */
-	public static class ExtensionInfo {
+	public static class ExtensionInfo implements StreamObject {
 
 		private boolean present;
 
@@ -731,7 +698,7 @@ public class Display implements AutoCloseable {
 	 * Informations about the screensaver.
 	 *
 	 */
-	public static class ScreenSaverInfo {
+	public static class ScreenSaverInfo implements StreamObject {
 
 		private int timeout;
 
@@ -805,7 +772,7 @@ public class Display implements AutoCloseable {
 	 * @see <a href="XAddHost.html">XAddHost</a>
 	 * @see <a href="XRemoveHost.html">XRemoveHost</a>
 	 */
-	public void changeHosts(Host.ChangeOperation mode, Host.InternetFamily family, byte[] host) {
+	public void changeHosts(ChangeOperation mode, InternetFamily family, byte[] host) {
 
 		int n = host.length;
 		int p = RequestOutputStream.pad(n);
@@ -849,7 +816,7 @@ public class Display implements AutoCloseable {
 	/**
 	 * @see <a href="XSetAccessControl.html">XSetAccessControl</a>
 	 */
-	public void setAccessControl(Host.AccessControl mode) {
+	public void setAccessControl(AccessControl mode) {
 
 		RequestOutputStream o = outputStream;
 		synchronized (o) {
@@ -876,7 +843,7 @@ public class Display implements AutoCloseable {
 	/**
 	 * @see <a href="XSetCloseDownMode.html">XSetCloseDownMode</a>
 	 */
-	public void setCloseDownMode(Host.Shape mode) {
+	public void setCloseDownMode(Shape mode) {
 
 		RequestOutputStream o = outputStream;
 		synchronized (o) {
@@ -889,7 +856,7 @@ public class Display implements AutoCloseable {
 	/**
 	 * @see <a href="XForceScreenSaver.html">XForceScreenSaver</a>
 	 */
-	public void forceScreenSaver(Host.ForceScreenSaver mode) {
+	public void forceScreenSaver(ForceScreenSaver mode) {
 
 		RequestOutputStream o = outputStream;
 		synchronized (o) {
@@ -1401,7 +1368,7 @@ public class Display implements AutoCloseable {
 		return defaultGC;
 	}
 
-	public Hashtable<Integer, Resource> getResources() {
+	public Map<Integer, Resource> getResources() {
 
 		return resources;
 	}

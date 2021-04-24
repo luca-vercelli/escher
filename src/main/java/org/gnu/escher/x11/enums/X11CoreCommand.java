@@ -1,4 +1,6 @@
-package org.gnu.escher.x11;
+package org.gnu.escher.x11.enums;
+
+import org.gnu.escher.x11.X11Command;
 
 /**
  * Enum class describing X11 Core commands.
@@ -20,7 +22,6 @@ public enum X11CoreCommand implements X11Command {
 	private final int length;
 
 	X11CoreCommand(int opcode, int length) {
-
 		this.opcode = opcode;
 		this.length = length;
 	}

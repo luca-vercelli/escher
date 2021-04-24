@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import org.gnu.escher.x11.XAuthority;
-import org.gnu.escher.x11.XAuthority.Family;
+import org.gnu.escher.x11.enums.XAuthorityFamily;
 import org.junit.jupiter.api.Test;
 
 import mockit.Delegate;
@@ -30,42 +30,42 @@ public class XAuthorityTest {
 	@Test
 	void constructor_fails_on_null_address() {
 		NullPointerException exception = assertThrows(NullPointerException.class,
-				() -> new XAuthority(Family.LOCAL, null, 0, "magic", new byte[1]));
+				() -> new XAuthority(XAuthorityFamily.LOCAL, null, 0, "magic", new byte[1]));
 		assertThat(exception).hasMessage("address is marked non-null but is null");
 	}
 
 	@Test
 	void constructor_fails_on_negative_displayNumber() {
 		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-				() -> new XAuthority(Family.LOCAL, "host".getBytes(), -1, "magic", new byte[1]));
+				() -> new XAuthority(XAuthorityFamily.LOCAL, "host".getBytes(), -1, "magic", new byte[1]));
 		assertThat(exception).hasMessage("displayNumber was \"-1\" expected >= 0.");
 	}
 
 	@Test
 	void constructor_fails_on_null_protocolName() {
 		NullPointerException exception = assertThrows(NullPointerException.class,
-				() -> new XAuthority(Family.LOCAL, "host".getBytes(), 0, null, new byte[1]));
+				() -> new XAuthority(XAuthorityFamily.LOCAL, "host".getBytes(), 0, null, new byte[1]));
 		assertThat(exception).hasMessage("protocolName is marked non-null but is null");
 	}
 
 	@Test
 	void constructor_fails_on_blank_protocolName() {
 		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-				() -> new XAuthority(Family.LOCAL, "host".getBytes(), 0, " ", new byte[1]));
+				() -> new XAuthority(XAuthorityFamily.LOCAL, "host".getBytes(), 0, " ", new byte[1]));
 		assertThat(exception).hasMessage("protocolName must not be blank.");
 	}
 
 	@Test
 	void constructor_fails_on_null_protocolData() {
 		NullPointerException exception = assertThrows(NullPointerException.class,
-				() -> new XAuthority(Family.LOCAL, "host".getBytes(), 0, "magic", null));
+				() -> new XAuthority(XAuthorityFamily.LOCAL, "host".getBytes(), 0, "magic", null));
 		assertThat(exception).hasMessage("protocolData is marked non-null but is null");
 	}
 
 	@Test
 	void constructor() {
-		XAuthority xAuthority = new XAuthority(Family.LOCAL, "host".getBytes(), 0, "magic", new byte[] { 1, 2, 3 });
-		assertThat(xAuthority.getFamily()).isEqualTo(Family.LOCAL);
+		XAuthority xAuthority = new XAuthority(XAuthorityFamily.LOCAL, "host".getBytes(), 0, "magic", new byte[] { 1, 2, 3 });
+		assertThat(xAuthority.getFamily()).isEqualTo(XAuthorityFamily.LOCAL);
 		assertThat(xAuthority.getAddress()).isEqualTo("host".getBytes());
 		assertThat(xAuthority.getDisplayNumber()).isEqualTo(0);
 		assertThat(xAuthority.getProtocolName()).isEqualTo("magic");
@@ -114,7 +114,7 @@ public class XAuthorityTest {
 		Optional<XAuthority> read = XAuthority.read(in);
 		assertThat(read).isPresent();
 		XAuthority xAuthority = read.get();
-		assertThat(xAuthority.getFamily()).isEqualTo(Family.LOCAL);
+		assertThat(xAuthority.getFamily()).isEqualTo(XAuthorityFamily.LOCAL);
 		assertThat(xAuthority.getAddress()).isEqualTo("host".getBytes());
 		assertThat(xAuthority.getDisplayNumber()).isEqualTo(3);
 		assertThat(xAuthority.getProtocolName()).isEqualTo("magic");

@@ -344,7 +344,7 @@ public abstract class Fontable extends Resource {
 	}
 
 	/** Reply of {@link #textExtent(String)}. */
-	public class TextExtentInfo {
+	public class TextExtentInfo implements StreamObject {
 
 		private boolean leftToRight;
 		private int fontAscent;

@@ -4,320 +4,300 @@
 
 package org.gnu.escher.x11;
 
+import org.gnu.escher.x11.enums.Visual;
+
 /**
  * This Class represents an XVisualInfo.
  * 
- * Quoting from the XLib manual:
- * "A single display can support multiple screens.
- * Each screen can have several different visual types supported at
- * different depths."
+ * Quoting from the XLib manual: "A single display can support multiple screens.
+ * Each screen can have several different visual types supported at different
+ * depths."
  * 
  * @author Mario Torre neugens@aicas.com
  */
-public class VisualInfo {
+public class VisualInfo implements StreamObject {
 
-    protected static final int MASK = 0x01;
-    
-    private int id;
-    private int visualClassID;
-    private Visual visual;
-    private int bitsPerRGBValue;
-    private int colormapEntries;
-    private int redMask;
-    private int greenMask;
-    private int blueMask;
-    private int depth;
-    private Screen screen = null;
-    
-    private int visualInfoMask = VisualInfoMask.VisualNoMask;
-    
-    /*
-     * These are used by ColorMapper and ZPixmaps to calculate the
-     * correct color shifting for different color depths.
-     */
-    /**
-     * Contains the number of bit to shift before getting to the
-     * red bit set.
-     * This value is referring to the number of zero at the left
-     * of the bitmask.
-     */
-    private int redShiftCount = 0;
-    
-    /**
-     * Contains the number of bit to shift before getting to the
-     * green bit set.
-     * This value is referring to the number of zero at the left
-     * of the bitmask.
-     */
-    private int greenShiftCount = 0;
-    
-    /**
-     * Contains the number of bit to shift before getting to the
-     * blue bit set.
-     * This value is referring to the number of zero at the left
-     * of the bitmask.
-     */
-    private int blueShiftCount = 0;
-    
-    /**
-     * The real number of bits used by any component.
-     */
-    protected int redBits = 0;
-    protected int greenBits = 0;
-    protected int blueBits = 0;
-    
-    /**
-     * 
-     */
-    public VisualInfo() {
+	protected static final int MASK = 0x01;
 
-        // TODO Auto-generated constructor stub
-    }
+	private int id;
+	private int visualClassID;
+	private Visual visual;
+	private int bitsPerRGBValue;
+	private int colormapEntries;
+	private int redMask;
+	private int greenMask;
+	private int blueMask;
+	private int depth;
+	private Screen screen = null;
 
-    VisualInfo(ResponseInputStream in, Depth depth) {
+	private int visualInfoMask = VisualInfoMask.VisualNoMask;
 
-        this.depth = depth.getDepth();
-        this.screen = depth.getScreen();
+	/*
+	 * These are used by ColorMapper and ZPixmaps to calculate the correct color
+	 * shifting for different color depths.
+	 */
+	/**
+	 * Contains the number of bit to shift before getting to the red bit set. This
+	 * value is referring to the number of zero at the left of the bitmask.
+	 */
+	private int redShiftCount = 0;
 
-        id = in.readInt32();
-        visualClassID = in.readInt8();
-        bitsPerRGBValue = in.readInt8();
-        colormapEntries = in.readInt16();
-        redMask = in.readInt32();
-        greenMask = in.readInt32();
-        blueMask = in.readInt32();
+	/**
+	 * Contains the number of bit to shift before getting to the green bit set. This
+	 * value is referring to the number of zero at the left of the bitmask.
+	 */
+	private int greenShiftCount = 0;
 
-        in.skip(4);
+	/**
+	 * Contains the number of bit to shift before getting to the blue bit set. This
+	 * value is referring to the number of zero at the left of the bitmask.
+	 */
+	private int blueShiftCount = 0;
 
-        visual = Visual.getVisual(visualClassID);
-        
-        initVisualShiftCount();
-    }
+	/**
+	 * The real number of bits used by any component.
+	 */
+	protected int redBits = 0;
+	protected int greenBits = 0;
+	protected int blueBits = 0;
 
-    private void initVisualShiftCount() {
-        
-        // red           
-        int red = getRedMask();            
-        if(red > 0) {
-            while ((red & MASK) != MASK) {
-                red = (red >> 1);
-                redShiftCount++;
-            }
-        }
-                    
-        // green
-        int green = getGreenMask();           
-        if (green > 0) {
-            while ((green & MASK) != MASK) {
-                green = (green >> 1);
-                greenShiftCount++;
-            }
-        }
-            
-      
-        // blue
-        int blue = getBlueMask();           
-        if (blue > 0) {
-            while ((blue & MASK) != MASK) {
-                blue = (blue >> 1);
-                blueShiftCount++;
-            }
-        }
-        
-        redBits = Integer.bitCount(getRedMask());
-        greenBits = Integer.bitCount(getGreenMask());
-        blueBits = Integer.bitCount(getBlueMask());
-    }
-    
-    /**
-     * @param id the id to set
-     */
-    public void setID(int id) {
-    
-        this.id = id;
-    }
- 
-    /**
-     * @param visual the visual to set
-     */
-    public void setVisualClass(Visual visual) {
-    
-        this.visual = visual;
-    }
+	public VisualInfo() {
+	}
 
-    /**
-     * @param bitsPerRGBValue the bitsPerRGBValue to set
-     */
-    public void setBitsPerRGBValue(int bitsPerRGBValue) {
-    
-        this.bitsPerRGBValue = bitsPerRGBValue;
-    }
+	VisualInfo(ResponseInputStream in, Depth depth) {
 
-    /**
-     * @param colormapEntries the colormapEntries to set
-     */
-    public void setColormapEntries(int colormapEntries) {
-    
-        this.colormapEntries = colormapEntries;
-    }
-    
-    /**
-     * @param redMask the redMask to set
-     */
-    public void setRedMask(int redMask) {
-    
-        this.redMask = redMask;
-    }
-    
-    /**
-     * @param greenMask the greenMask to set
-     */
-    public void setGreenMask(int greenMask) {
-    
-        this.greenMask = greenMask;
-    }
+		this.depth = depth.getDepth();
+		this.screen = depth.getScreen();
 
-    /**
-     * @param blueMask the blueMask to set
-     */
-    public void setBlueMask(int blueMask) {
-    
-        this.blueMask = blueMask;
-    }
+		id = in.readInt32();
+		visualClassID = in.readInt8();
+		bitsPerRGBValue = in.readInt8();
+		colormapEntries = in.readInt16();
+		redMask = in.readInt32();
+		greenMask = in.readInt32();
+		blueMask = in.readInt32();
 
-    /**
-     * @param depth the depth to set
-     */
-    public void setDepth(int depth) {
-    
-        this.depth = depth;
-    }
+		in.skip(4);
 
-    public void setVisualInfoMask(int visualInfoMask) {
-        this.visualInfoMask = visualInfoMask;
-    }
-    
-    /**
-     * @param screen the screen to set
-     */
-    public void setScreen(Screen screen) {
-    
-        this.screen = screen;
-    }
+		visual = Visual.getVisual(visualClassID);
 
-    public int getID() {
+		initVisualShiftCount();
+	}
 
-        return id;
-    }
+	private void initVisualShiftCount() {
 
-    public Visual getVisualClass() {
+		// red
+		int red = getRedMask();
+		if (red > 0) {
+			while ((red & MASK) != MASK) {
+				red = (red >> 1);
+				redShiftCount++;
+			}
+		}
 
-        return visual;
-    }
+		// green
+		int green = getGreenMask();
+		if (green > 0) {
+			while ((green & MASK) != MASK) {
+				green = (green >> 1);
+				greenShiftCount++;
+			}
+		}
 
-    public int getBitsPerRGBValue() {
+		// blue
+		int blue = getBlueMask();
+		if (blue > 0) {
+			while ((blue & MASK) != MASK) {
+				blue = (blue >> 1);
+				blueShiftCount++;
+			}
+		}
 
-        return bitsPerRGBValue;
-    }
+		redBits = Integer.bitCount(getRedMask());
+		greenBits = Integer.bitCount(getGreenMask());
+		blueBits = Integer.bitCount(getBlueMask());
+	}
 
-    public int getColormapEntries() {
+	/**
+	 * @param id the id to set
+	 */
+	public void setID(int id) {
 
-        return colormapEntries;
-    }
+		this.id = id;
+	}
 
-    public int getRedMask() {
+	/**
+	 * @param visual the visual to set
+	 */
+	public void setVisualClass(Visual visual) {
 
-        return redMask;
-    }
+		this.visual = visual;
+	}
 
-    public int getGreenMask() {
+	/**
+	 * @param bitsPerRGBValue the bitsPerRGBValue to set
+	 */
+	public void setBitsPerRGBValue(int bitsPerRGBValue) {
 
-        return greenMask;
-    }
+		this.bitsPerRGBValue = bitsPerRGBValue;
+	}
 
-    public int getBlueMask() {
+	/**
+	 * @param colormapEntries the colormapEntries to set
+	 */
+	public void setColormapEntries(int colormapEntries) {
 
-        return blueMask;
-    }
+		this.colormapEntries = colormapEntries;
+	}
 
-    public int getDepth() {
-        
-        return this.depth;
-    }
-    
-    public Screen getScreen() {
-        
-        return this.screen;
-    }
-    
-    
-    public int getVisualInfoMask() {
-        return this.visualInfoMask;
-    }
-    
-    public String toString() {
+	/**
+	 * @param redMask the redMask to set
+	 */
+	public void setRedMask(int redMask) {
 
-        return "#Visual" + "\n  id: " + id + "\n  class: " + visual
-                + "\n  bits-per-rgb-value: " + bitsPerRGBValue
-                + "\n  colormap-entries: " + colormapEntries
-                + "\n  red-mask: 0x" + Integer.toHexString(redMask)
-                + "\n  green-mask: 0x" + Integer.toHexString(greenMask)
-                + "\n  blue-mask: 0x" + Integer.toHexString(blueMask);
-    }
+		this.redMask = redMask;
+	}
 
-    
-    /**
-     * @return the redShiftCount
-     */
-    public int getRedShiftCount() {
-    
-        return redShiftCount;
-    }
+	/**
+	 * @param greenMask the greenMask to set
+	 */
+	public void setGreenMask(int greenMask) {
 
-    
-    /**
-     * @return the greenShiftCount
-     */
-    public int getGreenShiftCount() {
-    
-        return greenShiftCount;
-    }
+		this.greenMask = greenMask;
+	}
 
-    
-    /**
-     * @return the blueShiftCount
-     */
-    public int getBlueShiftCount() {
-    
-        return blueShiftCount;
-    }
+	/**
+	 * @param blueMask the blueMask to set
+	 */
+	public void setBlueMask(int blueMask) {
 
-    
-    /**
-     * @return the redBits
-     */
-    public int getRedBits() {
-    
-        return redBits;
-    }
+		this.blueMask = blueMask;
+	}
 
-    
-    /**
-     * @return the greenBits
-     */
-    public int getGreenBits() {
-    
-        return greenBits;
-    }
+	/**
+	 * @param depth the depth to set
+	 */
+	public void setDepth(int depth) {
 
-    
-    /**
-     * @return the blueBits
-     */
-    public int getBlueBits() {
-    
-        return blueBits;
-    }
+		this.depth = depth;
+	}
+
+	public void setVisualInfoMask(int visualInfoMask) {
+		this.visualInfoMask = visualInfoMask;
+	}
+
+	/**
+	 * @param screen the screen to set
+	 */
+	public void setScreen(Screen screen) {
+
+		this.screen = screen;
+	}
+
+	public int getID() {
+
+		return id;
+	}
+
+	public Visual getVisualClass() {
+
+		return visual;
+	}
+
+	public int getBitsPerRGBValue() {
+
+		return bitsPerRGBValue;
+	}
+
+	public int getColormapEntries() {
+
+		return colormapEntries;
+	}
+
+	public int getRedMask() {
+
+		return redMask;
+	}
+
+	public int getGreenMask() {
+
+		return greenMask;
+	}
+
+	public int getBlueMask() {
+
+		return blueMask;
+	}
+
+	public int getDepth() {
+
+		return this.depth;
+	}
+
+	public Screen getScreen() {
+
+		return this.screen;
+	}
+
+	public int getVisualInfoMask() {
+		return this.visualInfoMask;
+	}
+
+	public String toString() {
+
+		return "#Visual" + "\n  id: " + id + "\n  class: " + visual + "\n  bits-per-rgb-value: " + bitsPerRGBValue
+				+ "\n  colormap-entries: " + colormapEntries + "\n  red-mask: 0x" + Integer.toHexString(redMask)
+				+ "\n  green-mask: 0x" + Integer.toHexString(greenMask) + "\n  blue-mask: 0x"
+				+ Integer.toHexString(blueMask);
+	}
+
+	/**
+	 * @return the redShiftCount
+	 */
+	public int getRedShiftCount() {
+
+		return redShiftCount;
+	}
+
+	/**
+	 * @return the greenShiftCount
+	 */
+	public int getGreenShiftCount() {
+
+		return greenShiftCount;
+	}
+
+	/**
+	 * @return the blueShiftCount
+	 */
+	public int getBlueShiftCount() {
+
+		return blueShiftCount;
+	}
+
+	/**
+	 * @return the redBits
+	 */
+	public int getRedBits() {
+
+		return redBits;
+	}
+
+	/**
+	 * @return the greenBits
+	 */
+	public int getGreenBits() {
+
+		return greenBits;
+	}
+
+	/**
+	 * @return the blueBits
+	 */
+	public int getBlueBits() {
+
+		return blueBits;
+	}
 
 	public static int getMask() {
 		return MASK;
