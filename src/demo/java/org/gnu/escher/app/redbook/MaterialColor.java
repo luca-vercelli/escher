@@ -2,6 +2,7 @@ package org.gnu.escher.app.redbook;
 
 import org.gnu.escher.app.x11.glx.*;
 import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.enums.KeyMask;
 import org.gnu.escher.x11.extension.glx.GL;
 
 
@@ -61,7 +62,7 @@ public class MaterialColor extends GLXApplication {
 
 
   protected void handle_button (int button, int state, int x, int y) {
-    int i = button - Input.KeyMask.BUTTON1.getCode();
+    int i = button - KeyMask.BUTTON1.getCode();
     if (i >= 3) return;
     change_diffuse (i);
   }

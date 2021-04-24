@@ -20,6 +20,7 @@ e diversi altri opcode
 La classe Drawable sembra gestire diversi opcode per il disegno
 
 La classe Cursor sembra gestire diversi opcode per il cursore
+La classe Input sembra gestire diversi opcode per l'input
 
-
+Dalla classe Display si crea l'oggetto Input
 

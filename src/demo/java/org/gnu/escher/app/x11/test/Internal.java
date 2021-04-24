@@ -3,6 +3,7 @@ package org.gnu.escher.app.x11.test;
 import org.gnu.escher.app.Application;
 import org.gnu.escher.x11.Cursor;
 import org.gnu.escher.x11.enums.CursorShape;
+import org.gnu.escher.x11.keysym.Misc;
 
 /**
  * Test internal workings of <code>gnu.x11</code>.
@@ -29,11 +30,11 @@ public class Internal extends Application {
 		System.out.println("xc-misc allocation test passed");
 
 		// keyboard mapping
-		int keycode = display.getInput().keysymToKeycode(org.gnu.escher.x11.keysym.Misc.DELETE);
+		int keycode = display.getInput().keysymToKeycode(Misc.DELETE);
 		System.out.println("keycode for DELETE: " + keycode);
 		int keysym = display.getInput().keycodeToKeysym(keycode, 0);
 		System.out.println("keysym for " + keycode + ": " + keysym);
-		if (keysym != org.gnu.escher.x11.keysym.Misc.DELETE)
+		if (keysym != Misc.DELETE)
 			throw new Error();
 		if (display.getInput().getKeysymsPerKeycode() != 2)
 			System.out.println("WARNING: keysyms-per-keycode > 2: " + display.getInput().getKeysymsPerKeycode());

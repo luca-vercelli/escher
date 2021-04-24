@@ -13,7 +13,6 @@ import org.gnu.escher.app.Application;
 import org.gnu.escher.x11.Atom;
 import org.gnu.escher.x11.Cursor;
 import org.gnu.escher.x11.Display;
-import org.gnu.escher.x11.Input;
 import org.gnu.escher.x11.Window;
 import org.gnu.escher.x11.X11ServiceException;
 import org.gnu.escher.x11.X11ServiceException.ErrorCode;
@@ -21,6 +20,7 @@ import org.gnu.escher.x11.enums.EventCode;
 import org.gnu.escher.x11.enums.EventMask;
 import org.gnu.escher.x11.enums.GrabMode;
 import org.gnu.escher.x11.enums.GrabStatus;
+import org.gnu.escher.x11.enums.KeyMask;
 import org.gnu.escher.x11.enums.MapState;
 import org.gnu.escher.x11.enums.WMInitialState;
 import org.gnu.escher.x11.event.ButtonPress;
@@ -553,7 +553,7 @@ import org.gnu.escher.x11.keysym.Misc;
  *      output</a>
  */
 public class Puppet extends Application {
-	public static final int SYSTEM_MODIFIER = Input.KeyMask.CONTROL_MASK.getCode();
+	public static final int SYSTEM_MODIFIER = KeyMask.CONTROL_MASK.getCode();
 	public static final int SYSTEM_KEYSYM = Misc.DELETE;
 	public static final int SWITCH_KEYSYM = Misc.TAB;
 
@@ -724,30 +724,30 @@ public class Puppet extends Application {
 		root.grabKeyIgnoreLocks(SYSTEM_KEYSYM, SYSTEM_MODIFIER, true, GrabMode.ASYNCHRONOUS, GrabMode.ASYNCHRONOUS);
 
 		// rotate to next normal window - ignore class
-		root.grabKeyIgnoreLocks(SWITCH_KEYSYM, Input.KeyMask.META_MASK.getCode(), true, GrabMode.ASYNCHRONOUS,
+		root.grabKeyIgnoreLocks(SWITCH_KEYSYM, KeyMask.META_MASK.getCode(), true, GrabMode.ASYNCHRONOUS,
 				GrabMode.ASYNCHRONOUS);
-		root.grabKeyIgnoreLocks(SWITCH_KEYSYM, Input.KeyMask.META_MASK.logicOr(Input.KeyMask.SHIFT_MASK), true,
+		root.grabKeyIgnoreLocks(SWITCH_KEYSYM, KeyMask.META_MASK.logicOr(KeyMask.SHIFT_MASK), true,
 				GrabMode.ASYNCHRONOUS, GrabMode.ASYNCHRONOUS);
 
 		// rotate to next normal window - different class
-		root.grabKeyIgnoreLocks(SWITCH_KEYSYM, Input.KeyMask.SUPER_MASK.getCode(), true, GrabMode.ASYNCHRONOUS,
+		root.grabKeyIgnoreLocks(SWITCH_KEYSYM, KeyMask.SUPER_MASK.getCode(), true, GrabMode.ASYNCHRONOUS,
 				GrabMode.ASYNCHRONOUS);
-		root.grabKeyIgnoreLocks(SWITCH_KEYSYM, Input.KeyMask.SUPER_MASK.logicOr(Input.KeyMask.SHIFT_MASK), true,
+		root.grabKeyIgnoreLocks(SWITCH_KEYSYM, KeyMask.SUPER_MASK.logicOr(KeyMask.SHIFT_MASK), true,
 				GrabMode.ASYNCHRONOUS, GrabMode.ASYNCHRONOUS);
 
 		// rotate to next normal window - same class
-		root.grabKeyIgnoreLocks(SWITCH_KEYSYM, Input.KeyMask.ALT_MASK.getCode(), true, GrabMode.ASYNCHRONOUS,
+		root.grabKeyIgnoreLocks(SWITCH_KEYSYM, KeyMask.ALT_MASK.getCode(), true, GrabMode.ASYNCHRONOUS,
 				GrabMode.ASYNCHRONOUS);
-		root.grabKeyIgnoreLocks(SWITCH_KEYSYM, Input.KeyMask.ALT_MASK.logicOr(Input.KeyMask.SHIFT_MASK), true,
+		root.grabKeyIgnoreLocks(SWITCH_KEYSYM, KeyMask.ALT_MASK.logicOr(KeyMask.SHIFT_MASK), true,
 				GrabMode.ASYNCHRONOUS, GrabMode.ASYNCHRONOUS);
 
 		// CLICK-TO-FOCUS
-		root.grabButtonIgnoreLocks(Window.ANY_BUTTON, Input.KeyMask.CONTROL_MASK.getCode(), true,
+		root.grabButtonIgnoreLocks(Window.ANY_BUTTON, KeyMask.CONTROL_MASK.getCode(), true,
 				EventMask.BUTTON_PRESS_MASK.getMask(), GrabMode.ASYNCHRONOUS, GrabMode.ASYNCHRONOUS, Window.NONE,
 				Cursor.NONE);
 
 		// close / delete
-		root.grabButtonIgnoreLocks(Window.ANY_BUTTON, Input.KeyMask.CONTROL_MASK.logicOr(Input.KeyMask.META_MASK), true,
+		root.grabButtonIgnoreLocks(Window.ANY_BUTTON, KeyMask.CONTROL_MASK.logicOr(KeyMask.META_MASK), true,
 				EventMask.BUTTON_PRESS_MASK.getMask(), GrabMode.ASYNCHRONOUS, GrabMode.ASYNCHRONOUS, Window.NONE,
 				Cursor.NONE);
 	}
@@ -1113,15 +1113,15 @@ public class Puppet extends Application {
 			return false;
 
 		case Misc.KP_BEGIN:
-			key_click_button(Input.KeyMask.BUTTON1.getCode());
+			key_click_button(KeyMask.BUTTON1.getCode());
 			return true;
 
 		case Misc.KP_DIVIDE:
-			key_click_button(Input.KeyMask.BUTTON2.getCode());
+			key_click_button(KeyMask.BUTTON2.getCode());
 			return true;
 
 		case Misc.KP_MULTIPLY:
-			key_click_button(Input.KeyMask.BUTTON3.getCode());
+			key_click_button(KeyMask.BUTTON3.getCode());
 			return true;
 
 		case '1':
@@ -1715,8 +1715,8 @@ public class Puppet extends Application {
 		 * <code>event.window()</code> since it always equals to {@link #root}. Instead,
 		 * check <code>event.child()</code>.
 		 */
-		boolean control_down = (event.getState() & Input.KeyMask.CONTROL_MASK.getCode()) != 0;
-		boolean meta_down = (event.getState() & Input.KeyMask.META_MASK.getCode()) != 0;
+		boolean control_down = (event.getState() & KeyMask.CONTROL_MASK.getCode()) != 0;
+		boolean meta_down = (event.getState() & KeyMask.META_MASK.getCode()) != 0;
 		boolean on_root = event.getChildID() == 0;
 
 		if (meta_down && on_root) { // `lanuch-on-root'
@@ -1850,11 +1850,11 @@ public class Puppet extends Application {
 		int keystate = event.getState();
 		keysym = display.getInput().keycodeToKeysym(keycode, keystate);
 
-		shift_down = (keystate & Input.KeyMask.SHIFT_MASK.getCode()) != 0;
-		control_down = (keystate & Input.KeyMask.CONTROL_MASK.getCode()) != 0;
-		meta_down = (keystate & Input.KeyMask.META_MASK.getCode()) != 0;
-		alt_down = (keystate & Input.KeyMask.ALT_MASK.getCode()) != 0;
-		super_down = (keystate & Input.KeyMask.SUPER_MASK.getCode()) != 0;
+		shift_down = (keystate & KeyMask.SHIFT_MASK.getCode()) != 0;
+		control_down = (keystate & KeyMask.CONTROL_MASK.getCode()) != 0;
+		meta_down = (keystate & KeyMask.META_MASK.getCode()) != 0;
+		alt_down = (keystate & KeyMask.ALT_MASK.getCode()) != 0;
+		super_down = (keystate & KeyMask.SUPER_MASK.getCode()) != 0;
 
 		if (!system_key_pressed && !focus_key_pressed) {
 			GrabStatus status = root.grabKeyboard(false, GrabMode.ASYNCHRONOUS, GrabMode.ASYNCHRONOUS,

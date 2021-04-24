@@ -1,7 +1,7 @@
 package org.gnu.escher.app.redbook;
 
 import org.gnu.escher.app.x11.glx.*;
-import org.gnu.escher.x11.Input;
+import org.gnu.escher.x11.enums.KeyMask;
 import org.gnu.escher.x11.extension.glx.GL;
 
 
@@ -31,8 +31,8 @@ public class UnProject extends GLXApplication {
 
 
   protected void handle_button (int button, int state, int x, int y) {
-    if (button == Input.KeyMask.BUTTON2.getCode()) exit ();
-    if (button != Input.KeyMask.BUTTON1.getCode()) return;
+    if (button == KeyMask.BUTTON2.getCode()) exit ();
+    if (button != KeyMask.BUTTON1.getCode()) return;
 
     int [] viewport = gl.integerv (GL.VIEWPORT);
     double [] modelview = gl.doublev (GL.MODELVIEW_MATRIX);

@@ -1,108 +1,21 @@
 package org.gnu.escher.x11;
 
+import org.gnu.escher.x11.enums.InputEvent;
+import org.gnu.escher.x11.enums.InputStatus;
+import org.gnu.escher.x11.enums.KeyMask;
+
 /** X keyboard and pointer. */
 public class Input {
 
-	public enum KeyMask {
-		// KEYBUTMASK - keyboard button mask
-		SHIFT_MASK(1 << 0), LOCK_MASK(1 << 1), // cap lock
-		CONTROL_MASK(1 << 2), MOD1_MASK(1 << 3), // alt key
-		MOD2_MASK(1 << 4), // num lock
-		MOD3_MASK(1 << 5), // menu key
-		MOD4_MASK(1 << 6), // window key
-		MOD5_MASK(1 << 7), // scroll lock
-		BUTTON1_MASK(1 << 8), BUTTON2_MASK(1 << 9), BUTTON3_MASK(1 << 10), BUTTON4_MASK(1 << 11), BUTTON5_MASK(1 << 12),
-
-		// 104 PC keyboard
-		META_MASK(1 << 3), ALT_MASK(1 << 5), SUPER_MASK(1 << 6),
-
-		// Mouse
-		BUTTON1(1), BUTTON2(2), BUTTON3(3), BUTTON4(4), BUTTON5(5);
-
-		private int code;
-
-		KeyMask(int cd) {
-			this.code = cd;
-		}
-
-		public int getCode() {
-			return code;
-		}
-
-		public boolean is(int code) {
-			return this.code == code;
-		}
-
-		public int logicOr(KeyMask km) {
-			return this.getCode() | km.getCode();
-		}
-
-		public int logicOr(int i) {
-			return this.getCode() | i;
-		}
-
-		public static KeyMask getButton(int buttonID) {
-			switch (buttonID) {
-			case 1:
-				return BUTTON1;
-			case 2:
-				return BUTTON2;
-			case 3:
-				return BUTTON3;
-			default:
-				return BUTTON1;
-			}
-		}
-	}
-
-	public static final int[] LOCK_COMBINATIONS = { 0, KeyMask.LOCK_MASK.getCode(),
-			KeyMask.LOCK_MASK.logicOr(KeyMask.MOD2_MASK), KeyMask.LOCK_MASK.logicOr(KeyMask.MOD5_MASK),
-			KeyMask.LOCK_MASK.logicOr(KeyMask.MOD2_MASK.logicOr(KeyMask.MOD5_MASK)), KeyMask.MOD2_MASK.getCode(),
-			KeyMask.MOD2_MASK.logicOr(KeyMask.MOD5_MASK), KeyMask.MOD5_MASK.getCode() };
-
-	public enum InputEvent {
-		ASYNC_POINTER(0), SYNC_POINTER(1), REPLY_POINTER(2), ASYNC_KEYBOARD(3), SYNC_KEYBOARD(4), REPLY_KEYBOARD(5),
-		ASYNC_BOTH(6), SYNC_BOTH(7);
-
-		private int code;
-
-		InputEvent(int cd) {
-			this.code = cd;
-		}
-
-		public int getCode() {
-			return code;
-		}
-
-	}
-
-	public enum Status {
-		SUCCESS(0), BUSY(1), FAILED(2);
-
-		private int code;
-
-		Status(int cd) {
-			this.code = cd;
-		}
-
-		public int getCode() {
-			return code;
-		}
-
-		public static Status getStatus(int code) {
-			switch (code) {
-			case 0:
-				return Status.SUCCESS;
-			case 1:
-				return Status.BUSY;
-			case 2:
-				return Status.FAILED;
-
-			default:
-				return Status.SUCCESS;
-			}
-		}
-	}
+	public static final int[] LOCK_COMBINATIONS = { //
+			0, //
+			KeyMask.LOCK_MASK.getCode(), //
+			KeyMask.LOCK_MASK.logicOr(KeyMask.MOD2_MASK), //
+			KeyMask.LOCK_MASK.logicOr(KeyMask.MOD5_MASK), //
+			KeyMask.LOCK_MASK.logicOr(KeyMask.MOD2_MASK.logicOr(KeyMask.MOD5_MASK)), //
+			KeyMask.MOD2_MASK.getCode(), //
+			KeyMask.MOD2_MASK.logicOr(KeyMask.MOD5_MASK), KeyMask.MOD5_MASK.getCode() //
+	};
 
 	private Display display;
 	private int minKeycode, maxKeycode, keysymsPerKeycode;
@@ -296,7 +209,7 @@ public class Input {
 	}
 
 	/** Reply of {@link #keyboardControl()} */
-	public class KeyboardControlInfo {
+	public class KeyboardControlInfo implements StreamObject {
 
 		public boolean global_auto_repeat;
 
@@ -318,6 +231,34 @@ public class Input {
 			i.skip(2);
 			auto_repeats = new byte[32];
 			i.readData(auto_repeats);
+		}
+
+		public boolean isGlobal_auto_repeat() {
+			return global_auto_repeat;
+		}
+
+		public int getLed_mask() {
+			return led_mask;
+		}
+
+		public int getKey_click_percent() {
+			return key_click_percent;
+		}
+
+		public int getBell_percent() {
+			return bell_percent;
+		}
+
+		public int getBell_pitch() {
+			return bell_pitch;
+		}
+
+		public int getBell_duration() {
+			return bell_duration;
+		}
+
+		public byte[] getAuto_repeats() {
+			return auto_repeats;
 		}
 	}
 
@@ -386,7 +327,7 @@ public class Input {
 	}
 
 	/** Reply of {@link #pointerControl()}. */
-	public class PointerControlInfo {
+	public class PointerControlInfo implements StreamObject {
 
 		public int acceleration_numerator;
 		public int acceleration_denominator;
@@ -423,7 +364,7 @@ public class Input {
 	/**
 	 * @see <a href="XSetPointerMapping.html">XSetPointerMapping</a>
 	 */
-	public Status setPointerMapping(byte[] map) {
+	public InputStatus setPointerMapping(byte[] map) {
 
 		int n = map.length;
 		int p = RequestOutputStream.pad(n);
@@ -443,7 +384,7 @@ public class Input {
 				i.skip(30);
 			}
 		}
-		return Status.getStatus(status);
+		return InputStatus.getStatus(status);
 	}
 
 	// opcode 117 - get pointer mapping
@@ -473,7 +414,7 @@ public class Input {
 	/**
 	 * @see <a href="XSetModifierMapping.html">XSetModifierMapping</a>
 	 */
-	public Status setModifierMapping(int keycodesPerModifier, byte[] keycodes) {
+	public InputStatus setModifierMapping(int keycodesPerModifier, byte[] keycodes) {
 
 		int status;
 		RequestOutputStream o = display.getResponseOutputStream();
@@ -488,10 +429,10 @@ public class Input {
 				i.skip(30);
 			}
 		}
-		return Status.getStatus(status);
+		return InputStatus.getStatus(status);
 	}
 
-	public class ModifierMapping {
+	public class ModifierMapping implements StreamObject {
 
 		public int keycodesPerModifier;
 		byte[] map;

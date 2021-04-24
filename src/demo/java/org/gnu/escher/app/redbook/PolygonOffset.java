@@ -2,6 +2,7 @@ package org.gnu.escher.app.redbook;
 
 import org.gnu.escher.app.x11.glx.*;
 import org.gnu.escher.x11.Input.*;
+import org.gnu.escher.x11.enums.KeyMask;
 import org.gnu.escher.x11.extension.glx.GL;
 
 

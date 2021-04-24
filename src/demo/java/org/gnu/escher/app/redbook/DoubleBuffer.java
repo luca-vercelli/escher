@@ -1,7 +1,7 @@
 package org.gnu.escher.app.redbook;
 
 import org.gnu.escher.app.x11.glx.*;
-import org.gnu.escher.x11.Input;
+import org.gnu.escher.x11.enums.KeyMask;
 import org.gnu.escher.x11.extension.glx.GL;
 
 
@@ -48,9 +48,9 @@ public class DoubleBuffer extends GLXApplication implements Runnable {
 
 
   protected void handle_button (int button, int state, int x, int y) {
-    if(button == Input.KeyMask.BUTTON1.getCode()) {
+    if(button == KeyMask.BUTTON1.getCode()) {
       spinning = true;
-    } else if(button == Input.KeyMask.BUTTON2.getCode()) {
+    } else if(button == KeyMask.BUTTON2.getCode()) {
       spinning = false;
     }
   }
