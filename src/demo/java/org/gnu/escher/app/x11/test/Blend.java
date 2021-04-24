@@ -27,7 +27,7 @@ public class Blend extends Graphics {
 	public Pixmap alpha_pixmap, color_pixmap;
 	public Render render;
 
-	public Blend(String[] args) throws org.gnu.escher.x11.extension.NotFoundException {
+	public Blend(String[] args) throws org.gnu.escher.x11.extension.ExtensionNotFoundException {
 		super(args, 255, 255);
 
 		about("0.1", "test blending in RENDER", "Stephen Tse <stephent@sfu.ca>", "http://escher.sourceforge.net/");

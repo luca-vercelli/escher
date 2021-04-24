@@ -10,27 +10,25 @@ import java.util.*;
  * @author Mario Torre neugens@aicas.com
  */
 public enum GLXExtension {
-    
-    GL_EXT_abgr(new GLXVersion(1, 1))
-    
-    ;
 
-    private static final Map<GLXVersion, ArrayList<GLXExtension>> extensions 
-        = new HashMap<GLXVersion, ArrayList<GLXExtension>>();
-    
-    static {
-        for (GLXExtension extension : GLXExtension.values()) {
-            extensions.get(extension.getVersion()).add(extension);
-        }
-    }
+	GL_EXT_abgr(new GLXVersion(1, 1));
 
-    private final GLXVersion version;
-    GLXExtension(GLXVersion version) {
-     
-        this.version = version;
-    }
-    
-    public GLXVersion getVersion() {
-        return this.version;
-    }
+	private static final Map<GLXVersion, ArrayList<GLXExtension>> extensions = new HashMap<GLXVersion, ArrayList<GLXExtension>>();
+
+	static {
+		for (GLXExtension extension : GLXExtension.values()) {
+			extensions.get(extension.getVersion()).add(extension);
+		}
+	}
+
+	private final GLXVersion version;
+
+	GLXExtension(GLXVersion version) {
+
+		this.version = version;
+	}
+
+	public GLXVersion getVersion() {
+		return this.version;
+	}
 }

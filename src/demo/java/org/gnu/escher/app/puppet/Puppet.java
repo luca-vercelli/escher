@@ -8,7 +8,7 @@ import org.gnu.escher.x11.Window.GrabMode;
 import org.gnu.escher.x11.Window.GrabStatus;
 import org.gnu.escher.x11.X11ServiceException.ErrorCode;
 import org.gnu.escher.x11.event.*;
-import org.gnu.escher.x11.extension.NotFoundException;
+import org.gnu.escher.x11.extension.ExtensionNotFoundException;
 import org.gnu.escher.x11.extension.XTest;
 import org.gnu.escher.x11.keysym.Misc;
 
@@ -574,7 +574,7 @@ public class Puppet extends Application {
 	public XTest xtest;
 	public boolean print_event;
 
-	public Puppet(String[] args) throws NotFoundException {
+	public Puppet(String[] args) throws ExtensionNotFoundException {
 		super(args);
 
 		print_event = option.booleann("print-event", "dump all events for debug", false);
@@ -2076,7 +2076,7 @@ public class Puppet extends Application {
 		clients.add(client);
 	}
 
-	public static void main(String[] args) throws NotFoundException {
+	public static void main(String[] args) throws ExtensionNotFoundException {
 		new Puppet(args);
 	}
 }

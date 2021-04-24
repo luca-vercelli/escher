@@ -2,49 +2,45 @@ package org.gnu.escher.x11.extension.glx;
 
 import org.gnu.escher.x11.RequestOutputStream;
 
-
 /** GLX pixmap. */
 public class GLXPixmap extends org.gnu.escher.x11.Resource implements GLXDrawable {
-  public GLX glx;
+	public GLX glx;
 
+	// glx opcode 13 - create glx pixmap
+	/**
+	 * @see <a href="glXCreateGLXPixmap.html">glXCreateGLXPixmap</a>
+	 */
+	public GLXPixmap(GLX glx, int screen_no, XVisualInfo visual, org.gnu.escher.x11.Pixmap pixmap) {
 
-  // glx opcode 13 - create glx pixmap
-  /**
-   * @see <a href="glXCreateGLXPixmap.html">glXCreateGLXPixmap</a>
-   */
-  public GLXPixmap (GLX glx, int screen_no, XVisualInfo visual, 
-    org.gnu.escher.x11.Pixmap pixmap) {
+		super(glx.getDisplay());
+		this.glx = glx;
 
-    super (glx.getDisplay());
-    this.glx = glx;
-    
-    RequestOutputStream o = display.getResponseOutputStream();
-    synchronized (o) {
-      o.beginRequest (glx.getMajorOpcode(), 13, 5);
-      
-      o.writeInt32 (screen_no);
-      o.writeInt32 (visual.getID());
-      o.writeInt32 (pixmap.getID());
-      o.writeInt32 (id);
-      o.send ();
-    }
-  } 
+		RequestOutputStream o = display.getResponseOutputStream();
+		synchronized (o) {
+			o.beginRequest(glx.getMajorOpcode(), 13, 5);
 
+			o.writeInt32(screen_no);
+			o.writeInt32(visual.getID());
+			o.writeInt32(pixmap.getID());
+			o.writeInt32(id);
+			o.send();
+		}
+	}
 
-  // glx opcode 15 - destroy glx pixmap
-  /**
-   * @see <a href="glXDestroyContext.html">glXDestroyContext</a>
-   */
-  public void destroy () {
-    RequestOutputStream o = display.getResponseOutputStream();
-    synchronized (o) {
-      o.beginRequest (glx.getMajorOpcode(), 15, 2);
-      o.writeInt32 (id);
-      o.send ();
-    }
-  }    
+	// glx opcode 15 - destroy glx pixmap
+	/**
+	 * @see <a href="glXDestroyContext.html">glXDestroyContext</a>
+	 */
+	public void destroy() {
+		RequestOutputStream o = display.getResponseOutputStream();
+		synchronized (o) {
+			o.beginRequest(glx.getMajorOpcode(), 15, 2);
+			o.writeInt32(id);
+			o.send();
+		}
+	}
 
-  public int id () {
-    return id;
-  }
+	public int id() {
+		return id;
+	}
 }

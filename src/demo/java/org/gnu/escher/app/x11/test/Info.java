@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import org.gnu.escher.app.Application;
 import org.gnu.escher.x11.*;
-import org.gnu.escher.x11.extension.NotFoundException;
+import org.gnu.escher.x11.extension.ExtensionNotFoundException;
 import org.gnu.escher.x11.extension.glx.GL;
 import org.gnu.escher.x11.extension.glx.GLX;
 import org.gnu.escher.x11.extension.render.Render;
@@ -107,25 +107,25 @@ public class Info extends Application {
     try {
       System.out.println (new org.gnu.escher.x11.extension.
       BigRequests (display) + "\n");
-    } catch (NotFoundException e) {
+    } catch (ExtensionNotFoundException e) {
       System.out.println ("big requests not found\n");
     }
 
     try {
       System.out.println (new org.gnu.escher.x11.extension.DBE (display) + "\n");
-    } catch (NotFoundException e) {
+    } catch (ExtensionNotFoundException e) {
       System.out.println ("dbe not found\n");
     }
 
     try {
       System.out.println (new org.gnu.escher.x11.extension.DPMS (display) + "\n");
-    } catch (NotFoundException e) {
+    } catch (ExtensionNotFoundException e) {
       System.out.println ("dpms not found\n");
     }
 
     try {
       System.out.println (new org.gnu.escher.x11.extension.EVI (display) + "\n");
-    } catch (NotFoundException e) {
+    } catch (ExtensionNotFoundException e) {
       System.out.println ("evi not found\n");
     }
 
@@ -138,7 +138,7 @@ public class Info extends Application {
       gl.make_current (display.getDefaultRoot());
       System.out.println (gl + "\n");
 
-    } catch (NotFoundException e) {
+    } catch (ExtensionNotFoundException e) {
       System.out.println ("glx not found\n");
     }
 
@@ -146,25 +146,25 @@ public class Info extends Application {
       Render render = new Render (display);
       System.out.println (render 
         + Arrays.toString(render.picture_formats ()));
-    } catch (NotFoundException e) {
+    } catch (ExtensionNotFoundException e) {
       System.out.println ("render not found\n");
     }
 
     try {
       System.out.println (new org.gnu.escher.x11.extension.Shape (display) + "\n");
-    } catch (NotFoundException e) {
+    } catch (ExtensionNotFoundException e) {
       System.out.println ("shape not found\n");
     }
 
     try {
       System.out.println (new org.gnu.escher.x11.extension.XCMisc (display) + "\n");
-    } catch (NotFoundException e) {
+    } catch (ExtensionNotFoundException e) {
       System.out.println ("xcmic not found\n");
     }
 
     try {
       System.out.println (new org.gnu.escher.x11.extension.XTest (display) + "\n");
-    } catch (NotFoundException e) {
+    } catch (ExtensionNotFoundException e) {
       System.out.println ("xtest not found\n");
     }
   }

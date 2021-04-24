@@ -40,7 +40,7 @@ public class Shape extends Extension implements EventFactory {
   /**
    * @see <a href="XShapeQueryExtension.html">XShapeQueryExtension</a>
    */
-  public Shape(Display display) throws NotFoundException { 
+  public Shape(Display display) throws ExtensionNotFoundException { 
     super(display, "SHAPE", MINOR_OPCODE_STRINGS, 0, 1);
 
     // check version before any other operations

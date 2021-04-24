@@ -20,7 +20,7 @@ import org.gnu.escher.x11.event.Event;
 import org.gnu.escher.x11.extension.BigRequests;
 import org.gnu.escher.x11.extension.ErrorFactory;
 import org.gnu.escher.x11.extension.EventFactory;
-import org.gnu.escher.x11.extension.NotFoundException;
+import org.gnu.escher.x11.extension.ExtensionNotFoundException;
 import org.gnu.escher.x11.extension.XCMisc;
 
 /** X server connection. */
@@ -943,7 +943,7 @@ public class Display implements AutoCloseable {
 		if (xcmisc == null) {
 			try {
 				xcmisc = new XCMisc(this);
-			} catch (NotFoundException e) {
+			} catch (ExtensionNotFoundException e) {
 				throw new X11ClientException("Failed to allocate new resource id", e);
 			}
 		}
@@ -1003,7 +1003,7 @@ public class Display implements AutoCloseable {
 			bigRequestsPresent = true;
 			extendedMaximumRequestLength = big.enable();
 
-		} catch (NotFoundException e) {
+		} catch (ExtensionNotFoundException e) {
 			bigRequestsPresent = false;
 		}
 	}

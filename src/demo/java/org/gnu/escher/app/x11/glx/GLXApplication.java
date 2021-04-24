@@ -49,7 +49,7 @@ public abstract class GLXApplication extends org.gnu.escher.app.Application {
 
 		try {
 			glx = new GLX(display);
-		} catch (org.gnu.escher.x11.extension.NotFoundException e) {
+		} catch (org.gnu.escher.x11.extension.ExtensionNotFoundException e) {
 			throw new IllegalStateException(e);
 		}
 	}

@@ -1,7 +1,6 @@
 package org.gnu.escher.x11.extension.render;
 
-
 /** Trinangle in RENDER. */
 public class Triangle {
-  public int p1, p2, p3;
+	public int p1, p2, p3;
 }

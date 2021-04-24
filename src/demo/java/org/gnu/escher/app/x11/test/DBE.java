@@ -21,7 +21,7 @@ public class DBE extends Graphics {
   public static final Random random = new Random ();
 
 
-  public DBE (String [] args) throws org.gnu.escher.x11.extension.NotFoundException {
+  public DBE (String [] args) throws org.gnu.escher.x11.extension.ExtensionNotFoundException {
     super (args, 256, 256); 
     
     about ("0.1", "test double buffer extension",

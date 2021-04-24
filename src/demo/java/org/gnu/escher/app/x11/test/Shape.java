@@ -33,7 +33,7 @@ public class Shape extends Graphics {
   };
 
 
-  public Shape (String [] args) throws org.gnu.escher.x11.extension.NotFoundException {
+  public Shape (String [] args) throws org.gnu.escher.x11.extension.ExtensionNotFoundException {
     super (args, 32, 32); 
 
     about ("0.1", "test nonrectangular window extension",

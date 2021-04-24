@@ -103,7 +103,7 @@ public class Sprites extends DisplayHack {
   }
 
   
-  public Sprites (String [] args) throws org.gnu.escher.x11.extension.NotFoundException { 
+  public Sprites (String [] args) throws org.gnu.escher.x11.extension.ExtensionNotFoundException { 
     super (args, false, false, false, 64, 1000);
 
     about ("0.1", "moving sprites to blend colors",
