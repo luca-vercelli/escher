@@ -1,15 +1,22 @@
 package org.gnu.escher.app.displayhack;
 
-import static org.gnu.escher.x11.Input.KeyMask.BUTTON1;
-import static org.gnu.escher.x11.Input.KeyMask.BUTTON3;
+import static org.gnu.escher.x11.enums.KeyMask.BUTTON1;
+import static org.gnu.escher.x11.enums.KeyMask.BUTTON3;
 
 import java.util.Random;
 
 import org.gnu.escher.app.Application;
 import org.gnu.escher.app.displayhack.eraser.Eraser;
-import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.Color;
+import org.gnu.escher.x11.GC;
+import org.gnu.escher.x11.Window;
+import org.gnu.escher.x11.WindowAttributes;
 import org.gnu.escher.x11.enums.EventMask;
-import org.gnu.escher.x11.event.*;
+import org.gnu.escher.x11.event.ButtonPress;
+import org.gnu.escher.x11.event.ClientMessage;
+import org.gnu.escher.x11.event.ConfigureNotify;
+import org.gnu.escher.x11.event.Event;
+import org.gnu.escher.x11.event.KeyPress;
 import org.gnu.escher.x11.geometric.Rectangle;
 
 /**

@@ -1,7 +1,7 @@
 package org.gnu.escher.x11.extension;
 
 import org.gnu.escher.x11.*;
-import org.gnu.escher.x11.X11ServiceException.ErrorCode;
+import org.gnu.escher.x11.enums.ErrorCode;
 
 /**
  * Double Buffer Extension. The specification can be found

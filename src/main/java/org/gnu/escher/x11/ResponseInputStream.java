@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.gnu.escher.x11.enums.ErrorCode;
+import org.gnu.escher.x11.enums.EventCode;
 import org.gnu.escher.x11.event.ButtonPress;
 import org.gnu.escher.x11.event.ButtonRelease;
 import org.gnu.escher.x11.event.CirculateNotify;
@@ -67,7 +69,6 @@ public class ResponseInputStream extends FilterInputStream {
 	 * @param source the stream to read from
 	 */
 	ResponseInputStream(InputStream source, Display d) {
-
 		super(source);
 		this.display = d;
 	}
@@ -88,6 +89,11 @@ public class ResponseInputStream extends FilterInputStream {
 		throw new X11ClientException(ex);
 	}
 
+	/**
+	 * Skips a number of bytes required to reach a multiple of 4
+	 * 
+	 * @param n should be in range 0..3, only remainder is considered
+	 */
 	public void pad(int n) {
 
 		assert Thread.holdsLock(this);
@@ -145,115 +151,125 @@ public class ResponseInputStream extends FilterInputStream {
 		return v & 0xff;
 	}
 
+	/**
+	 * This method may read from stream: an error (if code==0), null (if code==1),
+	 * or an event with given code.
+	 * 
+	 * @param code
+	 * @return
+	 */
 	private Event readCoreEvent(int code) {
 
+		EventCode evCode = EventCode.of(code);
+
 		Event ev = null;
-		switch (code) {
-		case 0:
+		switch (evCode) {
+		case ERROR:
 			this.readError();
 			break;
-		case 1:
+		case NONE:
 			ev = null;
 			break;
-		case 2:
+		case KEY_PRESS:
 			ev = new KeyPress(this.display, this);
 			break;
-		case 3:
+		case KEY_RELEASE:
 			ev = new KeyRelease(this.display, this);
 			break;
-		case 4:
+		case BUTTON_PRESS:
 			ev = new ButtonPress(this.display, this);
 			break;
-		case 5:
+		case BUTTON_RELEASE:
 			ev = new ButtonRelease(this.display, this);
 			break;
-		case 6:
+		case MOTION_NOTIFY:
 			ev = new MotionNotify(this.display, this);
 			break;
-		case 7:
+		case ENTER_NOTIFY:
 			ev = new EnterNotify(this.display, this);
 			break;
-		case 8:
+		case LEAVE_NOTIFY:
 			ev = new LeaveNotify(this.display, this);
 			break;
-		case 9:
+		case FOCUS_IN:
 			ev = new FocusIn(this.display, this);
 			break;
-		case 10:
+		case FOCUS_OUT:
 			ev = new FocusOut(this.display, this);
 			break;
-		case 11:
+		case KEYMAP_NOTIFY:
 			ev = new KeymapNotify(this.display, this);
 			break;
-		case 12:
+		case EXPOSE:
 			ev = new Expose(this.display, this);
 			break;
-		case 13:
+		case GRAPHICS_EXPOSE:
 			ev = new GraphicsExpose(this.display, this);
 			break;
-		case 14:
+		case NO_EXPOSE:
 			ev = new NoExposure(this.display, this);
 			break;
-		case 15:
+		case VISIBILITY_NOTIFY:
 			ev = new VisibilityNotify(this.display, this);
 			break;
-		case 16:
+		case CREATE_NOTIFY:
 			ev = new CreateNotify(this.display, this);
 			break;
-		case 17:
+		case DESTROY_NOTIFY:
 			ev = new DestroyNotify(this.display, this);
 			break;
-		case 18:
+		case UNMAP_NOTIFY:
 			ev = new UnmapNotify(this.display, this);
 			break;
-		case 19:
+		case MAP_NOTIFY:
 			ev = new MapNotify(this.display, this);
 			break;
-		case 20:
+		case MAP_REQUEST:
 			ev = new MapRequest(this.display, this);
 			break;
-		case 21:
+		case REPARENT_NOTIFY:
 			ev = new ReparentNotify(this.display, this);
 			break;
-		case 22:
+		case CONFIGURE_NOTIFY:
 			ev = new ConfigureNotify(this.display, this);
 			break;
-		case 23:
+		case CONFIGURE_REQUEST:
 			ev = new ConfigureRequest(this.display, this);
 			break;
-		case 24:
+		case GRAVITY_NOTIFY:
 			ev = new GravityNotify(this.display, this);
 			break;
-		case 25:
+		case RESIZE_REQUEST:
 			ev = new ResizeRequest(this.display, this);
 			break;
-		case 26:
+		case CIRCULATE_NOTIFY:
 			ev = new CirculateNotify(this.display, this);
 			break;
-		case 27:
+		case CIRCULATE_REQUEST:
 			ev = new CirculateRequest(this.display, this);
 			break;
-		case 28:
+		case PROPERTY_NOTIFY:
 			ev = new PropertyNotify(this.display, this);
 			break;
-		case 29:
+		case SELECTION_CLEAR:
 			ev = new SelectionClear(this.display, this);
 			break;
-		case 30:
+		case SELECTION_REQUEST:
 			ev = new SelectionRequest(this.display, this);
 			break;
-		case 31:
+		case SELECTION_NOTIFY:
 			ev = new SelectionNotify(this.display, this);
 			break;
-		case 32:
+		case COLORMAP_NOTIFY:
 			ev = new ColormapNotify(this.display, this);
 			break;
-		case 33:
+		case CLIENT_MESSAGE:
 			ev = new ClientMessage(this.display, this);
 			break;
-		case 34:
+		case MAPPING_NOTIFY:
 			ev = new MappingNotify(this.display, this);
 			break;
+		// FIXME what about LAST_EVENT ?
 		default:
 			throw new java.lang.Error("Unsupported core event code: " + code);
 		}
@@ -292,8 +308,8 @@ public class ResponseInputStream extends FilterInputStream {
 	 */
 	private void readError() {
 
-		int reply = this.readInt8();
-		assert reply == 0;
+		int eventCode = this.readInt8();
+		assert eventCode == 0;
 		int code = this.readInt8();
 		int seq_no = this.readInt16();
 		int bad_value = this.readInt32();
@@ -304,7 +320,7 @@ public class ResponseInputStream extends FilterInputStream {
 			throw this.buildExtensionError(this.display, code, seq_no, bad_value, minor_opcode, major_opcode);
 		}
 
-		X11ServiceException.ErrorCode error = X11ServiceException.ErrorCode.getError(code);
+		ErrorCode error = ErrorCode.getError(code);
 		X11ServiceException err = new X11ServiceException(this.display, error.getErrorMessage(), error, seq_no,
 				bad_value, minor_opcode, major_opcode);
 		throw err;
@@ -374,6 +390,7 @@ public class ResponseInputStream extends FilterInputStream {
 		// System.err.println("reading code: " + code + " masked: " + (code &
 		// 0x7f));
 		code = code & 0x7f; // Remove synthetic mask.
+
 		Event ev = null;
 		if (code >= 64 && code <= 127) {
 			ev = this.readExtensionEvent(code);

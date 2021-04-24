@@ -1,5 +1,7 @@
 package org.gnu.escher.x11.extension.glx;
 
+import org.gnu.escher.x11.enums.ErrorCode;
+
 /** GLX Error. */
 public class X11ServiceException extends org.gnu.escher.x11.X11ServiceException {
 	private static final long serialVersionUID = -1895295851827247185L;
