@@ -1823,7 +1823,7 @@ public class Puppet extends Application {
 
 	public void when_key_press(KeyPress event) {
 		keycode = event.detail();
-		int keystate = event.state();
+		int keystate = event.getState();
 		keysym = display.getInput().keycodeToKeysym(keycode, keystate);
 
 		shift_down = (keystate & Input.KeyMask.SHIFT_MASK.getCode()) != 0;
@@ -1875,7 +1875,7 @@ public class Puppet extends Application {
 	/** Handle *-TAB key release. */
 	public void when_key_release(KeyRelease event) {
 		keycode = event.detail();
-		int keystate = event.state();
+		int keystate = event.getState();
 		keysym = display.getInput().keycodeToKeysym(keycode, keystate);
 
 		if (!focus_key_pressed || !(keysym == Misc.META_L || keysym == Misc.META_R || keysym == Misc.ALT_L

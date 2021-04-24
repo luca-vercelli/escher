@@ -72,7 +72,7 @@ public abstract class Graphics extends Application {
       KeyPress e = (KeyPress) event;
 	
       int keycode = e.detail ();
-      int keystate = e.state ();
+      int keystate = e.getState ();
       int keysym = display.getInput().keycodeToKeysym (keycode, keystate);
 
       if (keysym == 'q' || keysym == 'Q' 

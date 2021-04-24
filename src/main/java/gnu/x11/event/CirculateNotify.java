@@ -8,7 +8,6 @@ public final class CirculateNotify extends Event {
 
 	private int eventWindowID;
 	private int windowID;
-
 	private Place place;
 
 	public CirculateNotify(Display display, ResponseInputStream in) {

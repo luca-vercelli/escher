@@ -5,7 +5,7 @@ import gnu.x11.ResponseInputStream;
 
 
 /** X enter notify event. */
-public final class EnterNotify extends Input {
+public final class EnterNotify extends InputEvent {
 
   public EnterNotify (Display display, ResponseInputStream in) {
     super(display, in);

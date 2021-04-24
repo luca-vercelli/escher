@@ -5,7 +5,7 @@ import gnu.x11.*;
 /**
  * X key press event.
  */
-public final class KeyPress extends Input {
+public final class KeyPress extends InputEvent {
 
 	public KeyPress(Display display) {
 		super(display, EventCode.KEY_PRESS);

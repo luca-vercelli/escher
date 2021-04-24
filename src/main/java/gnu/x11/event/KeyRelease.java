@@ -4,7 +4,7 @@ import gnu.x11.Display;
 import gnu.x11.ResponseInputStream;
 
 /** X key release event. */
-public final class KeyRelease extends Input {
+public final class KeyRelease extends InputEvent {
 
 	/**
 	 * Reads a KeyRelease event from the input stream.

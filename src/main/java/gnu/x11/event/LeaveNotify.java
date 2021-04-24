@@ -4,7 +4,7 @@ import gnu.x11.Display;
 import gnu.x11.ResponseInputStream;
 
 /** X leave notify event. */
-public final class LeaveNotify extends Input {
+public final class LeaveNotify extends InputEvent {
 
 	public LeaveNotify(Display display, ResponseInputStream in) {
 		super(display, in);

@@ -4,7 +4,7 @@ import gnu.x11.Display;
 import gnu.x11.ResponseInputStream;
 
 /** X motion notify event. */
-public final class MotionNotify extends Input {
+public final class MotionNotify extends InputEvent {
 
 	public MotionNotify(Display display, ResponseInputStream in) {
 		super(display, in);
