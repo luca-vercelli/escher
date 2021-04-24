@@ -1,12 +1,11 @@
 package publicapi.event;
 
-import org.junit.jupiter.api.*;
-
-import static org.assertj.core.api.Assertions.*;
-import static org.gnu.escher.x11.enums.EventCode.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.gnu.escher.x11.enums.EventCode.KEY_PRESS;
+import static org.gnu.escher.x11.enums.EventCode.LAST_EVENT;
 
 import org.gnu.escher.x11.enums.EventCode;
-import org.gnu.escher.x11.event.*;
+import org.junit.jupiter.api.Test;
 
 public class EventCodeTest {
   @Test

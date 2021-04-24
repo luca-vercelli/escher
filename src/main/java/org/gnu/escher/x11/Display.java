@@ -1,6 +1,8 @@
 
 package org.gnu.escher.x11;
 
+import static org.gnu.escher.utils.Validation.requiresNonNull;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -170,9 +172,7 @@ public class Display implements AutoCloseable {
 	public ErrorFactory[] extensionErrorFactories = new ErrorFactory[128];
 
 	public Display(Socket socket, int displayNumber, int screenNumber) {
-		if (socket == null) {
-			throw new IllegalArgumentException("Null socket given");
-		}
+		requiresNonNull("socket", socket);
 		this.socket = socket;
 		String socketHostName = socket.getInetAddress().getHostName();
 		if (socketHostName.equals("localhost")) {

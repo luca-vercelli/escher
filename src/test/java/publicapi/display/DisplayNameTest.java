@@ -16,13 +16,15 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DisplayNameTest {
 	@Test
 	void parse_null_fails() {
-		NullPointerException exception = assertThrows(NullPointerException.class, () -> getFromConventionalString(null));
+		NullPointerException exception = assertThrows(NullPointerException.class,
+				() -> getFromConventionalString(null));
 		assertThat(exception).hasMessage("convention is marked non-null but is null");
 	}
 
 	@Test
 	void parse_empty_fails() {
-		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> getFromConventionalString(""));
+		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+				() -> getFromConventionalString(""));
 		assertThat(exception).hasMessage("convention must not be blank.");
 	}
 
@@ -97,7 +99,8 @@ public class DisplayNameTest {
 				throw cause;
 			}
 		};
-		X11ClientException result = assertThrows(X11ClientException.class, () -> getFromConventionalString(":0").connect());
+		X11ClientException result = assertThrows(X11ClientException.class,
+				() -> getFromConventionalString(":0").connect());
 		assertThat(result).hasMessage("Failed to create connection to \":0.0\".");
 		assertThat(result).hasCause(cause);
 	}
@@ -123,7 +126,8 @@ public class DisplayNameTest {
 				result = cause;
 			}
 		};
-		X11ClientException exception = assertThrows(X11ClientException.class, () -> getFromConventionalString("hostName:2.1").connect());
+		X11ClientException exception = assertThrows(X11ClientException.class,
+				() -> getFromConventionalString("hostName:2.1").connect());
 		assertThat(exception).hasMessage("Failed to create connection to \"hostName:2.1\".");
 		assertThat(exception).hasCause(cause);
 	}
