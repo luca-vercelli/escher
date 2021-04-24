@@ -1,35 +1,43 @@
 
 package gnu.x11;
 
-import java.io.*;
+import static gnu.util.Strings.requiresNonBlank;
+
+import java.io.DataInput;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
-import lombok.*;
-
-import static gnu.util.Strings.requiresNonBlank;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * An XAuthority.
  * https://gitlab.freedesktop.org/xorg/lib/libxau/-/blob/master/include/X11/Xauth.h
  * https://gitlab.freedesktop.org/xorg/lib/libxau
  */
-@Value
 public class XAuthority {
 
-	@NonNull
 	Family family;
-	@NonNull
 	byte[] address;
 	int displayNumber;
-	@NonNull
 	String protocolName;
-	@NonNull
 	byte[] protocolData;
 
-	public XAuthority(@NonNull Family family, @NonNull byte[] address, int displayNumber, @NonNull String protocolName,
-			@NonNull byte[] protocolData) {
+	public XAuthority(Family family, byte[] address, int displayNumber, String protocolName, byte[] protocolData) {
+		if (family == null) {
+			throw new IllegalArgumentException("Null family given");
+		}
+		if (address == null) {
+			throw new IllegalArgumentException("Null address given");
+		}
+		if (protocolData == null) {
+			throw new IllegalArgumentException("Null protocolData given");
+		}
 		this.family = family;
 		this.address = address;
 		if (displayNumber < 0) {

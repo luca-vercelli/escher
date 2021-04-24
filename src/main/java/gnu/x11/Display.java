@@ -22,7 +22,6 @@ import gnu.x11.extension.ErrorFactory;
 import gnu.x11.extension.EventFactory;
 import gnu.x11.extension.NotFoundException;
 import gnu.x11.extension.XCMisc;
-import lombok.NonNull;
 
 /** X server connection. */
 // TODO Support Multiple Screens
@@ -203,7 +202,10 @@ public class Display implements AutoCloseable {
 	 */
 	public ErrorFactory[] extensionErrorFactories = new ErrorFactory[128];
 
-	public Display(@NonNull Socket socket, int displayNumber, int screenNumber) {
+	public Display(Socket socket, int displayNumber, int screenNumber) {
+		if (socket == null) {
+			throw new IllegalArgumentException("Null socket given");
+		}
 		this.socket = socket;
 		String socketHostName = socket.getInetAddress().getHostName();
 		if (socketHostName.equals("localhost")) {

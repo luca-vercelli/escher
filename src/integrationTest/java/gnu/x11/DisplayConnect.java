@@ -4,31 +4,28 @@ import com.github.moaxcp.xephyr.*;
 import org.junit.jupiter.api.*;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static gnu.x11.DisplayName.*;
 
 public class DisplayConnect {
 
-  private XephyrRunner runner;
+	private XephyrRunner runner;
 
-  @BeforeEach
-  void setup() throws IOException {
-    runner = XephyrRunner.builder()
-        .ac(true)
-        .br(true)
-        .noreset(true)
-        .arg(":1")
-        .build();
-    runner.start();
-  }
+	@BeforeEach
+	void setup() throws IOException {
+		runner = new XephyrRunner(true, true, true, false, false, new ArrayList<>(), Arrays.<String>asList(":1"));
+		runner.start();
+	}
 
-  @AfterEach
-  void teardown() throws InterruptedException {
-    runner.stop();
-  }
+	@AfterEach
+	void teardown() throws InterruptedException {
+		runner.stop();
+	}
 
-  @Test
-  void connect() {
-    parse(":1").connect();
-  }
+	@Test
+	void connect() {
+		parse(":1").connect();
+	}
 }

@@ -3,7 +3,6 @@ package gnu.x11;
 
 import gnu.x11.event.Event;
 import gnu.x11.extension.glx.GLXDrawable;
-import lombok.*;
 
 /** X window. */
 public class Window extends Drawable implements GLXDrawable {

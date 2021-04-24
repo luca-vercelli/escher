@@ -1,12 +1,14 @@
 package gnu.x11;
 
-import lombok.*;
-import org.newsclub.net.unix.*;
+import static gnu.util.Strings.requiresNonBlank;
 
-import java.io.*;
-import java.net.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
 
-import static gnu.util.Strings.*;
+import org.newsclub.net.unix.AFUNIXSocket;
+import org.newsclub.net.unix.AFUNIXSocketAddress;
 
 /**
  * X display name. Encapsulates display name conventions in unix for creating a
@@ -53,7 +55,7 @@ public class DisplayName {
 	 * @param convention of <code>hostName:displayNumber.screenNumber</code>
 	 * @return resulting DisplayName
 	 */
-	public static DisplayName parse(@NonNull String convention) {
+	public static DisplayName parse(String convention) {
 		requiresNonBlank("convention", convention);
 
 		String hostName = null;
