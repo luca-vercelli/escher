@@ -18,7 +18,7 @@ public final class ConfigureRequest extends Event {
 	private int height;
 
 	private int borderWidth;
-	private int valueMask;
+	private int bitMask;
 
 	public ConfigureRequest(Display display, ResponseInputStream in) {
 		super(display, in);
@@ -30,7 +30,7 @@ public final class ConfigureRequest extends Event {
 		width = in.readInt16();
 		height = in.readInt16();
 		borderWidth = in.readInt16();
-		valueMask = in.readInt16();
+		bitMask = in.readInt16();
 		in.skip(4);
 	}
 
@@ -39,15 +39,15 @@ public final class ConfigureRequest extends Event {
 
 		c.stackMode(stackMode());
 		c.sibling_id(siblingID());
-		c.setX(x());
-		c.setY(y());
-		c.setWidth(width());
-		c.setHeight(height());
-		c.borderWidth(borderWidth());
+		c.setX(getX());
+		c.setY(getY());
+		c.setWidth(getWidth());
+		c.setHeight(getHeight());
+		c.borderWidth(getBorderWidth());
 
 		// since above function calls will change bitmask,
 		// read bitmask last
-		c.setBitmask(bitmask());
+		c.setBitmask(getBitmask());
 		return c;
 	}
 
@@ -59,32 +59,32 @@ public final class ConfigureRequest extends Event {
 		return siblingID;
 	}
 
-	public int x() {
+	public int getX() {
 		return x;
 	}
 
-	public int y() {
+	public int getY() {
 		return y;
 	}
 
-	public int width() {
+	public int getWidth() {
 		return width;
 	}
 
-	public int height() {
+	public int getHeight() {
 		return height;
 	}
 
-	public int borderWidth() {
+	public int getBorderWidth() {
 		return borderWidth;
 	}
 
-	public int bitmask() {
-		return valueMask;
+	public int getBitmask() {
+		return bitMask;
 	}
 
 	public Rectangle rectangle() {
-		return new Rectangle(x(), y(), width(), height());
+		return new Rectangle(getX(), getY(), getWidth(), getHeight());
 	}
 
 	public int getParentWindowID() {

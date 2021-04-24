@@ -1,4 +1,4 @@
-package org.gnu.escher.x11.event;
+package org.gnu.escher.x11.enums;
 
 public enum Place {
 	TOP(0), BOTTOM(1);

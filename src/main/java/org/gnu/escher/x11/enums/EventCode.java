@@ -1,4 +1,4 @@
-package org.gnu.escher.x11.event;
+package org.gnu.escher.x11.enums;
 
 import java.util.*;
 import java.util.stream.*;

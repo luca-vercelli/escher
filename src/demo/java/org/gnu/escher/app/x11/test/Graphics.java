@@ -1,6 +1,6 @@
 package org.gnu.escher.app.x11.test;
 
-import static org.gnu.escher.x11.event.EventMask.*;
+import static org.gnu.escher.x11.enums.EventMask.*;
 
 import org.gnu.escher.app.Application;
 import org.gnu.escher.x11.Window;
@@ -65,7 +65,7 @@ public abstract class Graphics extends Application {
       break;
 
     case EXPOSE:
-      if (((Expose) event).count () == 0) paint ();
+      if (((Expose) event).getCount () == 0) paint ();
       break;
 	
     case KEY_PRESS: {

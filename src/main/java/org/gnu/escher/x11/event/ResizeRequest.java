@@ -20,11 +20,11 @@ public final class ResizeRequest extends Event {
 
 	// -- reading
 
-	public int width() {
+	public int getWidth() {
 		return width;
 	}
 
-	public int height() {
+	public int getHeight() {
 		return height;
 	}
 
@@ -33,7 +33,7 @@ public final class ResizeRequest extends Event {
 	 *
 	 * @return the window ID of the resize request
 	 */
-	public int window_id() {
+	public int getWindowId() {
 		return windowID;
 	}
 }

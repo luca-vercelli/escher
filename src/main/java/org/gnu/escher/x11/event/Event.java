@@ -3,6 +3,7 @@ package org.gnu.escher.x11.event;
 import org.gnu.escher.x11.Display;
 import org.gnu.escher.x11.RequestOutputStream;
 import org.gnu.escher.x11.ResponseInputStream;
+import org.gnu.escher.x11.enums.EventCode;
 
 /**
  * The base class for all X events.

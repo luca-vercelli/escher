@@ -2,44 +2,18 @@ package org.gnu.escher.x11.event;
 
 import org.gnu.escher.x11.Display;
 import org.gnu.escher.x11.ResponseInputStream;
+import org.gnu.escher.x11.enums.VisibilityState;
 
 /** X visibility notify event. */
 public final class VisibilityNotify extends Event {
 
-	public enum State {
-		UNOBSCURED(0), PARTIALLY_UNOBSCURED(1), FULLY_UNOBSCURED(2);
-
-		private int code;
-
-		State(int code) {
-			this.code = code;
-		}
-
-		public static State getByCode(int code) {
-			switch (code) {
-			case 0:
-				return UNOBSCURED;
-			case 1:
-				return PARTIALLY_UNOBSCURED;
-			case 2:
-				return FULLY_UNOBSCURED;
-			default:
-				return UNOBSCURED;
-			}
-		}
-
-		public int getCode() {
-			return code;
-		}
-	}
-
 	private int windowID;
-	private State state;
+	private VisibilityState state;
 
 	public VisibilityNotify(Display display, ResponseInputStream in) {
 		super(display, in);
 		windowID = in.readInt32();
-		state = State.getByCode(in.readInt8());
+		state = VisibilityState.getByCode(in.readInt8());
 		in.skip(23);
 	}
 
@@ -47,7 +21,7 @@ public final class VisibilityNotify extends Event {
 		return windowID;
 	}
 
-	public State getState() {
+	public VisibilityState getState() {
 		return state;
 	}
 }

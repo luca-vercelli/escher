@@ -3,6 +3,7 @@ package org.gnu.escher.app.x11.test;
 import org.gnu.escher.app.Application;
 import org.gnu.escher.x11.Window;
 import org.gnu.escher.x11.WindowAttributes;
+import org.gnu.escher.x11.enums.EventMask;
 import org.gnu.escher.x11.event.*;
 
 /**
@@ -56,7 +57,7 @@ public class Hello extends Application {
 				break;
 
 			case EXPOSE:
-				if (((Expose) event).count() == 0) {
+				if (((Expose) event).getCount() == 0) {
 					window.text(display.getDefaultGC(), 20, 30, "Hello World!");
 					display.flush();
 				}

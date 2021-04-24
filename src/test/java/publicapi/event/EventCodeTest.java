@@ -3,8 +3,9 @@ package publicapi.event;
 import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.gnu.escher.x11.event.EventCode.*;
+import static org.gnu.escher.x11.enums.EventCode.*;
 
+import org.gnu.escher.x11.enums.EventCode;
 import org.gnu.escher.x11.event.*;
 
 public class EventCodeTest {

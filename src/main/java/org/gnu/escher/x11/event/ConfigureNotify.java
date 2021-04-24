@@ -36,32 +36,28 @@ public final class ConfigureNotify extends Event {
 
 	// -- reading
 
-	public int eventID() {
-		return eventWindowID;
-	}
-
-	public int aboveSiblingID() {
+	public int getAboveSiblingID() {
 		return aboveSiblingID;
 	}
 
-	public int x() {
+	public int getX() {
 		return x;
 	}
 
-	public int y() {
+	public int getY() {
 		return y;
 	}
 
-	public int width() {
+	public int getWidth() {
 		return width;
 	}
 
-	public int height() {
+	public int getHeight() {
 		return height;
 	}
 
 	public Rectangle rectangle() {
-		return new Rectangle(x(), y(), width(), height());
+		return new Rectangle(getX(), getY(), getWidth(), getHeight());
 	}
 
 	public int getEventWindowID() {
@@ -70,10 +66,6 @@ public final class ConfigureNotify extends Event {
 
 	public int getWindowID() {
 		return windowID;
-	}
-
-	public int getAboveSiblingID() {
-		return aboveSiblingID;
 	}
 
 	public int getBorderWidth() {

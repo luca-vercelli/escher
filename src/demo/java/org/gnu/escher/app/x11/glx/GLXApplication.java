@@ -4,6 +4,7 @@ import java.lang.*;
 import java.lang.Error;
 
 import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.enums.EventMask;
 import org.gnu.escher.x11.enums.WinClass;
 import org.gnu.escher.x11.event.*;
 import org.gnu.escher.x11.extension.glx.*;
@@ -160,7 +161,7 @@ public abstract class GLXApplication extends org.gnu.escher.app.Application {
 		ConfigureNotify e = (ConfigureNotify) event;
 
 		if (window.resized(e.rectangle()))
-			handle_resize(e.width(), e.height());
+			handle_resize(e.getWidth(), e.getHeight());
 		window.setGeometryCache(e.rectangle());
 	}
 
@@ -192,7 +193,7 @@ public abstract class GLXApplication extends org.gnu.escher.app.Application {
 	}
 
 	private void dispatch_expose() {
-		if (((Expose) event).count() == 0)
+		if (((Expose) event).getCount() == 0)
 			handle_expose();
 	}
 

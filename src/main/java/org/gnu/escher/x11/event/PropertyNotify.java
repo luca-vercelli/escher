@@ -3,39 +3,22 @@ package org.gnu.escher.x11.event;
 import org.gnu.escher.x11.Atom;
 import org.gnu.escher.x11.Display;
 import org.gnu.escher.x11.ResponseInputStream;
+import org.gnu.escher.x11.enums.PropertyState;
 
 /** X property notify event. */
 public final class PropertyNotify extends Event {
 
-	public enum State {
-		NEW_VALUE(0), DELETED(1);
-
-		private int code;
-
-		State(int code) {
-			this.code = code;
-		}
-
-		public int getCode() {
-			return code;
-		}
-
-		public static State getByCode(int code) {
-			return code == 0 ? NEW_VALUE : DELETED;
-		}
-	}
-
 	private int windowID;
 	private int atomID;
 	private int time;
-	private State state;
+	private PropertyState state;
 
 	public PropertyNotify(Display display, ResponseInputStream in) {
 		super(display, in);
 		windowID = in.readInt32();
 		atomID = in.readInt32();
 		time = in.readInt32();
-		state = State.getByCode(in.readInt8());
+		state = PropertyState.getByCode(in.readInt8());
 		in.skip(15);
 	}
 
@@ -69,7 +52,7 @@ public final class PropertyNotify extends Event {
 		return this.time;
 	}
 
-	public State getState() {
+	public PropertyState getState() {
 
 		return this.state;
 	}

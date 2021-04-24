@@ -1,6 +1,7 @@
 package org.gnu.escher.x11.event;
 
 import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.enums.EventCode;
 
 /**
  * X input-related event.
@@ -202,6 +203,7 @@ public abstract class InputEvent extends Event {
 		state = s;
 	}
 
+	@Override
 	public void write(RequestOutputStream o) {
 
 		super.write(o);

@@ -8,6 +8,7 @@ import java.util.Random;
 import org.gnu.escher.app.Application;
 import org.gnu.escher.app.displayhack.eraser.Eraser;
 import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.enums.EventMask;
 import org.gnu.escher.x11.event.*;
 import org.gnu.escher.x11.geometric.Rectangle;
 

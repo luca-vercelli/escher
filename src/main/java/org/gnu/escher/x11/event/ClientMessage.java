@@ -25,7 +25,7 @@ public final class ClientMessage extends Event {
 		return getDetail();
 	}
 
-	public int type_id() {
+	public int getTypeId() {
 		return typeAtomID;
 	}
 
@@ -49,7 +49,7 @@ public final class ClientMessage extends Event {
 	}
 
 	public Atom type() {
-		return (Atom) Atom.intern(getDisplay(), type_id(), true);
+		return (Atom) Atom.intern(getDisplay(), getTypeId(), true);
 	}
 
 	public int getWindowID() {

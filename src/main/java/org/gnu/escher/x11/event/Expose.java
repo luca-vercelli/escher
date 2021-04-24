@@ -26,23 +26,23 @@ public final class Expose extends Event {
 		in.skip(14); // Unused.
 	}
 
-	public int x() {
+	public int getX() {
 		return x;
 	}
 
-	public int y() {
+	public int getY() {
 		return y;
 	}
 
-	public int width() {
+	public int getWidth() {
 		return width;
 	}
 
-	public int height() {
+	public int getHeight() {
 		return height;
 	}
 
-	public int count() {
+	public int getCount() {
 		return count;
 	}
 
