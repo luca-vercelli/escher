@@ -4,9 +4,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.gnu.escher.x11.XAuthority.Family;
 import org.junit.jupiter.api.Test;
-
-import gnu.x11.XAuthority.Family;
 
 public class XAuthorityFamilyTest {
 	@Test

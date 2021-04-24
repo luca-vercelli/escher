@@ -2,8 +2,8 @@ package publicapi;
 
 import org.junit.jupiter.api.*;
 
-import static gnu.util.Strings.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.gnu.escher.utils.Strings.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StringsTest {

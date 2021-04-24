@@ -1,15 +1,16 @@
 package publicapi.display;
 
-import gnu.x11.DisplayName;
-import gnu.x11.*;
 import java.io.*;
 import java.net.*;
 import mockit.*;
+
+import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.DisplayName;
 import org.junit.jupiter.api.*;
 import org.newsclub.net.unix.*;
 
-import static gnu.x11.DisplayName.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.gnu.escher.x11.DisplayName.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DisplayNameTest {
@@ -39,7 +40,7 @@ public class DisplayNameTest {
 
 	@Test
 	void parse_hostName() {
-		gnu.x11.DisplayName name = parse("hostName");
+		org.gnu.escher.x11.DisplayName name = parse("hostName");
 		assertThat(name.getHostName()).isEqualTo("hostName");
 		assertThat(name.getDisplayNumber()).isEqualTo(0);
 		assertThat(name.getScreenNumber()).isEqualTo(0);
@@ -49,7 +50,7 @@ public class DisplayNameTest {
 
 	@Test
 	void parse_hostName_displayNumber() {
-		gnu.x11.DisplayName name = parse("hostName:2");
+		org.gnu.escher.x11.DisplayName name = parse("hostName:2");
 		assertThat(name.getHostName()).isEqualTo("hostName");
 		assertThat(name.getDisplayNumber()).isEqualTo(2);
 		assertThat(name.getScreenNumber()).isEqualTo(0);
@@ -59,7 +60,7 @@ public class DisplayNameTest {
 
 	@Test
 	void parse_hostName_displayNumber_screenNumber() {
-		gnu.x11.DisplayName name = parse("hostName:2.1");
+		org.gnu.escher.x11.DisplayName name = parse("hostName:2.1");
 		assertThat(name.getHostName()).isEqualTo("hostName");
 		assertThat(name.getDisplayNumber()).isEqualTo(2);
 		assertThat(name.getScreenNumber()).isEqualTo(1);
@@ -69,7 +70,7 @@ public class DisplayNameTest {
 
 	@Test
 	void parse_displayNumber() {
-		gnu.x11.DisplayName name = parse(":2");
+		org.gnu.escher.x11.DisplayName name = parse(":2");
 		assertThat(name.getHostName()).isNull();
 		assertThat(name.getDisplayNumber()).isEqualTo(2);
 		assertThat(name.getScreenNumber()).isEqualTo(0);

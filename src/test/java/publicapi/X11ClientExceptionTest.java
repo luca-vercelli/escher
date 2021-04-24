@@ -1,6 +1,6 @@
 package publicapi;
 
-import gnu.x11.*;
+import org.gnu.escher.x11.*;
 import org.junit.jupiter.api.*;
 
 import java.io.*;
