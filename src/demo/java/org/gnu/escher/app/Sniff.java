@@ -1,70 +1,67 @@
 package org.gnu.escher.app;
 
+import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 import org.gnu.escher.x11.Data;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 
 /**
  * A network middle-layer sniffer.
  *
- * <p>Useful for debugging x11 protocol. Highly un-optimizied.
+ * <p>
+ * Useful for debugging x11 protocol. Highly un-optimizied.
  * 
- * @see <a href="../../../etc/screenshot/gnu/app/Sniff.help">
- * help output</a>
+ * @see <a href="../../../etc/screenshot/gnu/app/Sniff.help"> help output</a>
  */
 public class Sniff extends Application {
-  public Sniff (String [] args) throws java.io.IOException, 
-    java.net.UnknownHostException, InterruptedException {
+	public Sniff(String[] args) throws IOException, UnknownHostException, InterruptedException {
 
-    super (args);
+		super(args);
 
-    int listen_port = option.intt ("listen-port",
-      "port number to listen to", 6001);
-    int talk_port = option.intt ("talk-port",
-      "port number to talk to", 6000);
+		int listen_port = option.intt("listen-port", "port number to listen to", 6001);
+		int talk_port = option.intt("talk-port", "port number to talk to", 6000);
 
-    about ("0.1", "network middle-layer sniffer",
-      "Stephen Tse <stephent@sfu.ca>",
-      "http://escher.sourceforge.net/");
+		about("0.1", "network middle-layer sniffer", "Stephen Tse <stephent@sfu.ca>", "http://escher.sourceforge.net/");
 
-    if (help_option) return;    
+		if (help_option)
+			return;
 
-    Socket listen_socket = new java.net.ServerSocket (
-      listen_port).accept ();
-    InputStream listen_is = listen_socket.getInputStream ();
-    OutputStream listen_os = listen_socket.getOutputStream ();
+		Socket listen_socket = new ServerSocket(listen_port).accept();
+		InputStream listen_is = listen_socket.getInputStream();
+		OutputStream listen_os = listen_socket.getOutputStream();
 
-    Socket talk_socket = new Socket ("127.0.0.1", talk_port);
-    InputStream talk_is = talk_socket.getInputStream ();
-    OutputStream talk_os = talk_socket.getOutputStream ();
-    
-    while (true) {
-      boolean something = false;
+		Socket talk_socket = new Socket("127.0.0.1", talk_port);
+		InputStream talk_is = talk_socket.getInputStream();
+		OutputStream talk_os = talk_socket.getOutputStream();
 
-      while (listen_is.available () > 0) {
-        something = true;
-        int data = listen_is.read ();
-        talk_os.write (data);
-        System.out.println ("> " + Data.byte_to_string (data));
-      }
+		while (true) {
+			boolean something = false;
 
-      while (talk_is.available () > 0) {
-        something = true;
-        int data = talk_is.read ();
-        listen_os.write (data);
-        System.out.println ("< " + Data.byte_to_string (data));
-      }
+			while (listen_is.available() > 0) {
+				something = true;
+				int data = listen_is.read();
+				talk_os.write(data);
+				System.out.println("> " + Data.byte_to_string(data));
+			}
 
-      if (!something) Thread.sleep(100);
-    }
-  }
+			while (talk_is.available() > 0) {
+				something = true;
+				int data = talk_is.read();
+				listen_os.write(data);
+				System.out.println("< " + Data.byte_to_string(data));
+			}
 
-  
-  public static void main (String [] args) throws Exception {
-    new Sniff (args);
-  }
+			if (!something)
+				Thread.sleep(100);
+		}
+	}
+
+	public static void main(String[] args) throws Exception {
+		new Sniff(args);
+	}
 }

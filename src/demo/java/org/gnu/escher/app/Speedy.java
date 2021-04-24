@@ -9,9 +9,12 @@
 
 package org.gnu.escher.app;
 
-import static org.gnu.escher.x11.DisplayName.*;
+import static org.gnu.escher.x11.DisplayName.parse;
 
-import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.Display;
+import org.gnu.escher.x11.GC;
+import org.gnu.escher.x11.Window;
+import org.gnu.escher.x11.WindowAttributes;
 
 /**
  * A simplistic benchmark for raw rendering throughput.
@@ -20,41 +23,39 @@ import org.gnu.escher.x11.*;
  */
 public class Speedy extends org.gnu.escher.app.Application {
 
-  /**
-   * The default number of iterations.
-   */
-  private static final int DEFAULT_ITERATIONS = 100000;
+	/**
+	 * The default number of iterations.
+	 */
+	private static final int DEFAULT_ITERATIONS = 100000;
 
-  /**
-   * The application window.
-   */
-  private Window window;
+	/**
+	 * The application window.
+	 */
+	private Window window;
 
-  /**
-   * The connection.
-   */
-  private Display display;
+	/**
+	 * The connection.
+	 */
+	private Display display;
 
-  /**
-   * The number of iterations for each benchmark.
-   */
-  private int iterations;
+	/**
+	 * The number of iterations for each benchmark.
+	 */
+	private int iterations;
 
-  /** Creates a new instance of Speedy */
-  public Speedy (String[] args) {
-    super (args);
+	/** Creates a new instance of Speedy */
+	public Speedy(String[] args) {
+		super(args);
 
-    iterations = option.intt ("iterations",
-                              "the number of iterations for each benchmark",
-                               DEFAULT_ITERATIONS, 0, Integer.MAX_VALUE);
+		iterations = option.intt("iterations", "the number of iterations for each benchmark", DEFAULT_ITERATIONS, 0,
+				Integer.MAX_VALUE);
 
-    about ("0.1", "A simplistic benchmark for raw rendering throughput",
-      "Roman Kennke <roman@kennke.org>",
-      "http://escher.sourceforge.net/");
+		about("0.1", "A simplistic benchmark for raw rendering throughput", "Roman Kennke <roman@kennke.org>",
+				"http://escher.sourceforge.net/");
 
-    if (help_option) {
-      return;
-    }
+		if (help_option) {
+			return;
+		}
 
 //    try {
 //      System.loadLibrary ("localsocket");
@@ -64,94 +65,94 @@ public class Speedy extends org.gnu.escher.app.Application {
 //    } catch (SocketException ex) {
 //      ex.printStackTrace ();
 //    }
-    display = parse(":0").connect();
-    WindowAttributes atts = new WindowAttributes();
-    window = new Window (display.getDefaultRoot(), 0, 0, 600, 400, 0, atts);
-    window.map ();
+		display = parse(":0").connect();
+		WindowAttributes atts = new WindowAttributes();
+		window = new Window(display.getDefaultRoot(), 0, 0, 600, 400, 0, atts);
+		window.map();
 
-    drawLines (iterations, false);
-    drawLines (iterations, true);
-    drawRectangles (iterations, false);
-    drawRectangles (iterations, true);
-    fillRectangles (iterations, false);
-    fillRectangles (iterations, true);
-  }
+		drawLines(iterations, false);
+		drawLines(iterations, true);
+		drawRectangles(iterations, false);
+		drawRectangles(iterations, true);
+		fillRectangles(iterations, false);
+		fillRectangles(iterations, true);
+	}
 
-  private void drawLines (int iter, boolean record) {
-    if (record) {
-      System.out.print("draw " + iter + " lines : ");
-    }
-    long start = System.currentTimeMillis ();
-    GC gc = new GC (window);
-    for (int i = 0; i < iter; i++) {
-      int x = (int) (Math.random () * 640);
-      int y = (int) (Math.random () * 400);
-      int w = (int) (Math.random () * 640);
-      int h = (int) (Math.random () * 400);
-      gc.setForeground((int) (Math.random () * 0x1000000));
-      window.line (gc, x, y, w, h);
-    }
-    sync ();
-    if (record) {
-      long end = System.currentTimeMillis ();
-      System.out.println ("" + (end - start) + " ms");
-    }
-  }
+	private void drawLines(int iter, boolean record) {
+		if (record) {
+			System.out.print("draw " + iter + " lines : ");
+		}
+		long start = System.currentTimeMillis();
+		GC gc = new GC(window);
+		for (int i = 0; i < iter; i++) {
+			int x = (int) (Math.random() * 640);
+			int y = (int) (Math.random() * 400);
+			int w = (int) (Math.random() * 640);
+			int h = (int) (Math.random() * 400);
+			gc.setForeground((int) (Math.random() * 0x1000000));
+			window.line(gc, x, y, w, h);
+		}
+		sync();
+		if (record) {
+			long end = System.currentTimeMillis();
+			System.out.println("" + (end - start) + " ms");
+		}
+	}
 
-  private void drawRectangles (int iter, boolean record) {
-    if (record) {
-      System.out.print("draw " + iter + " rectangles : ");
-    }
-    long start = System.currentTimeMillis ();
-    GC gc = new GC (window);
-    for (int i = 0; i < iter; i++) {
-      int x = (int) (Math.random () * 640);
-      int y = (int) (Math.random () * 400);
-      int w = (int) (Math.random () * (640 - x));
-      int h = (int) (Math.random () * (400 - y));
-      gc.setForeground ((int) (Math.random () * 0x1000000));
-      window.rectangle (gc, x, y, w, h, false);
-    }
-    sync ();
-    if (record) {
-      long end = System.currentTimeMillis ();
-      System.out.println ("" + (end - start) + " ms");
-    }
-  }
+	private void drawRectangles(int iter, boolean record) {
+		if (record) {
+			System.out.print("draw " + iter + " rectangles : ");
+		}
+		long start = System.currentTimeMillis();
+		GC gc = new GC(window);
+		for (int i = 0; i < iter; i++) {
+			int x = (int) (Math.random() * 640);
+			int y = (int) (Math.random() * 400);
+			int w = (int) (Math.random() * (640 - x));
+			int h = (int) (Math.random() * (400 - y));
+			gc.setForeground((int) (Math.random() * 0x1000000));
+			window.rectangle(gc, x, y, w, h, false);
+		}
+		sync();
+		if (record) {
+			long end = System.currentTimeMillis();
+			System.out.println("" + (end - start) + " ms");
+		}
+	}
 
-  private void fillRectangles (int iter, boolean record) {
-    if (record) {
-      System.out.print("fill " + iter + " rectangles : ");
-    }
-    long start = System.currentTimeMillis ();
-    GC gc = new GC (window);
-    for (int i = 0; i < iter; i++) {
-      int x = (int) (Math.random () * 640);
-      int y = (int) (Math.random () * 400);
-      int w = (int) (Math.random () * (640 - x));
-      int h = (int) (Math.random () * (400 - x));
-      gc.setForeground ((int) (Math.random () * 0x1000000));
-      window.rectangle (gc, x, y, w, h, true);
-    }
-    sync ();
-    if (record) {
-      long end = System.currentTimeMillis ();
-      System.out.println ("" + (end - start) + " ms");
-    }
-  }
+	private void fillRectangles(int iter, boolean record) {
+		if (record) {
+			System.out.print("fill " + iter + " rectangles : ");
+		}
+		long start = System.currentTimeMillis();
+		GC gc = new GC(window);
+		for (int i = 0; i < iter; i++) {
+			int x = (int) (Math.random() * 640);
+			int y = (int) (Math.random() * 400);
+			int w = (int) (Math.random() * (640 - x));
+			int h = (int) (Math.random() * (400 - x));
+			gc.setForeground((int) (Math.random() * 0x1000000));
+			window.rectangle(gc, x, y, w, h, true);
+		}
+		sync();
+		if (record) {
+			long end = System.currentTimeMillis();
+			System.out.println("" + (end - start) + " ms");
+		}
+	}
 
-  /**
-   * Synces with the X server by forcing a reply. This way we make sure
-   * that everything is completely drawn before measuring the time.
-   */
-  private void sync () {
-    display.check_error ();
-  }
+	/**
+	 * Synces with the X server by forcing a reply. This way we make sure that
+	 * everything is completely drawn before measuring the time.
+	 */
+	private void sync() {
+		display.check_error();
+	}
 
-  /**
-   * Starts the program.
-   */
-  public static void main (String[] args) {
-    new Speedy(args);
-  }
+	/**
+	 * Starts the program.
+	 */
+	public static void main(String[] args) {
+		new Speedy(args);
+	}
 }
