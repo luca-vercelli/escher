@@ -4,6 +4,7 @@ package org.gnu.escher.x11;
 import org.gnu.escher.x11.enums.CoordinateMode;
 import org.gnu.escher.x11.enums.DrawableShape;
 import org.gnu.escher.x11.enums.Fill;
+import org.gnu.escher.x11.enums.Format;
 import org.gnu.escher.x11.enums.X11CoreCommand;
 import org.gnu.escher.x11.geometric.Arc;
 import org.gnu.escher.x11.geometric.Point;
@@ -420,18 +421,18 @@ public abstract class Drawable extends Resource {
 			int length = image.getLineByteCount() * (y2 - y1);
 			int p = RequestOutputStream.pad(length);
 
-			Image.Format format = image.get_format();
+			Format format = image.getFormat();
 			o.beginRequest(72, format.getID(), 6 + (length + p) / 4);
 			o.writeInt32(id);
 			o.writeInt32(gc.id);
-			o.writeInt16(image.get_width());
+			o.writeInt16(image.getWidth());
 			o.writeInt16(y2 - y1);
 			o.writeInt16(x);
 			o.writeInt16(y);
 			o.writeInt8(image.getLeftPad());
-			o.writeInt8(image.get_pixmap_format().getDepth());
+			o.writeInt8(image.getPixmapFormat().getDepth());
 			o.skip(2);
-			o.write(image.get_data(), offset, length);
+			o.write(image.getData(), offset, length);
 			o.send();
 		}
 	}
@@ -444,7 +445,7 @@ public abstract class Drawable extends Resource {
 	 * 
 	 * @throws X11ClientException
 	 */
-	public Image image(int x, int y, int width, int height, int planeMask, Image.Format format) {
+	public Image image(int x, int y, int width, int height, int planeMask, Format format) {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		Image image;
@@ -471,7 +472,7 @@ public abstract class Drawable extends Resource {
 				byte[] data = new byte[len];
 				i.readData(data);
 
-				if (format == Image.Format.ZPIXMAP) {
+				if (format == Format.ZPIXMAP) {
 					// should never be null
 					VisualInfo xVisual = this.display.getVisualInfo(visualID);
 					if (xVisual == null) {
@@ -782,11 +783,11 @@ public abstract class Drawable extends Resource {
 		int max_data_byte = display.getMaximumRequestLength() - 24;
 		int lbc = image.getLineByteCount();
 		int request_height = lbc > 0 ? max_data_byte / image.getLineByteCount() : 1;
-		int rem = image.get_height() % request_height;
-		int request_count = image.get_height() / request_height + (rem == 0 ? 0 : 1);
+		int rem = image.getHeight() % request_height;
+		int request_count = image.getHeight() / request_height + (rem == 0 ? 0 : 1);
 
 		for (int i = 0; i < request_count; i++) {
-			putSmallImage(gc, image, i * request_height, Math.min(image.get_height(), (i + 1) * request_height), x,
+			putSmallImage(gc, image, i * request_height, Math.min(image.getHeight(), (i + 1) * request_height), x,
 					y + i * request_height);
 		}
 	}

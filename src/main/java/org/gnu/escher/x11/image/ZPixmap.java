@@ -7,6 +7,7 @@ import org.gnu.escher.x11.Pixmap;
 import org.gnu.escher.x11.RGB;
 import org.gnu.escher.x11.VisualInfo;
 import org.gnu.escher.x11.X11ClientException;
+import org.gnu.escher.x11.enums.Format;
 
 public class ZPixmap extends Image {
 

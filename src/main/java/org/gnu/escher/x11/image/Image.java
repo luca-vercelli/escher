@@ -2,27 +2,9 @@
 package org.gnu.escher.x11.image;
 
 import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.enums.Format;
 
 public abstract class Image {
-
-	/**
-	 * The possible pixmap formats for client side images.
-	 */
-	public static enum Format {
-
-		BITMAP(0), XYPIXMAP(1), ZPIXMAP(2);
-
-		private int id;
-
-		Format(int id) {
-
-			this.id = id;
-		}
-
-		public int getID() {
-			return this.id;
-		}
-	}
 
 	/*
 	 * public static enum ByteOrder { LSB_FIRST(0), MSB_FIRST(1);
@@ -138,8 +120,7 @@ public abstract class Image {
 	 * 
 	 * @return the width of the image in pixels
 	 */
-	public int get_width() {
-
+	public int getWidth() {
 		return width;
 	}
 
@@ -148,8 +129,7 @@ public abstract class Image {
 	 * 
 	 * @return the height of the image in pixels
 	 */
-	public int get_height() {
-
+	public int getHeight() {
 		return height;
 	}
 
@@ -158,13 +138,11 @@ public abstract class Image {
 	 * 
 	 * @return the image format
 	 */
-	public Format get_format() {
-
+	public Format getFormat() {
 		return format;
 	}
 
-	public byte[] get_data() {
-
+	public byte[] getData() {
 		return data;
 	}
 
@@ -173,8 +151,7 @@ public abstract class Image {
 		return leftPad;
 	}
 
-	public Pixmap.Format get_pixmap_format() {
-
+	public Pixmap.Format getPixmapFormat() {
 		return pixmapFormat;
 	}
 
