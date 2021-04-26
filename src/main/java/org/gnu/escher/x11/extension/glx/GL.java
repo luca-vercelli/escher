@@ -294,7 +294,7 @@ public class GL extends org.gnu.escher.x11.Resource implements GLConstant {
 	 * @return the output stream
 	 */
 	private GLRenderRequest beginRenderRequest(RequestOutputStream o, GLXRenderingCommand command, int paramsLength) {
-		return begin_render_request(o, command.getOpcode(), command.getLength() + paramsLength);
+		return begin_render_request(o, command.getOpcode(), command.getBaseLength() + paramsLength);
 	}
 
 	// glx opcode 1 - render

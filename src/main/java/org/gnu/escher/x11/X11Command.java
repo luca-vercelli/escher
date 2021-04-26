@@ -21,5 +21,5 @@ public interface X11Command {
      * is the sum of the value returned by this method and the additional
      * data that the command send.
      */
-    int getLength();
+    int getBaseLength();
 }

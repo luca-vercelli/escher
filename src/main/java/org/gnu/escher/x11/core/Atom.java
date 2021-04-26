@@ -1,5 +1,7 @@
 package org.gnu.escher.x11.core;
 
+import org.gnu.escher.x11.enums.X11CoreRequest;
+
 /** X atom. */
 public class Atom {
 	// Predefined atom ids
@@ -173,7 +175,7 @@ public class Atom {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(16, onlyIfExists ? 1 : 0, 2 + (n + p) / 4);
+			o.beginRequest(X11CoreRequest.InternAtom.getOpcode(), onlyIfExists ? 1 : 0, 2 + (n + p) / 4);
 			o.writeInt16(n);
 			o.skip(2); // Unused.
 			o.writeString8(name);
@@ -203,7 +205,7 @@ public class Atom {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(17, 0, 2);
+			o.beginRequest(X11CoreRequest.GetAtomName.getOpcode(), 0, 2);
 			o.writeInt32(id);
 
 			ResponseInputStream i = display.getResponseInputStream();

@@ -11,7 +11,7 @@ import org.gnu.escher.x11.enums.CoordinateMode;
 import org.gnu.escher.x11.enums.DrawableShape;
 import org.gnu.escher.x11.enums.Fill;
 import org.gnu.escher.x11.enums.Format;
-import org.gnu.escher.x11.enums.X11CoreCommand;
+import org.gnu.escher.x11.enums.X11CoreRequest;
 import org.gnu.escher.x11.image.*;
 import org.gnu.escher.x11.types.Arc;
 import org.gnu.escher.x11.types.Point;
@@ -460,7 +460,7 @@ public abstract class Drawable extends Resource {
 
 		synchronized (o) {
 
-			o.beginX11CoreRequest(X11CoreCommand.GetImage, format.getId());
+			o.beginX11CoreRequest(X11CoreRequest.GetImage, format.getId());
 			o.writeInt32(id);
 			o.writeInt16(x);
 			o.writeInt16(y);

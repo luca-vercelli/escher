@@ -55,7 +55,7 @@ public enum GLXCommand implements X11Command {
 	}
 
 	// @Override
-	public int getLength() {
+	public int getBaseLength() {
 
 		return this.length;
 	}

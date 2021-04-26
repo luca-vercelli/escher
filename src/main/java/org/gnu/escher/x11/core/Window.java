@@ -7,9 +7,9 @@ import org.gnu.escher.x11.Cursor;
 import org.gnu.escher.x11.Data;
 import org.gnu.escher.x11.Drawable;
 import org.gnu.escher.x11.Input;
+import org.gnu.escher.x11.InputStreamObject;
 import org.gnu.escher.x11.Pixmap;
 import org.gnu.escher.x11.Resource;
-import org.gnu.escher.x11.InputStreamObject;
 import org.gnu.escher.x11.WindowAttributes;
 import org.gnu.escher.x11.enums.BackingStore;
 import org.gnu.escher.x11.enums.ChangeOperation;
@@ -23,11 +23,9 @@ import org.gnu.escher.x11.enums.StackMode;
 import org.gnu.escher.x11.enums.Visual;
 import org.gnu.escher.x11.enums.WMInitialState;
 import org.gnu.escher.x11.enums.WinClass;
-import org.gnu.escher.x11.enums.X11CoreCommand;
+import org.gnu.escher.x11.enums.X11CoreRequest;
 import org.gnu.escher.x11.event.Event;
 import org.gnu.escher.x11.extension.glx.GLXDrawable;
-import org.gnu.escher.x11.request.GetWindowAttributes;
-import org.gnu.escher.x11.request.X11Request;
 import org.gnu.escher.x11.types.Point;
 import org.gnu.escher.x11.types.Rectangle;
 import org.gnu.escher.x11.types.ValueList;
@@ -294,7 +292,7 @@ public class Window extends Drawable implements GLXDrawable {
 	}
 
 	/** Reply of {@link #getAttributes()}. */
-	public static class AttributesReply {
+	public static class AttributesReply implements InputStreamObject {
 
 		private BackingStore backingStore;
 
@@ -824,7 +822,7 @@ public class Window extends Drawable implements GLXDrawable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(1, depth, 8 + attr.count());
+			o.beginRequest(X11CoreRequest.CreateWindow.getOpcode(), depth, 8 + attr.count());
 			o.writeInt32(id);
 			o.writeInt32(parent.id);
 			o.writeInt16(x);
@@ -861,7 +859,7 @@ public class Window extends Drawable implements GLXDrawable {
 		// FIXME: Implement aggregation.
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(2, 0, 3 + attr.count());
+			o.beginRequest(X11CoreRequest.ChangeWindowAttributes.getOpcode(), 0, 3 + attr.count());
 			o.writeInt32(id);
 			o.writeInt32(attr.getBitmask());
 			attr.write(o);
@@ -875,11 +873,10 @@ public class Window extends Drawable implements GLXDrawable {
 	 */
 	public AttributesReply getAttributes() {
 
-		//X11Request request = new GetWindowAttributes(this);
 		RequestOutputStream o = display.getResponseOutputStream();
 		AttributesReply r;
 		synchronized (o) {
-			o.beginRequest(3, 0, 2);
+			o.beginRequest(X11CoreRequest.GetWindowAttributes.getOpcode(), 0, 2);
 			o.writeInt32(id);
 			ResponseInputStream i = display.getResponseInputStream();
 			synchronized (i) {
@@ -1375,7 +1372,7 @@ public class Window extends Drawable implements GLXDrawable {
 		int status;
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(31, ownerEvents ? 1 : 0, 4);
+			o.beginRequest(X11CoreRequest.GrabKeyboard.getOpcode(), ownerEvents ? 1 : 0, 4);
 			o.writeInt32(id);
 			o.writeInt32(time);
 			o.writeInt8(pointerMode.getCode());
@@ -1409,7 +1406,7 @@ public class Window extends Drawable implements GLXDrawable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(33, ownerEvents ? 1 : 0, 4);
+			o.beginRequest(X11CoreRequest.GrabKey.getOpcode(), ownerEvents ? 1 : 0, 4);
 			o.writeInt32(id);
 			o.writeInt16(modifiers);
 			o.writeInt8(keycode);
@@ -1450,7 +1447,7 @@ public class Window extends Drawable implements GLXDrawable {
 		PointerInfo info;
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(38, 0, 2);
+			o.beginRequest(X11CoreRequest.QueryPointer.getOpcode(), 0, 2);
 			o.writeInt32(id);
 			ResponseInputStream i = display.getResponseInputStream();
 			synchronized (i) {
@@ -1475,7 +1472,7 @@ public class Window extends Drawable implements GLXDrawable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(39, 0, 4);
+			o.beginRequest(X11CoreRequest.GetMotionEvents.getOpcode(), 0, 4);
 			o.writeInt32(id);
 			o.writeInt32(start);
 			o.writeInt32(stop);
@@ -1597,7 +1594,7 @@ public class Window extends Drawable implements GLXDrawable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginX11CoreRequest(X11CoreCommand.SetInputFocus, revertTo.getCode());
+			o.beginX11CoreRequest(X11CoreRequest.SetInputFocus, revertTo.getCode());
 			o.writeInt32(id);
 			o.writeInt32(time);
 			o.send();

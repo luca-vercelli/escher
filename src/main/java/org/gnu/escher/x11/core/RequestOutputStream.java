@@ -7,7 +7,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.gnu.escher.x11.RequestObject;
-import org.gnu.escher.x11.enums.X11CoreCommand;
+import org.gnu.escher.x11.enums.X11CoreRequest;
 import org.gnu.escher.x11.extension.glx.GLXCommand;
 
 /**
@@ -192,7 +192,7 @@ public class RequestOutputStream extends FilterOutputStream {
 	 */
 	public void beginGLXRequest(GLXCommand command) {
 
-		beginRequest(this.glxMajorOpcode, command.getOpcode(), command.getLength());
+		beginRequest(this.glxMajorOpcode, command.getOpcode(), command.getBaseLength());
 	}
 
 	/**
@@ -200,9 +200,9 @@ public class RequestOutputStream extends FilterOutputStream {
 	 * 
 	 * @param command
 	 */
-	public void beginX11CoreRequest(X11CoreCommand command, int secondField) {
+	public void beginX11CoreRequest(X11CoreRequest command, int secondField) {
 
-		this.beginRequest(command.getOpcode(), secondField, command.getLength());
+		this.beginRequest(command.getOpcode(), secondField, command.getBaseLength());
 	}
 
 	/**
