@@ -19,24 +19,25 @@ public enum X11CoreRequest implements X11Command {
 
 	// TODO fill this, -1 means "I had no time to write this yet"
 
+	// in Window
 	CreateWindow(1, 8), //
 	ChangeWindowAttributes(2, 3), //
 	GetWindowAttributes(3, 2), //
-	DestroyWindow(4, -1), //
-	DestroySubwindows(5, -1), //
-	ChangeSaveSet(6, -1), //
-	ReparentWindow(7, -1), //
-	MapWindow(8, -1), //
-	MapSubwindows(9, -1), //
-	UnmapWindow(10, -1), //
-	UnmapSubwindows(11, -1), //
-	ConfigureWindow(12, -1), //
-	CirculateWindow(13, -1), //
-	GetGeometry(14, -1), //
-	QueryTree(15, -1), //
+	DestroyWindow(4, 2), //
+	DestroySubwindows(5, 2), //
+	ChangeSaveSet(6, 2), //
+	ReparentWindow(7, 4), //
+	MapWindow(8, 2), //
+	MapSubwindows(9, 2), //
+	UnmapWindow(10, 2), //
+	UnmapSubwindows(11, 2), //
+	ConfigureWindow(12, 3), //
+	CirculateWindow(13, 2), //
+	GetGeometry(14, -1), // in Drawable ?!?
+	QueryTree(15, 2), //
 	InternAtom(16, 2), //
 	GetAtomName(17, 2), //
-	ChangeProperty(18, -1), //
+	ChangeProperty(18, 6), //
 	DeleteProperty(19, -1), //
 	GetProperty(20, -1), //
 	RotateProperties(114, -1), //
@@ -64,11 +65,16 @@ public enum X11CoreRequest implements X11Command {
 	SetInputFocus(42, 3), //
 	GetInputFocus(43, -1), //
 	QueryKeymap(44, -1), //
-	OpenFont(45, -1), //
-	CloseFont(46, -1), //
-	QueryFont(47, -1), //
-	QueryTextExtents(48, -1), //
-	ListFonts(49, -1), //
+
+	// in Font
+	OpenFont(45, 3), //
+	CloseFont(46, 2), //
+
+	// in Fontable
+	QueryFont(47, 2), //
+	QueryTextExtents(48, 2), //
+
+	ListFonts(49, 2), // in Display ?!?
 	ListFontsWithInfo(50, -1), //
 	SetFontPath(51, -1), //
 	GetFontPath(52, -1), //
@@ -80,7 +86,7 @@ public enum X11CoreRequest implements X11Command {
 	SetDashes(58, -1), //
 	SetClipRectangles(59, -1), //
 	FreeGC(60, -1), //
-	ClearArea(61, -1), //
+	ClearArea(61, 4), // in Window...
 	CopyArea(62, -1), //
 	CopyPlane(63, -1), //
 	PolyPoint(64, -1), //
@@ -102,7 +108,7 @@ public enum X11CoreRequest implements X11Command {
 	CopyColormapAndFree(80, -1), //
 	InstallColormap(81, -1), //
 	UninstallColormap(82, -1), //
-	ListInstalledColormaps(83, -1), //
+	ListInstalledColormaps(83, 2), //
 	AllocColor(84, -1), //
 	AllocNamedColor(85, -1), //
 	AllocColorCells(86, -1), //
@@ -112,10 +118,13 @@ public enum X11CoreRequest implements X11Command {
 	StoreNamedColor(90, -1), //
 	QueryColors(91, -1), //
 	LookupColor(92, -1), //
-	CreateCursor(93, -1), //
-	CreateGlyphCursor(94, -1), //
-	FreeCursor(95, -1), //
-	RecolorCursor(96, -1), //
+
+	// in Cursor
+	CreateCursor(93, 8), //
+	CreateGlyphCursor(94, 8), //
+	FreeCursor(95, 2), //
+	RecolorCursor(96, 5), //
+
 	QueryBestSize(97, -1), //
 	QueryExtension(98, -1), //
 	ListExtensions(99, -1), //

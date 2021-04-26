@@ -895,7 +895,7 @@ public class Window extends Drawable implements GLXDrawable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(4, 0, 2);
+			o.beginRequest(X11CoreRequest.DestroyWindow.getOpcode(), 0, 2);
 			o.writeInt32(id);
 			o.send();
 		}
@@ -909,7 +909,7 @@ public class Window extends Drawable implements GLXDrawable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(5, 0, 2);
+			o.beginRequest(X11CoreRequest.DestroySubwindows.getOpcode(), 0, 2);
 			o.writeInt32(id);
 			o.send();
 		}
@@ -925,7 +925,7 @@ public class Window extends Drawable implements GLXDrawable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(6, mode.getCode(), 2);
+			o.beginRequest(X11CoreRequest.ChangeSaveSet.getOpcode(), mode.getCode(), 2);
 			o.writeInt32(id);
 			o.send();
 		}
@@ -939,7 +939,7 @@ public class Window extends Drawable implements GLXDrawable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(7, 0, 4);
+			o.beginRequest(X11CoreRequest.ReparentWindow.getOpcode(), 0, 4);
 			o.writeInt32(id);
 			o.writeInt32(parent.id);
 			o.writeInt16(x);
@@ -956,7 +956,7 @@ public class Window extends Drawable implements GLXDrawable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(8, 0, 2);
+			o.beginRequest(X11CoreRequest.MapWindow.getOpcode(), 0, 2);
 			o.writeInt32(id);
 			o.send();
 			o.flush();
@@ -971,7 +971,7 @@ public class Window extends Drawable implements GLXDrawable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(9, 0, 2);
+			o.beginRequest(X11CoreRequest.MapSubwindows.getOpcode(), 0, 2);
 			o.writeInt32(id);
 			o.send();
 		}
@@ -985,7 +985,7 @@ public class Window extends Drawable implements GLXDrawable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(10, 0, 2);
+			o.beginRequest(X11CoreRequest.UnmapWindow.getOpcode(), 0, 2);
 			o.writeInt32(id);
 			o.send();
 		}
@@ -999,7 +999,7 @@ public class Window extends Drawable implements GLXDrawable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(11, 0, 2);
+			o.beginRequest(X11CoreRequest.UnmapSubwindows.getOpcode(), 0, 2);
 			o.writeInt32(id);
 			o.send();
 		}
@@ -1016,7 +1016,7 @@ public class Window extends Drawable implements GLXDrawable {
 		// FIXME: Implement aggregation.
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(12, 0, 3 + changes.count());
+			o.beginRequest(X11CoreRequest.ConfigureWindow.getOpcode(), 0, 3 + changes.count());
 			o.writeInt32(id);
 			o.writeInt16(changes.getBitmask());
 			o.skip(2);
@@ -1035,7 +1035,7 @@ public class Window extends Drawable implements GLXDrawable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(13, direction.getCode(), 2);
+			o.beginRequest(X11CoreRequest.CirculateWindow.getOpcode(), direction.getCode(), 2);
 			o.writeInt32(id);
 			o.send();
 		}
@@ -1049,7 +1049,7 @@ public class Window extends Drawable implements GLXDrawable {
 		TreeInfo info;
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(15, 0, 2);
+			o.beginRequest(X11CoreRequest.QueryTree.getOpcode(), 0, 2);
 			o.writeInt32(id);
 			ResponseInputStream i = display.getResponseInputStream();
 			synchronized (i) {
@@ -1123,7 +1123,7 @@ public class Window extends Drawable implements GLXDrawable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(18, mode.getCode(), 6 + (n + p) / 4);
+			o.beginRequest(X11CoreRequest.ChangeProperty.getOpcode(), mode.getCode(), 6 + (n + p) / 4);
 			o.writeInt32(id);
 			o.writeInt32(property.getId());
 			o.writeInt32(type.getId());
@@ -1483,8 +1483,8 @@ public class Window extends Drawable implements GLXDrawable {
 				int len = i.readInt32();
 				timecoords = new TimeCoord[len];
 				i.skip(20);
-				for (TimeCoord t : timecoords)
-					t = new TimeCoord(i);
+				for (int j = 0; j < len; ++j)
+					timecoords[j] = new TimeCoord(i);
 			}
 		}
 		return timecoords;
@@ -1609,7 +1609,7 @@ public class Window extends Drawable implements GLXDrawable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(61, exposures ? 1 : 0, 4);
+			o.beginRequest(X11CoreRequest.ClearArea.getOpcode(), exposures ? 1 : 0, 4);
 			o.writeInt32(id);
 			o.writeInt16(x);
 			o.writeInt16(y);
@@ -1628,7 +1628,7 @@ public class Window extends Drawable implements GLXDrawable {
 		Colormap[] maps;
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(83, 0, 2);
+			o.beginRequest(X11CoreRequest.ListInstalledColormaps.getOpcode(), 0, 2);
 			o.writeInt32(id);
 			ResponseInputStream i = display.getResponseInputStream();
 			synchronized (i) {
@@ -1637,9 +1637,9 @@ public class Window extends Drawable implements GLXDrawable {
 				int numMaps = i.readInt16();
 				maps = new Colormap[numMaps];
 				i.skip(22);
-				for (Colormap map : maps) {
+				for (int j = 0; j < numMaps; ++j) {
 					int id = i.readInt32();
-					map = (Colormap) Colormap.intern(display, id);
+					maps[j] = (Colormap) Colormap.intern(display, id);
 				}
 			}
 		}

@@ -4,6 +4,7 @@ import org.gnu.escher.x11.core.Atom;
 import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.RequestOutputStream;
 import org.gnu.escher.x11.core.ResponseInputStream;
+import org.gnu.escher.x11.enums.X11CoreRequest;
 
 /** X fontable. */
 public abstract class Fontable extends Resource {
@@ -336,7 +337,7 @@ public abstract class Fontable extends Resource {
 		FontInfo info;
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(47, 0, 2);
+			o.beginRequest(X11CoreRequest.QueryFont.getOpcode(), 0, 2);
 			o.writeInt32(id);
 			ResponseInputStream i = display.getResponseInputStream();
 			synchronized (i) {
@@ -455,7 +456,7 @@ public abstract class Fontable extends Resource {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(48, odd ? 1 : 0, len);
+			o.beginRequest(X11CoreRequest.QueryTextExtents.getOpcode(), odd ? 1 : 0, len);
 			o.writeInt32(id);
 			o.writeString16(s);
 			ResponseInputStream i = display.getResponseInputStream();

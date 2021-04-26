@@ -74,6 +74,8 @@ public class Hello extends Application {
 					exit();
 				break;
 			}
+			default:
+				break;
 			}
 		}
 

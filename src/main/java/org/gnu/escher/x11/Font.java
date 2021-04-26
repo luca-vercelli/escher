@@ -3,6 +3,7 @@ package org.gnu.escher.x11;
 import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.RequestOutputStream;
 import org.gnu.escher.x11.core.Window;
+import org.gnu.escher.x11.enums.X11CoreRequest;
 
 /** X font. */
 public class Font extends Fontable {
@@ -34,7 +35,7 @@ public class Font extends Fontable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(45, 0, 3 + (n + p) / 4);
+			o.beginRequest(X11CoreRequest.OpenFont.getOpcode(), 0, 3 + (n + p) / 4);
 			o.writeInt32(id);
 			o.writeInt16(name.length());
 			o.skip(2);
@@ -51,7 +52,7 @@ public class Font extends Fontable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(46, 0, 2);
+			o.beginRequest(X11CoreRequest.CloseFont.getOpcode(), 0, 2);
 			o.writeInt32(id);
 			o.send();
 		}
