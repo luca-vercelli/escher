@@ -76,19 +76,23 @@ public enum X11CoreRequest implements X11Command {
 
 	// in Display
 	ListFonts(49, 2), //
-	ListFontsWithInfo(50, -1), //
-	SetFontPath(51, -1), //
-	GetFontPath(52, -1), //
+	ListFontsWithInfo(50, -1), // NOT IMPLEMENTED
+	SetFontPath(51, 2), //
+	GetFontPath(52, 1), //
 
-	CreatePixmap(53, -1), //
-	FreePixmap(54, -1), //
-	CreateGC(55, -1), //
-	ChangeGC(56, -1), //
-	CopyGC(57, -1), //
-	SetDashes(58, -1), //
-	SetClipRectangles(59, -1), //
-	FreeGC(60, -1), //
-	ClearArea(61, 4), // in Window...
+	// in Pixmap
+	CreatePixmap(53, 4), //
+	FreePixmap(54, 2), //
+	
+	// in GC
+	CreateGC(55, 4), //
+	ChangeGC(56, 0), //
+	CopyGC(57, 4), //
+	SetDashes(58, 3), //
+	SetClipRectangles(59, 3), //
+	FreeGC(60, 2), //
+
+	ClearArea(61, 4), // in Window?!?
 
 	// in Drawable
 	CopyArea(62, 7), //

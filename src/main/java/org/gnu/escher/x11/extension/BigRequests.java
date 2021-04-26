@@ -1,6 +1,7 @@
 
 package org.gnu.escher.x11.extension;
 
+import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.RequestOutputStream;
 import org.gnu.escher.x11.core.ResponseInputStream;
 
@@ -11,7 +12,7 @@ import org.gnu.escher.x11.core.ResponseInputStream;
  */
 public class BigRequests extends Extension {
 
-	public BigRequests(org.gnu.escher.x11.core.Display display) throws ExtensionNotFoundException {
+	public BigRequests(Display display) throws ExtensionNotFoundException {
 
 		super(display, "BIG-REQUESTS", null);
 	}

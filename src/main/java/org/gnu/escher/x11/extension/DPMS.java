@@ -1,5 +1,7 @@
 package org.gnu.escher.x11.extension;
 
+import org.gnu.escher.x11.InputStreamObject;
+import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.RequestOutputStream;
 import org.gnu.escher.x11.core.ResponseInputStream;
 
@@ -12,7 +14,8 @@ import org.gnu.escher.x11.core.ResponseInputStream;
  * 
  */
 public class DPMS extends Extension {
-	private static final String[] MINOR_OPCODE_STRINGS = { "GetVersion", // 0
+	private static final String[] MINOR_OPCODE_STRINGS = { //
+			"GetVersion", // 0
 			"Capable", // 1
 			"GetTimeouts", // 2
 			"SetTimeouts", // 3
@@ -31,7 +34,7 @@ public class DPMS extends Extension {
 	/**
 	 * @see <a href="DPMSQueryExtension.html">DPMSQueryExtension</a>
 	 */
-	public DPMS(org.gnu.escher.x11.core.Display display) throws ExtensionNotFoundException {
+	public DPMS(Display display) throws ExtensionNotFoundException {
 		super(display, "DPMS", MINOR_OPCODE_STRINGS);
 
 		// check version before any other operations
@@ -78,7 +81,7 @@ public class DPMS extends Extension {
 	}
 
 	/** Reply of {@link #getTimeouts()} */
-	public static class TimeoutsInfo {
+	public static class TimeoutsInfo implements InputStreamObject {
 
 		private int standby;
 		private int suspend;
@@ -212,7 +215,8 @@ public class DPMS extends Extension {
 
 	// dpms opcode 6 - force level
 	/**
-	 * @param level valid: {@link Level},
+	 * @param level
+	 *            valid: {@link Level},
 	 *
 	 * @see <a href="DPMSForceLevel.html">DPMSForceLevel</a>
 	 */
@@ -226,7 +230,7 @@ public class DPMS extends Extension {
 	}
 
 	/** Reply of {@link #info()} */
-	public static class Info {
+	public static class Info implements InputStreamObject {
 
 		/**
 		 * One of: {@link Level}

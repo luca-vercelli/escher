@@ -120,7 +120,8 @@ public class RequestOutputStream extends FilterOutputStream {
 	 * Creates a new RequestOutputStream with the specified sink and a default
 	 * buffer size.
 	 *
-	 * @param sink the output stream to write to
+	 * @param sink
+	 *            the output stream to write to
 	 */
 	RequestOutputStream(OutputStream sink, Display d) {
 		this(sink, Buffer.DEFAULT_BUFFER_SIZE.getSize(), d);
@@ -130,8 +131,10 @@ public class RequestOutputStream extends FilterOutputStream {
 	 * Creates a new RequestOutputStream that writes to the specified output stream
 	 * and has a maximum request buffer size of <code>size</code>.
 	 *
-	 * @param sink the output stream to write to
-	 * @param size the buffer size
+	 * @param sink
+	 *            the output stream to write to
+	 * @param size
+	 *            the buffer size
 	 */
 	RequestOutputStream(OutputStream sink, int size, Display d) {
 		super(sink);
@@ -169,7 +172,8 @@ public class RequestOutputStream extends FilterOutputStream {
 	/**
 	 * Changes the buffer size.
 	 *
-	 * @param size the new buffer size
+	 * @param size
+	 *            the new buffer size
 	 *
 	 * @return the actually used buffer size
 	 */
@@ -208,9 +212,12 @@ public class RequestOutputStream extends FilterOutputStream {
 	/**
 	 * Begins a new request. This flushes all pending request data.
 	 *
-	 * @param opcode        the opcode for the request
-	 * @param secondField   the second field for the request
-	 * @param requestLength the length of the request
+	 * @param opcode
+	 *            the opcode for the request
+	 * @param secondField
+	 *            the second field for the request
+	 * @param requestLength
+	 *            the length of the request
 	 */
 	public void beginRequest(int opcode, int secondField, int requestLength) {
 
@@ -309,7 +316,8 @@ public class RequestOutputStream extends FilterOutputStream {
 	/**
 	 * Sets the write index to <code>i</code>.
 	 *
-	 * @param i the write index to set
+	 * @param i
+	 *            the write index to set
 	 */
 	public void setIndex(int i) {
 		index = i + requestIndex;
@@ -338,7 +346,8 @@ public class RequestOutputStream extends FilterOutputStream {
 	/**
 	 * Writes the specified data to the stream.
 	 *
-	 * @param b the data to write
+	 * @param b
+	 *            the data to write
 	 */
 	public void write(byte[] b) {
 		assert Thread.holdsLock(this);
@@ -349,9 +358,12 @@ public class RequestOutputStream extends FilterOutputStream {
 	/**
 	 * Writes the specified data to the stream.
 	 *
-	 * @param b    the data to write
-	 * @param offs the start offset in the data array
-	 * @param len  the length of the data to write
+	 * @param b
+	 *            the data to write
+	 * @param offs
+	 *            the start offset in the data array
+	 * @param len
+	 *            the length of the data to write
 	 */
 	public void write(byte[] b, int offs, int len) {
 		assert Thread.holdsLock(this);
@@ -405,7 +417,8 @@ public class RequestOutputStream extends FilterOutputStream {
 	/**
 	 * Writes an INT8 value to the stream.
 	 *
-	 * @param v the value to write
+	 * @param v
+	 *            the value to write
 	 */
 	public void writeInt8(int v) {
 		assert Thread.holdsLock(this);
@@ -416,7 +429,8 @@ public class RequestOutputStream extends FilterOutputStream {
 	/**
 	 * Writes an INT16 value to the stream.
 	 *
-	 * @param v the value to write
+	 * @param v
+	 *            the value to write
 	 */
 	public void writeInt16(int v) {
 		assert Thread.holdsLock(this);
@@ -429,7 +443,8 @@ public class RequestOutputStream extends FilterOutputStream {
 	/**
 	 * Writes an INT32 value to the stream.
 	 *
-	 * @param v the value to write
+	 * @param v
+	 *            the value to write
 	 */
 	public void writeInt32(int v) {
 		assert Thread.holdsLock(this);
@@ -447,7 +462,8 @@ public class RequestOutputStream extends FilterOutputStream {
 	 * Returns the INT32 value at the specified index in the buffer inside the
 	 * current request.
 	 *
-	 * @param index the index
+	 * @param index
+	 *            the index
 	 *
 	 * @return the INT32 value at the specified index
 	 */
@@ -499,7 +515,8 @@ public class RequestOutputStream extends FilterOutputStream {
 	/**
 	 * Writes a STRING8 value to the stream.
 	 *
-	 * @param s the string to write
+	 * @param s
+	 *            the string to write
 	 */
 	public void writeString8(String s) {
 		assert Thread.holdsLock(this);
@@ -509,7 +526,8 @@ public class RequestOutputStream extends FilterOutputStream {
 	/**
 	 * Writes a STRING16 to the stream.
 	 *
-	 * @param s the string to write
+	 * @param s
+	 *            the string to write
 	 */
 	public void writeString16(String s) {
 		assert Thread.holdsLock(this);
@@ -535,7 +553,8 @@ public class RequestOutputStream extends FilterOutputStream {
 	 * Skips p unused bytes, where p is pad(n). pad(n) is the number of bytes that
 	 * are needed to fill a block multiple of 4.
 	 *
-	 * @param n the number to be padded
+	 * @param n
+	 *            the number to be padded
 	 */
 	public void writePad(int n) {
 		assert Thread.holdsLock(this);
@@ -544,9 +563,11 @@ public class RequestOutputStream extends FilterOutputStream {
 
 	/**
 	 * Returns the number of bytes that are needed to pad <code>n</code> bytes to
-	 * fill a multiple of four.
+	 * fill a multiple of four. Es. pad(21)=3 because 3 bytes are required to arrive
+	 * to 24.
 	 *
-	 * @param n the number of bytes the pad
+	 * @param n
+	 *            the number of bytes the pad
 	 *
 	 * @return the number of pad bytes needed
 	 */
@@ -571,7 +592,8 @@ public class RequestOutputStream extends FilterOutputStream {
 	/**
 	 * Determines if the buffer has room for the specified number of bytes.
 	 *
-	 * @param num_bytes the number of bytes
+	 * @param num_bytes
+	 *            the number of bytes
 	 *
 	 * @return <code>true</code> if the buffer has space for the specified number of
 	 *         bytes, <code>false</code> otherwise
@@ -592,7 +614,8 @@ public class RequestOutputStream extends FilterOutputStream {
 	/**
 	 * Handles exceptions that my occur during IO operations.
 	 *
-	 * @param ex the exception to handle
+	 * @param ex
+	 *            the exception to handle
 	 */
 	private void handleException(Throwable ex) {
 		throw new X11ClientException(ex);

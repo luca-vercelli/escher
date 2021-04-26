@@ -5,6 +5,7 @@ import org.gnu.escher.x11.InputStreamObject;
 import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.RequestOutputStream;
 import org.gnu.escher.x11.core.ResponseInputStream;
+import org.gnu.escher.x11.enums.X11CoreRequest;
 
 /** X pixmap. */
 public class Pixmap extends Drawable {
@@ -38,7 +39,8 @@ public class Pixmap extends Drawable {
 		/**
 		 * Creates a new instance by reading the data from the X server connection.
 		 * 
-		 * @param in the input stream to read from
+		 * @param in
+		 *            the input stream to read from
 		 */
 		public Format(ResponseInputStream in) {
 
@@ -87,7 +89,7 @@ public class Pixmap extends Drawable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(53, depth, 4);
+			o.beginRequest(X11CoreRequest.CreatePixmap.getOpcode(), depth, 4);
 			o.writeInt32(id);
 			o.writeInt32(drawable.id);
 			o.writeInt16(width);
@@ -128,7 +130,7 @@ public class Pixmap extends Drawable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(54, 0, 2);
+			o.beginRequest(X11CoreRequest.FreePixmap.getOpcode(), 0, 2);
 			o.writeInt32(id);
 			o.send();
 		}

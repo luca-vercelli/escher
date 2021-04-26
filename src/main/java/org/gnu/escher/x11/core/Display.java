@@ -32,6 +32,7 @@ import org.gnu.escher.x11.enums.ScreenSaverBlanking;
 import org.gnu.escher.x11.enums.ScreenSaverExposures;
 import org.gnu.escher.x11.enums.VisualInfoMask;
 import org.gnu.escher.x11.enums.WindowShape;
+import org.gnu.escher.x11.enums.X11CoreRequest;
 import org.gnu.escher.x11.event.Event;
 import org.gnu.escher.x11.extension.BigRequests;
 import org.gnu.escher.x11.extension.ErrorFactory;
@@ -501,7 +502,7 @@ public class Display implements AutoCloseable {
 
 		RequestOutputStream o = outputStream;
 		synchronized (o) {
-			o.beginRequest(51, 0, 2 + (n + p) / 4);
+			o.beginRequest(X11CoreRequest.SetFontPath.getOpcode(), 0, 2 + (n + p) / 4);
 			o.writeInt16(path.length);
 			o.skip(2);
 			for (String ph : path) {
@@ -526,7 +527,7 @@ public class Display implements AutoCloseable {
 		RequestOutputStream o = outputStream;
 		String[] path;
 		synchronized (o) {
-			o.beginRequest(52, 0, 1);
+			o.beginRequest(X11CoreRequest.GetFontPath.getOpcode(), 0, 1);
 			ResponseInputStream i = inputStream;
 			synchronized (i) {
 				i.readReply(o);

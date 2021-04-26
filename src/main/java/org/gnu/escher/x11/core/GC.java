@@ -11,6 +11,7 @@ import org.gnu.escher.x11.core.GC.Values.JoinStyle;
 import org.gnu.escher.x11.core.GC.Values.LineStyle;
 import org.gnu.escher.x11.core.GC.Values.RectangleOrder;
 import org.gnu.escher.x11.core.GC.Values.SubWindowMode;
+import org.gnu.escher.x11.enums.X11CoreRequest;
 import org.gnu.escher.x11.resource.Drawable;
 import org.gnu.escher.x11.resource.Font;
 import org.gnu.escher.x11.resource.Fontable;
@@ -44,7 +45,8 @@ public class GC extends Fontable {
 		/**
 		 * Creates a new ChangeGCRequestObject.
 		 *
-		 * @param v the values to be changed
+		 * @param v
+		 *            the values to be changed
 		 */
 		ChangeGCRequestObject(Values v) {
 			values = v;
@@ -89,8 +91,8 @@ public class GC extends Fontable {
 		}
 
 		public enum FunctionValues {
-			CLEAR(0), AND(1), AND_REVERSE(2), COPY(3), AND_INVERTED(4), NOOP(5), XOR(6), OR(7), NOR(8), EQUIV(9),
-			INVERT(10), OR_REVERSE(11), COPY_INVERTED(12), OR_INVERTED(13), NAND(14), SET(15);
+			CLEAR(0), AND(1), AND_REVERSE(2), COPY(3), AND_INVERTED(4), NOOP(5), XOR(6), OR(7), NOR(8), EQUIV(
+					9), INVERT(10), OR_REVERSE(11), COPY_INVERTED(12), OR_INVERTED(13), NAND(14), SET(15);
 
 			private int code;
 
@@ -220,7 +222,8 @@ public class GC extends Fontable {
 		}
 
 		/**
-		 * @param i default: all ones
+		 * @param i
+		 *            default: all ones
 		 */
 		public void setPlaneMask(int i) {
 			set(1, i);
@@ -249,7 +252,8 @@ public class GC extends Fontable {
 		}
 
 		/**
-		 * @param i default: 0
+		 * @param i
+		 *            default: 0
 		 */
 		public void setLineWidth(int i) {
 			set(4, i);
@@ -276,28 +280,32 @@ public class GC extends Fontable {
 		}
 
 		/**
-		 * @param p default: pixmap of unspecified size filled with foreground pixel
+		 * @param p
+		 *            default: pixmap of unspecified size filled with foreground pixel
 		 */
 		public void setTile(Pixmap p) {
 			set(10, p.getId());
 		}
 
 		/**
-		 * @param p default: pixmap of unspecified size filled with ones
+		 * @param p
+		 *            default: pixmap of unspecified size filled with ones
 		 */
 		public void setStipple(Pixmap p) {
 			set(11, p.getId());
 		}
 
 		/**
-		 * @param i default: 0
+		 * @param i
+		 *            default: 0
 		 */
 		public void setTileStippleXOrigin(int i) {
 			set(12, i);
 		}
 
 		/**
-		 * @param i default: 0
+		 * @param i
+		 *            default: 0
 		 */
 		public void setTileStippleYOrigin(int i) {
 			set(13, i);
@@ -312,42 +320,48 @@ public class GC extends Fontable {
 		}
 
 		/**
-		 * @param b default: true
+		 * @param b
+		 *            default: true
 		 */
 		public void setGraphicsExposures(boolean b) {
 			set(16, b);
 		}
 
 		/**
-		 * @param i default: 0
+		 * @param i
+		 *            default: 0
 		 */
 		public void setClipXOrigin(int i) {
 			set(17, i);
 		}
 
 		/**
-		 * @param i default: 0
+		 * @param i
+		 *            default: 0
 		 */
 		public void setClipYOrigin(int i) {
 			set(18, i);
 		}
 
 		/**
-		 * @param p possible: {@link Pixmap#NONE} (default)
+		 * @param p
+		 *            possible: {@link Pixmap#NONE} (default)
 		 */
 		public void setClipMask(Pixmap p) {
 			set(19, p.getId());
 		}
 
 		/**
-		 * @param i default: 0
+		 * @param i
+		 *            default: 0
 		 */
 		public void setDashOffset(int i) {
 			set(20, i);
 		}
 
 		/**
-		 * @param i default: 4 (that is, the list [4, 4])
+		 * @param i
+		 *            default: 4 (that is, the list [4, 4])
 		 */
 		public void setDashes(int i) {
 			set(21, i);
@@ -393,7 +407,7 @@ public class GC extends Fontable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(55, 0, 4 + values.count());
+			o.beginRequest(X11CoreRequest.CreateGC.getOpcode(), 0, 4 + values.count());
 			o.writeInt32(id);
 			o.writeInt32(drawable.getId());
 			o.writeInt32(values.getBitmask());
@@ -406,7 +420,8 @@ public class GC extends Fontable {
 	/**
 	 * Changes the current settings for this GC. This request will be aggregated.
 	 *
-	 * @param values the values to change
+	 * @param values
+	 *            the values to change
 	 *
 	 * @see <a href="XChangeGC.html">XChangeGC</a>
 	 */
@@ -414,7 +429,7 @@ public class GC extends Fontable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(56, 0, 0);
+			o.beginRequest(X11CoreRequest.ChangeGC.getOpcode(), 0, 0);
 			ChangeGCRequestObject cr = new ChangeGCRequestObject(values);
 			cr.write(o);
 			o.send();
@@ -426,8 +441,10 @@ public class GC extends Fontable {
 	 * Copies the state from this GC into the specified destination GC. The mask is
 	 * used to include/exclude specific state.
 	 *
-	 * @param dest the destination GC
-	 * @param mask the state mask
+	 * @param dest
+	 *            the destination GC
+	 * @param mask
+	 *            the state mask
 	 *
 	 * @see <a href="XCopyGC.html">XCopyGC</a>
 	 */
@@ -435,7 +452,7 @@ public class GC extends Fontable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(57, 0, 4);
+			o.beginRequest(X11CoreRequest.CopyGC.getOpcode(), 0, 4);
 			o.writeInt32(id); // Src-ID.
 			o.writeInt32(dest.id); // Dst-ID.
 			o.writeInt32(mask);
@@ -448,8 +465,10 @@ public class GC extends Fontable {
 	/**
 	 * Sets the dashes used for drawing lines.
 	 *
-	 * @param dashOffset the dash offset
-	 * @param dashes     the dashes spec
+	 * @param dashOffset
+	 *            the dash offset
+	 * @param dashes
+	 *            the dashes spec
 	 *
 	 * @see <a href="XSetDashes.html">XSetDashes</a>
 	 */
@@ -460,7 +479,7 @@ public class GC extends Fontable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(58, 0, 3 + (n + p) / 4);
+			o.beginRequest(X11CoreRequest.SetDashes.getOpcode(), 0, 3 + (n + p) / 4);
 
 			o.writeInt32(id); // The GC id.
 			o.writeInt16(dashOffset); // The dash offset.
@@ -483,7 +502,7 @@ public class GC extends Fontable {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(59, ordering.getCode(), 3 + 2 * rectangles.length);
+			o.beginRequest(X11CoreRequest.SetClipRectangles.getOpcode(), ordering.getCode(), 3 + 2 * rectangles.length);
 			o.writeInt32(id);
 			o.writeInt16(clip_x_origin);
 			o.writeInt16(clip_y_origin);
@@ -505,7 +524,7 @@ public class GC extends Fontable {
 	public void free() {
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(60, 0, 2);
+			o.beginRequest(X11CoreRequest.FreeGC.getOpcode(), 0, 2);
 			o.writeInt32(id);
 			o.send();
 		}
