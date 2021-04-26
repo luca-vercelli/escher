@@ -1,13 +1,16 @@
 package org.gnu.escher.x11;
 
-import com.github.moaxcp.xephyr.*;
-import org.junit.jupiter.api.*;
+import static org.gnu.escher.x11.core.DisplayName.getFromConventionalString;
 
-import static org.gnu.escher.x11.core.DisplayName.*;
-
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.github.moaxcp.xephyr.XephyrRunner;
 
 public class DisplayConnect {
 

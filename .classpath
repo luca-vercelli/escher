@@ -26,20 +26,6 @@
 			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="bin/integrationTest" path="src/integrationTest/java">
-		<attributes>
-			<attribute name="gradle_scope" value="integrationTest"/>
-			<attribute name="gradle_used_by_scope" value="integrationTest"/>
-			<attribute name="test" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="src" output="bin/integrationTest" path="src/integrationTest/resources">
-		<attributes>
-			<attribute name="gradle_scope" value="integrationTest"/>
-			<attribute name="gradle_used_by_scope" value="integrationTest"/>
-			<attribute name="test" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="src" output="bin/testFixtures" path="src/testFixtures/java">
 		<attributes>
 			<attribute name="gradle_scope" value="testFixtures"/>

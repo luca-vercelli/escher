@@ -50,7 +50,7 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testImplementation 'org.assertj:assertj-core:3.14.0'
     testImplementation 'org.jmockit:jmockit:1.49'
-    integrationTestImplementation 'commons-codec:commons-codec:1.14'
+    testImplementation 'commons-codec:commons-codec:1.14'
 
     demoTestImplementation sourceSets.demo.output
 }
@@ -84,14 +84,6 @@ test {
         html.enabled = true
     }
     jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
-}
-
-integrationTest {
-    useJUnitPlatform()
-
-    reports {
-        html.enabled = true
-    }
 }
 
 demoTest {
