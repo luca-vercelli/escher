@@ -6,6 +6,7 @@ import org.gnu.escher.x11.extension.render.PictFormat;
 import org.gnu.escher.x11.extension.render.Picture;
 import org.gnu.escher.x11.extension.render.Render;
 import org.gnu.escher.x11.extension.render.PictFormat.*;
+import org.gnu.escher.x11.extension.render.PictFormatType;
 import org.gnu.escher.x11.resource.Pixmap;
 
 /**
@@ -104,7 +105,7 @@ public class Sprites extends DisplayHack {
 
 		render = new Render(display);
 		Template pf0 = new Template();
-		pf0.set_type(Type.DIRECT);
+		pf0.set_type(PictFormatType.DIRECT);
 		PictFormat pf1;
 
 		int depth = display.getDefaultScreen().rootDepth();
@@ -123,7 +124,7 @@ public class Sprites extends DisplayHack {
 		// sprite picture format
 		pf0.clear();
 		pf0.set_depth(32);
-		pf0.set_type(Type.DIRECT);
+		pf0.set_type(PictFormatType.DIRECT);
 		pf1 = render.picture_format(pf0, true);
 
 		sprites[0] = new Sprite(1.0f, 1.0f, 0x7f7f0000, 150, 150, pf1);

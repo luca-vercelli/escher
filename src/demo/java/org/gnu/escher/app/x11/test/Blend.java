@@ -3,6 +3,7 @@ package org.gnu.escher.app.x11.test;
 import org.gnu.escher.x11.core.GC;
 import org.gnu.escher.x11.extension.render.DrawablePicture;
 import org.gnu.escher.x11.extension.render.PictFormat;
+import org.gnu.escher.x11.extension.render.PictFormatType;
 import org.gnu.escher.x11.extension.render.Picture;
 import org.gnu.escher.x11.extension.render.Render;
 import org.gnu.escher.x11.resource.Pixmap;
@@ -53,7 +54,7 @@ public class Blend extends Graphics {
 		// alpha picture
 		pf0.clear();
 		pf0.set_depth(8);
-		pf0.set_type(PictFormat.Type.DIRECT);
+		pf0.set_type(PictFormatType.DIRECT);
 		pf0.set_direct(0, 0, 0, 0, 0, 0, 0, 0xff);
 		pf1 = render.picture_format(pf0, true);
 
@@ -62,7 +63,7 @@ public class Blend extends Graphics {
 		// color picture
 		pf0.clear();
 		pf0.set_depth(24);
-		pf0.set_type(PictFormat.Type.DIRECT);
+		pf0.set_type(PictFormatType.DIRECT);
 		pf0.set_direct(16, 0xff, 8, 0xff, 0, 0xff, 0, 0);
 		pf1 = render.picture_format(pf0, true);
 

@@ -1,84 +1,88 @@
 package org.gnu.escher.app.x11.test;
 
-import static org.gnu.escher.x11.enums.EventMask.*;
+import static org.gnu.escher.x11.enums.EventMask.BUTTON_PRESS_MASK;
+import static org.gnu.escher.x11.enums.EventMask.EXPOSURE_MASK;
+import static org.gnu.escher.x11.enums.EventMask.KEY_PRESS_MASK;
 
 import org.gnu.escher.app.Application;
 import org.gnu.escher.x11.WindowAttributes;
-import org.gnu.escher.x11.event.*;
+import org.gnu.escher.x11.event.ClientMessage;
+import org.gnu.escher.x11.event.Event;
+import org.gnu.escher.x11.event.Expose;
+import org.gnu.escher.x11.event.KeyPress;
+import org.gnu.escher.x11.keysym.MiscKeySym;
 import org.gnu.escher.x11.resource.Window;
-
 
 /** Base class for testing basic drawing. */
 public abstract class Graphics extends Application {
-  public Event event;
-  public boolean leave_display_open;
-  public Window window;
+	public Event event;
+	public boolean leave_display_open;
+	public Window window;
 
+	public Graphics(String[] args, int width, int height) {
+		super(args);
 
-  public Graphics (String [] args, int width, int height) {
-    super (args);
+		WindowAttributes win_attr = new WindowAttributes();
+		win_attr.setBackground(display.getDefaultWhite());
+		win_attr.setBorder(display.getDefaultBlack());
+		win_attr.setEventMask(BUTTON_PRESS_MASK.getMask() | EXPOSURE_MASK.getMask() | KEY_PRESS_MASK.getMask());
+		window = new Window(display.getDefaultRoot(), 10, 10, width, height, 5, win_attr);
 
-    WindowAttributes win_attr = new WindowAttributes ();
-    win_attr.setBackground (display.getDefaultWhite());
-    win_attr.setBorder (display.getDefaultBlack());
-    win_attr.setEventMask (BUTTON_PRESS_MASK.getMask()
-      | EXPOSURE_MASK.getMask() | KEY_PRESS_MASK.getMask());
-    window = new Window (display.getDefaultRoot(), 10, 10, width, height,
-                         5, win_attr);
+		window.setWM(this, "main");
+		window.setWMDeleteWindow();
+	}
 
-    window.setWM (this, "main");
-    window.setWMDeleteWindow();
-  }
+	protected void paint() {
+	}
 
+	protected void about(String version, String description, String author, String url) {
 
-  protected void paint () {}
+		about(version, description, author, url, "\nTo quit, press 'q', 'Q', ESCAPE, or any button.");
+	}
 
-  
-  protected void about (String version, String description,
-    String author, String url) {
-    
-    about (version, description, author, url,
-      "\nTo quit, press 'q', 'Q', ESCAPE, or any button.");
-  }
+	protected void exec() {
+		if (help_option)
+			return;
 
+		window.map();
+		display.flush();
+		while (!exit_now)
+			dispatch_event();
+		if (!leave_display_open)
+			display.close();
+	}
 
-  protected void exec () {
-    if (help_option) return;
+	protected void dispatch_event() {
+		event = display.nextEvent();
 
-    window.map ();
-    display.flush ();
-    while (!exit_now) dispatch_event ();
-    if (!leave_display_open) display.close ();
-  }
+		switch (event.getCode()) {
+		case BUTTON_PRESS:
+			exit();
+			break;
 
+		case CLIENT_MESSAGE:
+			if (((ClientMessage) event).isDeleteWindow())
+				exit();
+			break;
 
-  protected void dispatch_event () {
-    event = display.nextEvent();
+		case EXPOSE:
+			if (((Expose) event).getCount() == 0)
+				paint();
+			break;
 
-    switch (event.getCode()) {
-    case BUTTON_PRESS:
-      exit ();
-      break;
+		case KEY_PRESS: {
+			KeyPress e = (KeyPress) event;
 
-    case CLIENT_MESSAGE:
-      if (((ClientMessage) event).isDeleteWindow ()) exit ();
-      break;
+			int keycode = e.detail();
+			int keystate = e.getState();
+			int keysym = display.getInput().keycodeToKeysym(keycode, keystate);
 
-    case EXPOSE:
-      if (((Expose) event).getCount () == 0) paint ();
-      break;
-	
-    case KEY_PRESS: {
-      KeyPress e = (KeyPress) event;
-	
-      int keycode = e.detail ();
-      int keystate = e.getState ();
-      int keysym = display.getInput().keycodeToKeysym (keycode, keystate);
-
-      if (keysym == 'q' || keysym == 'Q' 
-        || keysym == org.gnu.escher.x11.keysym.MiscKeySym.ESCAPE) exit ();
-      break;
-    }
-    }
-  }
+			if (keysym == 'q' || keysym == 'Q' || keysym == MiscKeySym.ESCAPE)
+				exit();
+			break;
+		}
+		default:
+			break;
+		}
+	}
 }

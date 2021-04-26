@@ -14,22 +14,6 @@ import org.gnu.escher.x11.resource.Colormap;
 public class PictFormat {
 
 	/**
-	 * The different types of formats.
-	 */
-	public enum Type {
-
-		/**
-		 * Pictures of that format use an indexed (aka pseudo) color model.
-		 */
-		INDEXED,
-
-		/**
-		 * Pictures of that format use a direct (aka true) color model.
-		 */
-		DIRECT
-	};
-
-	/**
 	 * Parameters for direct color models to describe the data layout of pixel
 	 * samples.
 	 */
@@ -130,7 +114,7 @@ public class PictFormat {
 		/**
 		 * The format type.
 		 */
-		private Type type;
+		private PictFormatType type;
 
 		/**
 		 * The format depth.
@@ -204,7 +188,7 @@ public class PictFormat {
 		 * @param alpha_shift the shift for the alpha component
 		 * @param alpha_mask  the mask for the alpha component
 		 */
-		public Template(Type type, int depth, int red_shift, int red_mask, int green_shift, int green_mask,
+		public Template(PictFormatType type, int depth, int red_shift, int red_mask, int green_shift, int green_mask,
 				int blue_shift, int blue_mask, int alpha_shift, int alpha_mask) {
 			this.type = type;
 			this.depth = depth;
@@ -223,7 +207,7 @@ public class PictFormat {
 			field_mask |= DEPTH_MASK;
 		}
 
-		public void set_type(Type type) {
+		public void set_type(PictFormatType type) {
 			this.type = type;
 			field_mask |= TYPE_MASK;
 		}
@@ -261,7 +245,7 @@ public class PictFormat {
 	/**
 	 * The format type (indexed or direct color).
 	 */
-	private Type type;
+	private PictFormatType type;
 
 	/**
 	 * The depth in bits/pixel.
@@ -295,7 +279,7 @@ public class PictFormat {
 	 */
 	PictFormat(ResponseInputStream i) {
 		id = i.readInt32();
-		type = i.readInt8() == 0 ? Type.INDEXED : Type.DIRECT;
+		type = i.readInt8() == 0 ? PictFormatType.INDEXED : PictFormatType.DIRECT;
 		depth = i.readInt8();
 		i.skip(2);
 		direct = new Direct(i);
@@ -339,5 +323,25 @@ public class PictFormat {
 
 	public Direct direct_format() {
 		return direct;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public PictFormatType getType() {
+		return type;
+	}
+
+	public int getDepth() {
+		return depth;
+	}
+
+	public Direct getDirect() {
+		return direct;
+	}
+
+	public Colormap getColormap() {
+		return colormap;
 	}
 }
