@@ -212,7 +212,6 @@ public class RequestOutputStream extends FilterOutputStream {
 	 * @param secondField   the second field for the request
 	 * @param requestLength the length of the request
 	 */
-	@Deprecated
 	public void beginRequest(int opcode, int secondField, int requestLength) {
 
 		assert Thread.holdsLock(this);

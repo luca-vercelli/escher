@@ -26,6 +26,8 @@ import org.gnu.escher.x11.enums.WinClass;
 import org.gnu.escher.x11.enums.X11CoreCommand;
 import org.gnu.escher.x11.event.Event;
 import org.gnu.escher.x11.extension.glx.GLXDrawable;
+import org.gnu.escher.x11.request.GetWindowAttributes;
+import org.gnu.escher.x11.request.X11Request;
 import org.gnu.escher.x11.types.Point;
 import org.gnu.escher.x11.types.Rectangle;
 import org.gnu.escher.x11.types.ValueList;
@@ -873,6 +875,7 @@ public class Window extends Drawable implements GLXDrawable {
 	 */
 	public AttributesReply getAttributes() {
 
+		//X11Request request = new GetWindowAttributes(this);
 		RequestOutputStream o = display.getResponseOutputStream();
 		AttributesReply r;
 		synchronized (o) {

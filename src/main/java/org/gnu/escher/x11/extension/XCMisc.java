@@ -9,7 +9,8 @@ import org.gnu.escher.x11.core.ResponseInputStream;
  * >here</a>.
  */
 public class XCMisc extends Extension {
-	public static final String[] MINOR_OPCODE_STRINGS = { "GetVersion", // 0
+	public static final String[] MINOR_OPCODE_STRINGS = { //
+			"GetVersion", // 0
 			"GetXIDRange", // 1
 			"GetXIDList" // 2
 	};
