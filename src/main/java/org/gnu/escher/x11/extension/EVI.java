@@ -180,7 +180,7 @@ public class EVI extends Extension {
 			o.beginRequest(majorOpcode, 1, 2 + visuals.length);
 			o.writeInt32(visuals.length);
 			for (VisualInfo v : visuals)
-				o.writeInt32(v.getID());
+				o.writeInt32(v.getId());
 
 			ResponseInputStream in = display.getResponseInputStream();
 			synchronized (in) {

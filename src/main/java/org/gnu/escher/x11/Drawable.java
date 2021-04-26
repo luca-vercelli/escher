@@ -15,6 +15,8 @@ import org.gnu.escher.x11.enums.X11CoreCommand;
 import org.gnu.escher.x11.geometric.Arc;
 import org.gnu.escher.x11.geometric.Point;
 import org.gnu.escher.x11.geometric.Rectangle;
+import org.gnu.escher.x11.geometric.Segment;
+import org.gnu.escher.x11.geometric.Size;
 import org.gnu.escher.x11.image.*;
 
 /** X drawable. */
@@ -40,7 +42,7 @@ public abstract class Drawable extends Resource {
 		super(display, id);
 	}
 
-	public static class GeometryInfo implements StreamObject {
+	public static class GeometryInfo implements InputStreamObject {
 		// TODO: To private??
 		public int depth;
 
@@ -428,7 +430,7 @@ public abstract class Drawable extends Resource {
 			int p = RequestOutputStream.pad(length);
 
 			Format format = image.getFormat();
-			o.beginRequest(72, format.getID(), 6 + (length + p) / 4);
+			o.beginRequest(72, format.getId(), 6 + (length + p) / 4);
 			o.writeInt32(id);
 			o.writeInt32(gc.id);
 			o.writeInt16(image.getWidth());
@@ -458,7 +460,7 @@ public abstract class Drawable extends Resource {
 
 		synchronized (o) {
 
-			o.beginX11CoreRequest(X11CoreCommand.GetImage, format.getID());
+			o.beginX11CoreRequest(X11CoreCommand.GetImage, format.getId());
 			o.writeInt32(id);
 			o.writeInt16(x);
 			o.writeInt16(y);
@@ -522,7 +524,7 @@ public abstract class Drawable extends Resource {
 			for (int i = 0; i < texts.length; i++) {
 				if (texts[i].getFont() != null) {
 					o.writeInt8(255);// font-shift indicator
-					o.writeInt32(texts[i].getFont().getID()); // java = MSB
+					o.writeInt32(texts[i].getFont().getId()); // java = MSB
 				}
 				o.writeInt8(texts[i].getStr().length());
 				o.writeInt8(texts[i].getDelta());
@@ -559,7 +561,7 @@ public abstract class Drawable extends Resource {
 			for (int i = 0; i < texts.length; i++) {
 				if (texts[i].getFont() != null) {
 					o.writeInt8(255);// font-shift indicator
-					o.writeInt32(texts[i].getFont().getID()); // java = MSB
+					o.writeInt32(texts[i].getFont().getId()); // java = MSB
 				}
 
 				String s = texts[i].getStr();

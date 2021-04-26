@@ -1,4 +1,4 @@
-package org.gnu.escher.x11;
+package org.gnu.escher.x11.geometric;
 
 /** Line segment in geometry. */
 public class Segment {

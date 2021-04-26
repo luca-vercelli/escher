@@ -142,7 +142,6 @@ public class XVisualInfo {
 	 * Initialize a default, no FBConfig type
 	 */
 	public XVisualInfo() {
-
 		this(false);
 	}
 
@@ -159,11 +158,6 @@ public class XVisualInfo {
 
 	void setID(int id) {
 		this.id = id;
-	}
-
-	public int getID() {
-
-		return this.id;
 	}
 
 	public int getCount() {

@@ -1,7 +1,5 @@
 package org.gnu.escher.x11.core;
 
-import org.gnu.escher.x11.Window;
-
 /** X atom. */
 public class Atom {
 	// Predefined atom ids
@@ -276,7 +274,7 @@ public class Atom {
 		this.display = display;
 	}
 
-	public int getID() {
+	public int getId() {
 		return id;
 	}
 

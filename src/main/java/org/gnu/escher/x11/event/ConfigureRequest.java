@@ -1,8 +1,9 @@
 package org.gnu.escher.x11.event;
 
-import org.gnu.escher.x11.Window;
 import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.ResponseInputStream;
+import org.gnu.escher.x11.core.Window;
+import org.gnu.escher.x11.enums.StackMode;
 import org.gnu.escher.x11.geometric.Rectangle;
 
 /** X configure request event. */
@@ -51,8 +52,8 @@ public final class ConfigureRequest extends Event {
 		return c;
 	}
 
-	public Window.Changes.StackMode stackMode() {
-		return Window.Changes.StackMode.getByCode(getDetail());
+	public StackMode stackMode() {
+		return StackMode.getByCode(getDetail());
 	}
 
 	public int siblingID() {

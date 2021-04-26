@@ -4,9 +4,9 @@
 
 package org.gnu.escher.x11.core;
 
-import org.gnu.escher.x11.StreamObject;
-import org.gnu.escher.x11.VisualInfoMask;
+import org.gnu.escher.x11.InputStreamObject;
 import org.gnu.escher.x11.enums.Visual;
+import org.gnu.escher.x11.enums.VisualInfoMask;
 
 /**
  * This Class represents an XVisualInfo.
@@ -17,7 +17,7 @@ import org.gnu.escher.x11.enums.Visual;
  * 
  * @author Mario Torre neugens@aicas.com
  */
-public class VisualInfo implements StreamObject {
+public class VisualInfo implements InputStreamObject {
 
 	protected static final int MASK = 0x01;
 
@@ -196,8 +196,7 @@ public class VisualInfo implements StreamObject {
 		this.screen = screen;
 	}
 
-	public int getID() {
-
+	public int getId() {
 		return id;
 	}
 
@@ -303,10 +302,6 @@ public class VisualInfo implements StreamObject {
 
 	public static int getMask() {
 		return MASK;
-	}
-
-	public int getId() {
-		return id;
 	}
 
 	public int getVisualClassID() {

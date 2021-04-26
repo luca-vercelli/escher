@@ -3,8 +3,8 @@ package org.gnu.escher.app.x11.test;
 import static org.gnu.escher.x11.enums.EventMask.*;
 
 import org.gnu.escher.app.Application;
-import org.gnu.escher.x11.Window;
 import org.gnu.escher.x11.WindowAttributes;
+import org.gnu.escher.x11.core.Window;
 import org.gnu.escher.x11.event.*;
 
 

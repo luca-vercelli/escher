@@ -14,7 +14,7 @@ public enum Format {
 		this.id = id;
 	}
 
-	public int getID() {
+	public int getId() {
 		return this.id;
 	}
 }

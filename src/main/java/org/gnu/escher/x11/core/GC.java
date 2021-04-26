@@ -279,14 +279,14 @@ public class GC extends Fontable {
 		 * @param p default: pixmap of unspecified size filled with foreground pixel
 		 */
 		public void setTile(Pixmap p) {
-			set(10, p.getID());
+			set(10, p.getId());
 		}
 
 		/**
 		 * @param p default: pixmap of unspecified size filled with ones
 		 */
 		public void setStipple(Pixmap p) {
-			set(11, p.getID());
+			set(11, p.getId());
 		}
 
 		/**
@@ -304,7 +304,7 @@ public class GC extends Fontable {
 		}
 
 		public void set_font(Font f) {
-			set(14, f.getID());
+			set(14, f.getId());
 		}
 
 		public void setSubwindowMode(SubWindowMode swm) {
@@ -336,7 +336,7 @@ public class GC extends Fontable {
 		 * @param p possible: {@link Pixmap#NONE} (default)
 		 */
 		public void setClipMask(Pixmap p) {
-			set(19, p.getID());
+			set(19, p.getId());
 		}
 
 		/**
@@ -395,7 +395,7 @@ public class GC extends Fontable {
 		synchronized (o) {
 			o.beginRequest(55, 0, 4 + values.count());
 			o.writeInt32(id);
-			o.writeInt32(drawable.getID());
+			o.writeInt32(drawable.getId());
 			o.writeInt32(values.getBitmask());
 			values.write(o);
 			o.send();

@@ -41,7 +41,7 @@ public abstract class Resource {
 	 *
 	 * @return the resource ID of this resource
 	 */
-	public int getID() {
+	public int getId() {
 		return id;
 	}
 

@@ -45,7 +45,7 @@ public final class ClientMessage extends Event {
 		Atom wm_protocols = (Atom) Atom.intern(getDisplay(), "WM_PROTOCOLS");
 		Atom wm_delete_window = (Atom) Atom.intern(getDisplay(), "WM_DELETE_WINDOW");
 
-		return format() == 32 && type() == wm_protocols && wm_data() == wm_delete_window.getID();
+		return format() == 32 && type() == wm_protocols && wm_data() == wm_delete_window.getId();
 	}
 
 	public Atom type() {

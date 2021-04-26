@@ -1,10 +1,10 @@
 package org.gnu.escher.x11.extension;
 
 import org.gnu.escher.x11.Data;
-import org.gnu.escher.x11.Window;
 import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.RequestOutputStream;
 import org.gnu.escher.x11.core.ResponseInputStream;
+import org.gnu.escher.x11.core.Window;
 import org.gnu.escher.x11.core.X11ServiceException;
 import org.gnu.escher.x11.enums.ErrorCode;
 
@@ -647,7 +647,7 @@ public class Print extends Extension implements ErrorFactory, EventFactory {
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
 			o.beginRequest(majorOpcode, 13, 2);
-			o.writeInt32(window.getID());
+			o.writeInt32(window.getId());
 			o.send();
 		}
 	}

@@ -24,13 +24,26 @@ public enum GLXCommand implements X11Command {
 
 	/* ***** GLX Commands ***** */
 
-	GLXCreateContext(3, 6), GLXGetVisualConfigs(14, 2), GLXQueryExtensionString(18, 2), GLXQueryServerString(19, 3),
-	GLXQueryVersion(7, 3), GLXMakeCurrent(5, 4),
+	GLXCreateContext(3, 6), //
+	GLXGetVisualConfigs(14, 2), //
+	GLXQueryExtensionString(18, 2), //
+	GLXQueryServerString(19, 3), //
+	GLXQueryVersion(7, 3), //
+	GLXMakeCurrent(5, 4), //
 
 	/* ***** OpenGL Commands ***** */
 
-	EndList(102, 2), Flush(143, 2), GenLists(104, 3), GetIntegerv(117, 3), GetLightfv(118, 4), GetPixelMapuiv(126, 3),
-	GetString(129, 3), IsTexture(146, 3), NewList(101, 4), PixelStorei(110, 4), ReadPixels(111, 9);
+	EndList(102, 2), //
+	Flush(143, 2), //
+	GenLists(104, 3), //
+	GetIntegerv(117, 3), //
+	GetLightfv(118, 4), //
+	GetPixelMapuiv(126, 3), //
+	GetString(129, 3), //
+	IsTexture(146, 3), //
+	NewList(101, 4), //
+	PixelStorei(110, 4), //
+	ReadPixels(111, 9);
 
 	private final int opcode;
 	private final int length;

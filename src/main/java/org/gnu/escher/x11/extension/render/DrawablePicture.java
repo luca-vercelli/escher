@@ -54,7 +54,7 @@ public class DrawablePicture extends Picture {
 		 * @param p possible: {@link Pixmap#NONE} (default)
 		 */
 		public void set_clip_mask(Pixmap p) {
-			set(6, p.getID());
+			set(6, p.getId());
 		}
 
 		/**
@@ -92,7 +92,7 @@ public class DrawablePicture extends Picture {
 		 * @param a possible: {@link Atom#NONE} (default)
 		 */
 		public void set_dither(Atom a) {
-			set(11, a.getID());
+			set(11, a.getId());
 		}
 
 		public void set_component_alpha(boolean i) {
@@ -113,7 +113,7 @@ public class DrawablePicture extends Picture {
 		synchronized (o) {
 			o.beginRequest(render.getMajorOpcode(), 4, 5 + attr.count());
 			o.writeInt32(id);
-			o.writeInt32(drawable.getID());
+			o.writeInt32(drawable.getId());
 			o.writeInt32(format.id());
 			o.writeInt32(attr.getBitmask());
 			attr.write(o);

@@ -26,9 +26,7 @@ import org.gnu.escher.x11.Font;
 import org.gnu.escher.x11.Input;
 import org.gnu.escher.x11.Pixmap;
 import org.gnu.escher.x11.Resource;
-import org.gnu.escher.x11.StreamObject;
-import org.gnu.escher.x11.VisualInfoMask;
-import org.gnu.escher.x11.Window;
+import org.gnu.escher.x11.InputStreamObject;
 import org.gnu.escher.x11.XAuthority;
 import org.gnu.escher.x11.Pixmap.Format;
 import org.gnu.escher.x11.enums.AccessControl;
@@ -37,6 +35,7 @@ import org.gnu.escher.x11.enums.ForceScreenSaver;
 import org.gnu.escher.x11.enums.InternetFamily;
 import org.gnu.escher.x11.enums.ScreenSaverBlanking;
 import org.gnu.escher.x11.enums.ScreenSaverExposures;
+import org.gnu.escher.x11.enums.VisualInfoMask;
 import org.gnu.escher.x11.enums.WindowShape;
 import org.gnu.escher.x11.event.Event;
 import org.gnu.escher.x11.extension.BigRequests;
@@ -296,7 +295,7 @@ public class Display implements AutoCloseable {
 
 				for (VisualInfo visual : depth.getVisuals()) {
 
-					if (((visualInfoMask & VisualInfoMask.VisualIDMask) != 0) && (template.getID() != visual.getID()))
+					if (((visualInfoMask & VisualInfoMask.VisualIDMask) != 0) && (template.getId() != visual.getId()))
 						continue;
 
 					if (((visualInfoMask & VisualInfoMask.VisualClassMask) != 0)
@@ -407,7 +406,7 @@ public class Display implements AutoCloseable {
 		int owner_id = -1;
 		synchronized (o) {
 			o.beginRequest(23, 0, 2);
-			o.writeInt32(selection.getID());
+			o.writeInt32(selection.getId());
 			ResponseInputStream i = inputStream;
 			synchronized (i) {
 				i.readReply(o);
@@ -552,7 +551,7 @@ public class Display implements AutoCloseable {
 	 * Information about an X extension.
 	 *
 	 */
-	public static class ExtensionInfo implements StreamObject {
+	public static class ExtensionInfo implements InputStreamObject {
 
 		private boolean present;
 
@@ -710,7 +709,7 @@ public class Display implements AutoCloseable {
 	 * Informations about the screensaver.
 	 *
 	 */
-	public static class ScreenSaverInfo implements StreamObject {
+	public static class ScreenSaverInfo implements InputStreamObject {
 
 		private int timeout;
 
@@ -846,7 +845,7 @@ public class Display implements AutoCloseable {
 		RequestOutputStream o = outputStream;
 		synchronized (o) {
 			o.beginRequest(113, 0, 2);
-			o.writeInt32(resource.getID());
+			o.writeInt32(resource.getId());
 			o.send();
 		}
 	}
@@ -1214,7 +1213,7 @@ public class Display implements AutoCloseable {
 
 	synchronized void addVisual(VisualInfo xVisual) {
 
-		this.visuals.put(xVisual.getID(), xVisual);
+		this.visuals.put(xVisual.getId(), xVisual);
 	}
 
 	synchronized void addAtom(int id, Atom atom) {

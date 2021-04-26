@@ -1,11 +1,17 @@
 
-package org.gnu.escher.x11;
+package org.gnu.escher.x11.core;
 
-import org.gnu.escher.x11.core.Atom;
-import org.gnu.escher.x11.core.Display;
-import org.gnu.escher.x11.core.RequestOutputStream;
-import org.gnu.escher.x11.core.ResponseInputStream;
-import org.gnu.escher.x11.core.Screen;
+import org.gnu.escher.x11.Color;
+import org.gnu.escher.x11.Colormap;
+import org.gnu.escher.x11.Cursor;
+import org.gnu.escher.x11.Data;
+import org.gnu.escher.x11.Drawable;
+import org.gnu.escher.x11.Input;
+import org.gnu.escher.x11.Pixmap;
+import org.gnu.escher.x11.Resource;
+import org.gnu.escher.x11.InputStreamObject;
+import org.gnu.escher.x11.ValueList;
+import org.gnu.escher.x11.WindowAttributes;
 import org.gnu.escher.x11.enums.BackingStore;
 import org.gnu.escher.x11.enums.ChangeOperation;
 import org.gnu.escher.x11.enums.CirculateDirection;
@@ -14,6 +20,7 @@ import org.gnu.escher.x11.enums.GrabStatus;
 import org.gnu.escher.x11.enums.MapState;
 import org.gnu.escher.x11.enums.PropertyMode;
 import org.gnu.escher.x11.enums.RevertTo;
+import org.gnu.escher.x11.enums.StackMode;
 import org.gnu.escher.x11.enums.Visual;
 import org.gnu.escher.x11.enums.WMInitialState;
 import org.gnu.escher.x11.enums.WinClass;
@@ -75,32 +82,26 @@ public class Window extends Drawable implements GLXDrawable {
 	public static class Changes extends ValueList {
 
 		public Changes() {
-
 			super(7);
 		}
 
 		public void setX(int i) {
-
 			set(0, i);
 		}
 
 		public void setY(int i) {
-
 			set(1, i);
 		}
 
 		public void setWidth(int i) {
-
 			set(2, i);
 		}
 
 		public void setHeight(int i) {
-
 			set(3, i);
 		}
 
 		public void borderWidth(int i) {
-
 			set(4, i);
 		}
 
@@ -112,38 +113,6 @@ public class Window extends Drawable implements GLXDrawable {
 		public void sibling(Window window) {
 
 			sibling_id(window.id);
-		}
-
-		public enum StackMode {
-			ABOVE(0), BELOW(1), TOP_IF(2), BOTTOM_IF(3), OPPOSITE(4);
-
-			private int code;
-
-			StackMode(int code) {
-				this.code = code;
-			}
-
-			public int getCode() {
-
-				return code;
-			}
-
-			public static StackMode getByCode(int code) {
-				switch (code) {
-				case 0:
-					return ABOVE;
-				case 1:
-					return BELOW;
-				case 2:
-					return TOP_IF;
-				case 3:
-					return BOTTOM_IF;
-				case 4:
-					return OPPOSITE;
-				default:
-					return ABOVE;
-				}
-			}
 		}
 
 		public void stackMode(StackMode mode) {
@@ -160,7 +129,7 @@ public class Window extends Drawable implements GLXDrawable {
 	}
 
 	/** Reply of {@link #tree()}. */
-	public class TreeInfo {
+	public class TreeInfo implements InputStreamObject {
 
 		Window root;
 
@@ -192,7 +161,7 @@ public class Window extends Drawable implements GLXDrawable {
 		}
 	}
 
-	public class Property {
+	public class Property implements InputStreamObject {
 
 		private int format;
 
@@ -280,6 +249,46 @@ public class Window extends Drawable implements GLXDrawable {
 
 			return new String(value);
 		}
+
+		public int getFormat() {
+			return format;
+		}
+
+		public void setFormat(int format) {
+			this.format = format;
+		}
+
+		public int getTypeID() {
+			return typeID;
+		}
+
+		public void setTypeID(int typeID) {
+			this.typeID = typeID;
+		}
+
+		public int getBytesAfter() {
+			return bytesAfter;
+		}
+
+		public void setBytesAfter(int bytesAfter) {
+			this.bytesAfter = bytesAfter;
+		}
+
+		public int getLength() {
+			return length;
+		}
+
+		public void setLength(int length) {
+			this.length = length;
+		}
+
+		public byte[] getValue() {
+			return value;
+		}
+
+		public void setValue(byte[] value) {
+			this.value = value;
+		}
 	}
 
 	/** Reply of {@link #getAttributes()}. */
@@ -355,6 +364,126 @@ public class Window extends Drawable implements GLXDrawable {
 
 		public boolean overrideRedirect() {
 			return overrideRedirect;
+		}
+
+		public BackingStore getBackingStore() {
+			return backingStore;
+		}
+
+		public void setBackingStore(BackingStore backingStore) {
+			this.backingStore = backingStore;
+		}
+
+		public Visual getVisualID() {
+			return visualID;
+		}
+
+		public void setVisualID(Visual visualID) {
+			this.visualID = visualID;
+		}
+
+		public WinClass getWindowClass() {
+			return windowClass;
+		}
+
+		public void setWindowClass(WinClass windowClass) {
+			this.windowClass = windowClass;
+		}
+
+		public int getBitGravity() {
+			return bitGravity;
+		}
+
+		public void setBitGravity(int bitGravity) {
+			this.bitGravity = bitGravity;
+		}
+
+		public int getWinGravity() {
+			return winGravity;
+		}
+
+		public void setWinGravity(int winGravity) {
+			this.winGravity = winGravity;
+		}
+
+		public int getBackingPlanes() {
+			return backingPlanes;
+		}
+
+		public void setBackingPlanes(int backingPlanes) {
+			this.backingPlanes = backingPlanes;
+		}
+
+		public int getBackingPixel() {
+			return backingPixel;
+		}
+
+		public void setBackingPixel(int backingPixel) {
+			this.backingPixel = backingPixel;
+		}
+
+		public boolean isSaveUnder() {
+			return saveUnder;
+		}
+
+		public void setSaveUnder(boolean saveUnder) {
+			this.saveUnder = saveUnder;
+		}
+
+		public boolean isMapIsInstalled() {
+			return mapIsInstalled;
+		}
+
+		public void setMapIsInstalled(boolean mapIsInstalled) {
+			this.mapIsInstalled = mapIsInstalled;
+		}
+
+		public MapState getMapState() {
+			return mapState;
+		}
+
+		public void setMapState(MapState mapState) {
+			this.mapState = mapState;
+		}
+
+		public boolean isOverrideRedirect() {
+			return overrideRedirect;
+		}
+
+		public void setOverrideRedirect(boolean overrideRedirect) {
+			this.overrideRedirect = overrideRedirect;
+		}
+
+		public int getColormapID() {
+			return colormapID;
+		}
+
+		public void setColormapID(int colormapID) {
+			this.colormapID = colormapID;
+		}
+
+		public int getAllEventMasks() {
+			return allEventMasks;
+		}
+
+		public void setAllEventMasks(int allEventMasks) {
+			this.allEventMasks = allEventMasks;
+		}
+
+		public int getYourEventMask() {
+			return yourEventMask;
+		}
+
+		public void setYourEventMask(int yourEventMask) {
+			this.yourEventMask = yourEventMask;
+		}
+
+		public int getDoNotPropagateMask() {
+			return doNotPropagateMask;
+		}
+
+		public void setDoNotPropagateMask(int doNotPropagateMask) {
+			this.doNotPropagateMask = doNotPropagateMask;
 		}
 	}
 
@@ -435,7 +564,7 @@ public class Window extends Drawable implements GLXDrawable {
 	}
 
 	/** Reply of {@link #getMotionEvents(int, int)} */
-	public static class TimeCoord {
+	public static class TimeCoord implements InputStreamObject {
 
 		public long timestamp;
 
@@ -452,7 +581,7 @@ public class Window extends Drawable implements GLXDrawable {
 	}
 
 	/** Reply of {@link #translateCoordinates(Window, int, int)}. */
-	public class Coordinates {
+	public class Coordinates implements InputStreamObject {
 
 		private boolean sameScreen;
 
@@ -473,6 +602,38 @@ public class Window extends Drawable implements GLXDrawable {
 				child = null;
 			x = i.readInt16();
 			y = i.readInt16();
+		}
+
+		public boolean isSameScreen() {
+			return sameScreen;
+		}
+
+		public void setSameScreen(boolean sameScreen) {
+			this.sameScreen = sameScreen;
+		}
+
+		public Window getChild() {
+			return child;
+		}
+
+		public void setChild(Window child) {
+			this.child = child;
+		}
+
+		public int getX() {
+			return x;
+		}
+
+		public void setX(int x) {
+			this.x = x;
+		}
+
+		public int getY() {
+			return y;
+		}
+
+		public void setY(int y) {
+			this.y = y;
 		}
 	}
 
@@ -671,7 +832,7 @@ public class Window extends Drawable implements GLXDrawable {
 			o.writeInt16(borderWidth);
 			o.writeInt16(klass.getCode());
 			o.writeInt32(visualID);
-			o.writeInt32(attr.bitmask);
+			o.writeInt32(attr.getBitmask());
 			attr.write(o);
 			o.send();
 		}
@@ -700,7 +861,7 @@ public class Window extends Drawable implements GLXDrawable {
 		synchronized (o) {
 			o.beginRequest(2, 0, 3 + attr.count());
 			o.writeInt32(id);
-			o.writeInt32(attr.bitmask);
+			o.writeInt32(attr.getBitmask());
 			attr.write(o);
 			o.send();
 		}
@@ -857,7 +1018,7 @@ public class Window extends Drawable implements GLXDrawable {
 		synchronized (o) {
 			o.beginRequest(12, 0, 3 + changes.count());
 			o.writeInt32(id);
-			o.writeInt16(changes.bitmask);
+			o.writeInt16(changes.getBitmask());
 			o.skip(2);
 			changes.write(o);
 			o.send();
@@ -964,8 +1125,8 @@ public class Window extends Drawable implements GLXDrawable {
 		synchronized (o) {
 			o.beginRequest(18, mode.getCode(), 6 + (n + p) / 4);
 			o.writeInt32(id);
-			o.writeInt32(property.getID());
-			o.writeInt32(type.getID());
+			o.writeInt32(property.getId());
+			o.writeInt32(type.getId());
 			o.writeInt8(format);
 			o.skip(3);
 			o.writeInt32(len); // data length in format unit
@@ -985,7 +1146,7 @@ public class Window extends Drawable implements GLXDrawable {
 		synchronized (o) {
 			o.beginRequest(19, 0, 3);
 			o.writeInt32(id);
-			o.writeInt32(property.getID());
+			o.writeInt32(property.getId());
 			o.send();
 		}
 	}
@@ -1001,8 +1162,8 @@ public class Window extends Drawable implements GLXDrawable {
 		synchronized (o) {
 			o.beginRequest(20, delete ? 1 : 0, 6);
 			o.writeInt32(id);
-			o.writeInt32(property.getID());
-			o.writeInt32(type.getID());
+			o.writeInt32(property.getId());
+			o.writeInt32(type.getId());
 			o.writeInt32(offset);
 			o.writeInt32(length);
 			ResponseInputStream i = display.getResponseInputStream();
@@ -1057,7 +1218,7 @@ public class Window extends Drawable implements GLXDrawable {
 		synchronized (o) {
 			o.beginRequest(22, 0, 4);
 			o.writeInt32(id);
-			o.writeInt32(selection.getID());
+			o.writeInt32(selection.getId());
 			o.writeInt32(time);
 			o.send();
 		}
@@ -1074,9 +1235,9 @@ public class Window extends Drawable implements GLXDrawable {
 		synchronized (o) {
 			o.beginRequest(24, 0, 6);
 			o.writeInt32(id);
-			o.writeInt32(selection.getID());
-			o.writeInt32(target.getID());
-			o.writeInt32(property.getID());
+			o.writeInt32(selection.getId());
+			o.writeInt32(target.getId());
+			o.writeInt32(property.getId());
 			o.writeInt32(time);
 			o.send();
 		}
@@ -1121,8 +1282,8 @@ public class Window extends Drawable implements GLXDrawable {
 			o.writeInt16(eventMask);
 			o.writeInt16(pointerMode.getCode());
 			o.writeInt16(keyboardMode.getCode());
-			o.writeInt32(confineTo.getID());
-			o.writeInt32(cursor.getID());
+			o.writeInt32(confineTo.getId());
+			o.writeInt32(cursor.getId());
 			o.writeInt32(time);
 			ResponseInputStream i = display.getResponseInputStream();
 			synchronized (i) {
@@ -1163,8 +1324,8 @@ public class Window extends Drawable implements GLXDrawable {
 			o.writeInt16(eventMask);
 			o.writeInt8(pointerMode.getCode());
 			o.writeInt8(keyboardMode.getCode());
-			o.writeInt32(confineTo.getID());
-			o.writeInt32(cursor.getID());
+			o.writeInt32(confineTo.getId());
+			o.writeInt32(cursor.getId());
 			o.writeInt8(button);
 			o.skip(1);
 			o.writeInt16(modifiers);
@@ -1364,7 +1525,7 @@ public class Window extends Drawable implements GLXDrawable {
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
 			o.beginRequest(41, 0, 6);
-			o.writeInt32(src.getID());
+			o.writeInt32(src.getId());
 			o.writeInt32(id);
 			o.writeInt16(srcX);
 			o.writeInt16(srcY);
@@ -1499,7 +1660,7 @@ public class Window extends Drawable implements GLXDrawable {
 			o.writeInt16(delta);
 
 			for (Atom atom : properties)
-				o.writeInt32(atom.getID());
+				o.writeInt32(atom.getId());
 
 			o.send();
 		}
@@ -1543,7 +1704,7 @@ public class Window extends Drawable implements GLXDrawable {
 	public void flip() {
 
 		Changes changes = new Changes();
-		changes.stackMode(Changes.StackMode.OPPOSITE);
+		changes.stackMode(StackMode.OPPOSITE);
 		configure(changes);
 	}
 
@@ -1613,7 +1774,7 @@ public class Window extends Drawable implements GLXDrawable {
 	public void lower() {
 
 		Changes changes = new Changes();
-		changes.stackMode(Changes.StackMode.BELOW);
+		changes.stackMode(StackMode.BELOW);
 		configure(changes);
 	}
 
@@ -1686,7 +1847,7 @@ public class Window extends Drawable implements GLXDrawable {
 	public void raise() {
 
 		Changes changes = new Changes();
-		changes.stackMode(Changes.StackMode.ABOVE);
+		changes.stackMode(StackMode.ABOVE);
 		configure(changes);
 	}
 
@@ -1708,7 +1869,7 @@ public class Window extends Drawable implements GLXDrawable {
 			changes.setWidth(width);
 		if (height != 0)
 			changes.setHeight(height);
-		if (changes.bitmask != 0)
+		if (changes.getBitmask() != 0)
 			configure(changes);
 	}
 
@@ -1946,7 +2107,7 @@ public class Window extends Drawable implements GLXDrawable {
 		Atom wmProtocols = (Atom) Atom.intern(display, "WM_PROTOCOLS");
 		Atom protocol = (Atom) Atom.intern(display, name);
 
-		changeProperty(wmProtocols, Atom.ATOM, protocol.getID());
+		changeProperty(wmProtocols, Atom.ATOM, protocol.getId());
 	}
 
 	public void setWMState(WMInitialState state) {
@@ -2017,7 +2178,7 @@ public class Window extends Drawable implements GLXDrawable {
 
 		Property pi = getProperty(false, Atom.WM_NAME, Atom.STRING, 0, MAX_WM_LENGTH); // support other types?
 
-		if (pi.format() != 8 || pi.typeID() != Atom.STRING.getID())
+		if (pi.format() != 8 || pi.typeID() != Atom.STRING.getId())
 			return null;
 
 		return pi.stringValue();
@@ -2050,7 +2211,7 @@ public class Window extends Drawable implements GLXDrawable {
 		int[] list = wmProtocols();
 
 		for (int i : list) {
-			if (i == protocol.getID())
+			if (i == protocol.getId())
 				return true;
 		}
 

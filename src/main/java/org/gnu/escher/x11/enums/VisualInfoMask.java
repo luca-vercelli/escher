@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.gnu.escher.x11;
+package org.gnu.escher.x11.enums;
 
 /**
  * This class 

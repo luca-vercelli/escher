@@ -11,7 +11,7 @@ public abstract class Image {
 	 * 
 	 * private int id; ByteOrder(int id) { this.id = id; }
 	 * 
-	 * public int getID() { return this.id; } }
+	 * public int getId() { return this.id; } }
 	 */
 	// TODO: change this with the above enum
 	public static final int LSB_FIRST = 0;

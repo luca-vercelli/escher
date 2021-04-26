@@ -1,9 +1,9 @@
 package org.gnu.escher.x11.extension;
 
 import org.gnu.escher.x11.Cursor;
-import org.gnu.escher.x11.Window;
 import org.gnu.escher.x11.core.RequestOutputStream;
 import org.gnu.escher.x11.core.ResponseInputStream;
+import org.gnu.escher.x11.core.Window;
 
 /**
  * XTEST Extension. The specification can be found <a href=
@@ -62,8 +62,8 @@ public class XTest extends Extension {
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
 			o.beginRequest(majorOpcode, 1, 3);
-			o.writeInt32(window.getID());
-			o.writeInt32(cursor.getID());
+			o.writeInt32(window.getId());
+			o.writeInt32(cursor.getId());
 			ResponseInputStream i = display.getResponseInputStream();
 			synchronized (i) {
 				i.readReply(o);
@@ -105,7 +105,7 @@ public class XTest extends Extension {
 			o.writeInt8(detail);
 			o.skip(2);
 			o.writeInt32(delay);
-			o.writeInt32(root.getID());
+			o.writeInt32(root.getId());
 			o.skip(8);
 			o.writeInt16(x);
 			o.writeInt16(y);

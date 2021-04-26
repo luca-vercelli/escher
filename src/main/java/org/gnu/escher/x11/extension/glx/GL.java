@@ -236,7 +236,7 @@ public class GL extends org.gnu.escher.x11.Resource implements GLConstant {
 	/**
 	 * Predefined context.
 	 * 
-	 * @see org.gnu.escher.x11.Window#NONE
+	 * @see org.gnu.escher.x11.core.Window#NONE
 	 */
 	public static final GL NONE0 = new GL(0);
 
@@ -547,7 +547,7 @@ public class GL extends org.gnu.escher.x11.Resource implements GLConstant {
 		synchronized (o) {
 			o.beginRequest(glx.getMajorOpcode(), 12, 6);
 			o.writeInt32(tag);
-			o.writeInt32(font.getID());
+			o.writeInt32(font.getId());
 			o.writeInt32(first);
 			o.writeInt32(count);
 			o.writeInt32(base);

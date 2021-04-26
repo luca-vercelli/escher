@@ -20,8 +20,8 @@ public class GLXPixmap extends org.gnu.escher.x11.Resource implements GLXDrawabl
 			o.beginRequest(glx.getMajorOpcode(), 13, 5);
 
 			o.writeInt32(screen_no);
-			o.writeInt32(visual.getID());
-			o.writeInt32(pixmap.getID());
+			o.writeInt32(visual.getId());
+			o.writeInt32(pixmap.getId());
 			o.writeInt32(id);
 			o.send();
 		}

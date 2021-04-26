@@ -16,7 +16,9 @@ import org.gnu.escher.x11.X11Command;
  * @author Mario Torre neugens@aicas.com
  */
 public enum X11CoreCommand implements X11Command {
-	GetImage(73, 5), SetInputFocus(42, 3);
+
+	GetImage(73, 5), //
+	SetInputFocus(42, 3);
 
 	private final int opcode;
 	private final int length;

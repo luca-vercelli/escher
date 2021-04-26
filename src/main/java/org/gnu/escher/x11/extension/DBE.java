@@ -3,6 +3,7 @@ package org.gnu.escher.x11.extension;
 import org.gnu.escher.x11.*;
 import org.gnu.escher.x11.core.RequestOutputStream;
 import org.gnu.escher.x11.core.ResponseInputStream;
+import org.gnu.escher.x11.core.Window;
 import org.gnu.escher.x11.core.X11ServiceException;
 import org.gnu.escher.x11.enums.ErrorCode;
 
@@ -83,7 +84,7 @@ public class DBE extends Extension implements ErrorFactory {
 			o.beginRequest(majorOpcode, 3, 2 + 2 * n);
 			o.writeInt32(n);
 			for (int i = 0; i < n; i++) {
-				o.writeInt32(windows[i].getID());
+				o.writeInt32(windows[i].getId());
 				o.writeInt8(actions[i].getCode());
 				o.skip(3);
 			}
@@ -171,7 +172,7 @@ public class DBE extends Extension implements ErrorFactory {
 			o.beginRequest(majorOpcode, 6, 2 + screenSpecifiers.length);
 			o.writeInt32(screenSpecifiers.length);
 			for (Drawable screen : screenSpecifiers)
-				o.writeInt32(screen.getID());
+				o.writeInt32(screen.getId());
 
 			ResponseInputStream i = display.getResponseInputStream();
 			synchronized (i) {
@@ -201,7 +202,7 @@ public class DBE extends Extension implements ErrorFactory {
 			RequestOutputStream o = display.getResponseOutputStream();
 			synchronized (o) {
 				o.beginRequest(majorOpcode, 1, 4);
-				o.writeInt32(window.getID());
+				o.writeInt32(window.getId());
 				o.writeInt32(id);
 				o.writeInt8(swapActionHint.getCode());
 				o.skip(3);

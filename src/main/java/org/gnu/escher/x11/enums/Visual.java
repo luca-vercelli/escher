@@ -43,7 +43,7 @@ public enum Visual {
      * Returns the ID associated to this enum,
      * @return
      */
-    public int getID() {
+    public int getId() {
         
         return this.id;
     }

@@ -4,6 +4,7 @@ import java.lang.*;
 import java.lang.Error;
 
 import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.core.Window;
 import org.gnu.escher.x11.enums.EventMask;
 import org.gnu.escher.x11.enums.WinClass;
 import org.gnu.escher.x11.event.*;

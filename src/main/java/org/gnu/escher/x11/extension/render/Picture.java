@@ -12,7 +12,7 @@ public class Picture extends Resource {
 	/**
 	 * A null picture.
 	 *
-	 * @see org.gnu.escher.x11.Window#NONE
+	 * @see org.gnu.escher.x11.core.Window#NONE
 	 */
 	public static final Picture NONE = new Picture(0);
 

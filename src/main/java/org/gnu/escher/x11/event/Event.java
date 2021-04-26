@@ -1,5 +1,6 @@
 package org.gnu.escher.x11.event;
 
+import org.gnu.escher.x11.InputStreamObject;
 import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.RequestOutputStream;
 import org.gnu.escher.x11.core.ResponseInputStream;
@@ -8,7 +9,7 @@ import org.gnu.escher.x11.enums.EventCode;
 /**
  * The base class for all X events.
  */
-public abstract class Event {
+public abstract class Event implements InputStreamObject {
 
 	private Display display;
 
@@ -48,7 +49,7 @@ public abstract class Event {
 
 	/**
 	 * Writes this event into a request. This is used in
-	 * {@link org.gnu.escher.x11.Window#sendEvent(boolean, int, Event)}.
+	 * {@link org.gnu.escher.x11.core.Window#sendEvent(boolean, int, Event)}.
 	 *
 	 * @param o the output stream to write to
 	 */

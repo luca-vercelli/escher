@@ -1,10 +1,10 @@
 
 package org.gnu.escher.x11.core;
 
-import org.gnu.escher.x11.StreamObject;
+import org.gnu.escher.x11.InputStreamObject;
 
 /** X depth. */
-public class Depth implements StreamObject {
+public class Depth implements InputStreamObject {
 
 	private int depth;
 	private VisualInfo[] visualTypes;

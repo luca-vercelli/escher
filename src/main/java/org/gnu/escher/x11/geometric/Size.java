@@ -1,4 +1,4 @@
-package org.gnu.escher.x11;
+package org.gnu.escher.x11.geometric;
 
 /** Width and height in geometry. */
 public class Size {

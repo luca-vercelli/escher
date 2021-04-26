@@ -11,9 +11,9 @@ import java.util.Vector;
 
 import org.gnu.escher.app.Application;
 import org.gnu.escher.x11.Cursor;
-import org.gnu.escher.x11.Window;
 import org.gnu.escher.x11.core.Atom;
 import org.gnu.escher.x11.core.Display;
+import org.gnu.escher.x11.core.Window;
 import org.gnu.escher.x11.core.X11ServiceException;
 import org.gnu.escher.x11.enums.ErrorCode;
 import org.gnu.escher.x11.enums.EventCode;
@@ -22,6 +22,7 @@ import org.gnu.escher.x11.enums.GrabMode;
 import org.gnu.escher.x11.enums.GrabStatus;
 import org.gnu.escher.x11.enums.KeyMask;
 import org.gnu.escher.x11.enums.MapState;
+import org.gnu.escher.x11.enums.StackMode;
 import org.gnu.escher.x11.enums.WMInitialState;
 import org.gnu.escher.x11.event.ButtonPress;
 import org.gnu.escher.x11.event.ClientMessage;
@@ -684,7 +685,7 @@ public class Puppet extends Application {
 			display.check_error();
 
 		} catch (X11ServiceException e) {
-			if (e.code == ErrorCode.BAD_ACCESS && e.bad == root.getID())
+			if (e.code == ErrorCode.BAD_ACCESS && e.bad == root.getId())
 				throw new RuntimeException("Failed to access root window\nAnother WM is running?");
 			else
 				throw e;
@@ -1629,7 +1630,7 @@ public class Puppet extends Application {
 		// query all top-level windows
 		Window[] children = root.tree().children();
 		for (Window w : children) {
-			Client client = (Client) Client.intern(display, w.getID());
+			Client client = (Client) Client.intern(display, w.getId());
 
 			// get override_redirect and map_state
 			client.attributes = client.getAttributes();
@@ -1819,7 +1820,7 @@ public class Puppet extends Application {
 		client.setGeometryCache(event.rectangle());
 
 		// we choose to give it focus if it is normal and it raises
-		if (client.state == NORMAL && event.stackMode() == Window.Changes.StackMode.ABOVE)
+		if (client.state == NORMAL && event.stackMode() == StackMode.ABOVE)
 
 			set_focus(client, false);
 	}
@@ -1923,7 +1924,7 @@ public class Puppet extends Application {
 		if (atom == wm_colormap_windows || atom == wm_protocols)
 			throw new java.lang.Error("unhandled property notfiy: " + atom);
 
-		switch (atom.getID()) {
+		switch (atom.getId()) {
 		case Atom.WM_HINTS_ID: // TODO any action?
 			client.wmHints();
 			break;

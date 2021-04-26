@@ -11,10 +11,10 @@ package org.gnu.escher.app;
 
 import static org.gnu.escher.x11.core.DisplayName.getFromConventionalString;
 
-import org.gnu.escher.x11.Window;
 import org.gnu.escher.x11.WindowAttributes;
 import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.GC;
+import org.gnu.escher.x11.core.Window;
 
 /**
  * A simplistic benchmark for raw rendering throughput.

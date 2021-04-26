@@ -1,7 +1,7 @@
 package org.gnu.escher.app;
 
-import org.gnu.escher.x11.Window;
-import org.gnu.escher.x11.Window.*;
+import org.gnu.escher.x11.core.Window;
+import org.gnu.escher.x11.core.Window.*;
 import org.gnu.escher.x11.enums.MapState;
 
 /**
@@ -33,7 +33,7 @@ public class WinOp extends Application {
 			return;
 
 		if (window_id == 0)
-			window_id = display.getDefaultRoot().getID();
+			window_id = display.getDefaultRoot().getId();
 		window = (Window) Window.intern(display, window_id);
 
 		switch (operation) {
@@ -66,7 +66,7 @@ public class WinOp extends Application {
 			String name = child.wmName();
 			if (!atts.overrideRedirect() && atts.mapState() == MapState.VIEWABLE && name != null) {
 
-				System.out.println(child.getID() + " " + name);
+				System.out.println(child.getId() + " " + name);
 
 			}
 		}

@@ -3,6 +3,7 @@ package org.gnu.escher.x11;
 import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.RequestOutputStream;
 import org.gnu.escher.x11.core.ResponseInputStream;
+import org.gnu.escher.x11.core.Window;
 import org.gnu.escher.x11.enums.InputEvent;
 import org.gnu.escher.x11.enums.InputStatus;
 import org.gnu.escher.x11.enums.KeyMask;
@@ -212,7 +213,7 @@ public class Input {
 	}
 
 	/** Reply of {@link #keyboardControl()} */
-	public class KeyboardControlInfo implements StreamObject {
+	public class KeyboardControlInfo implements InputStreamObject {
 
 		public boolean global_auto_repeat;
 
@@ -330,7 +331,7 @@ public class Input {
 	}
 
 	/** Reply of {@link #pointerControl()}. */
-	public class PointerControlInfo implements StreamObject {
+	public class PointerControlInfo implements InputStreamObject {
 
 		public int acceleration_numerator;
 		public int acceleration_denominator;
@@ -435,7 +436,7 @@ public class Input {
 		return InputStatus.getStatus(status);
 	}
 
-	public class ModifierMapping implements StreamObject {
+	public class ModifierMapping implements InputStreamObject {
 
 		public int keycodesPerModifier;
 		byte[] map;

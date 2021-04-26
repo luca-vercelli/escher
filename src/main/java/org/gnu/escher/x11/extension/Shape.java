@@ -1,10 +1,10 @@
 package org.gnu.escher.x11.extension;
 
 import org.gnu.escher.x11.Pixmap;
-import org.gnu.escher.x11.Window;
 import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.RequestOutputStream;
 import org.gnu.escher.x11.core.ResponseInputStream;
+import org.gnu.escher.x11.core.Window;
 import org.gnu.escher.x11.event.Event;
 import org.gnu.escher.x11.geometric.Rectangle;
 
@@ -146,7 +146,7 @@ public class Shape extends Extension implements EventFactory {
       o.writeInt8(destKind.getCode());
       o.writeInt8(ordering.getCode());
       o.skip(1);
-      o.writeInt32(dest.getID());
+      o.writeInt32(dest.getId());
       o.writeInt16(xOffset);
       o.writeInt16(yOffset);
 
@@ -182,10 +182,10 @@ public class Shape extends Extension implements EventFactory {
       o.writeInt8(operation.getCode());
       o.writeInt8(destKind.getCode());
       o.skip(2);
-      o.writeInt32(dest.getID());
+      o.writeInt32(dest.getId());
       o.writeInt16(xOffset);
       o.writeInt16(yOffset);
-      o.writeInt32(src.getID());
+      o.writeInt32(src.getId());
       o.send();
     }
   }
@@ -214,10 +214,10 @@ public class Shape extends Extension implements EventFactory {
       o.writeInt8(destKind.getCode());
       o.writeInt8(srcKind.getCode());
       o.skip(1);
-      o.writeInt32(dest.getID());
+      o.writeInt32(dest.getId());
       o.writeInt16(xOffset);
       o.writeInt16(yOffset);
-      o.writeInt32(src.getID());
+      o.writeInt32(src.getId());
       o.send();
     }
   }
@@ -234,7 +234,7 @@ public class Shape extends Extension implements EventFactory {
       o.beginRequest(majorOpcode, 4, 4);
       o.writeInt8(destKind.getCode());
       o.skip(3);
-      o.writeInt32(dest.getID());
+      o.writeInt32(dest.getId());
       o.writeInt16(xOffset);
       o.writeInt16(yOffset);
       o.send();
@@ -301,7 +301,7 @@ public class Shape extends Extension implements EventFactory {
     RequestOutputStream o = display.getResponseOutputStream();
     synchronized(o) {
       o.beginRequest(majorOpcode, 5, 2);
-      o.writeInt32(dest.getID());
+      o.writeInt32(dest.getId());
       ResponseInputStream i = display.getResponseInputStream();
       synchronized(i) {
         i.readReply(o);
@@ -323,7 +323,7 @@ public class Shape extends Extension implements EventFactory {
     RequestOutputStream o = display.getResponseOutputStream();
     synchronized(o) {
       o.beginRequest(majorOpcode, 6, 3);
-      o.writeInt32(dest.getID());
+      o.writeInt32(dest.getId());
       o.writeBool(enable);
       o.send();    
     }
@@ -339,7 +339,7 @@ public class Shape extends Extension implements EventFactory {
     RequestOutputStream o = display.getResponseOutputStream();
     synchronized(o) {
       o.beginRequest(majorOpcode, 6, 2);
-      o.writeInt32(dest.getID());
+      o.writeInt32(dest.getId());
       ResponseInputStream i = display.getResponseInputStream();
       synchronized(i) {
         i.readReply(o);
@@ -390,7 +390,7 @@ public class Shape extends Extension implements EventFactory {
     RequestOutputStream o = display.getResponseOutputStream();
     synchronized(o) {
       o.beginRequest(majorOpcode, 7, 3);
-      o.writeInt32(window.getID());
+      o.writeInt32(window.getId());
       o.writeInt8(kind.getCode());
       ResponseInputStream i = display.getResponseInputStream();
       synchronized(i) {
