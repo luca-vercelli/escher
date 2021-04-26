@@ -10,7 +10,6 @@ import org.gnu.escher.x11.Input;
 import org.gnu.escher.x11.Pixmap;
 import org.gnu.escher.x11.Resource;
 import org.gnu.escher.x11.InputStreamObject;
-import org.gnu.escher.x11.ValueList;
 import org.gnu.escher.x11.WindowAttributes;
 import org.gnu.escher.x11.enums.BackingStore;
 import org.gnu.escher.x11.enums.ChangeOperation;
@@ -27,8 +26,9 @@ import org.gnu.escher.x11.enums.WinClass;
 import org.gnu.escher.x11.enums.X11CoreCommand;
 import org.gnu.escher.x11.event.Event;
 import org.gnu.escher.x11.extension.glx.GLXDrawable;
-import org.gnu.escher.x11.geometric.Point;
-import org.gnu.escher.x11.geometric.Rectangle;
+import org.gnu.escher.x11.types.Point;
+import org.gnu.escher.x11.types.Rectangle;
+import org.gnu.escher.x11.types.ValueList;
 
 /** X window. */
 public class Window extends Drawable implements GLXDrawable {

@@ -1,6 +1,6 @@
-package org.gnu.escher.x11.geometric;
+package org.gnu.escher.x11.types;
 
-/** Line segment in geometry. */
+/** Line segment in geometry. (used in PolySegment) */
 public class Segment {
 	private int x1, y1, x2, y2;
 

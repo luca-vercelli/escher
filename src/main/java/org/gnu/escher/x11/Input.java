@@ -7,6 +7,7 @@ import org.gnu.escher.x11.core.Window;
 import org.gnu.escher.x11.enums.InputEvent;
 import org.gnu.escher.x11.enums.InputStatus;
 import org.gnu.escher.x11.enums.KeyMask;
+import org.gnu.escher.x11.types.ValueList;
 
 /** X keyboard and pointer. */
 public class Input {
@@ -286,7 +287,7 @@ public class Input {
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
 			o.beginRequest(102, 0, 2 + control.count());
-			o.writeInt32(control.bitmask);
+			o.writeInt32(control.getBitmask());
 			control.write(o);
 			o.send();
 		}

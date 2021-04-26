@@ -1,6 +1,7 @@
 package org.gnu.escher.x11;
 
 import org.gnu.escher.x11.enums.BackingStore;
+import org.gnu.escher.x11.types.ValueList;
 
 /** X window attributes. */
 public class WindowAttributes extends ValueList {

@@ -1,4 +1,4 @@
-package org.gnu.escher.x11.geometric;
+package org.gnu.escher.x11.types;
 
 /** Arc in geometry. */
 public class Arc {

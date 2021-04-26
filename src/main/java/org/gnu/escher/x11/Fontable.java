@@ -7,6 +7,7 @@ import org.gnu.escher.x11.core.ResponseInputStream;
 
 /** X fontable. */
 public abstract class Fontable extends Resource {
+
 	/** Predefined. */
 	public Fontable(int id) {
 		super(id);

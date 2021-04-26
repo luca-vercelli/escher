@@ -3,8 +3,8 @@ package org.gnu.escher.app.puppet;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.gnu.escher.x11.geometric.Point;
-import org.gnu.escher.x11.geometric.Rectangle;
+import org.gnu.escher.x11.types.Point;
+import org.gnu.escher.x11.types.Rectangle;
 
 /**
  * User settings of {@link Puppet}.

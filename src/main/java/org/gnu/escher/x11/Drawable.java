@@ -12,12 +12,12 @@ import org.gnu.escher.x11.enums.DrawableShape;
 import org.gnu.escher.x11.enums.Fill;
 import org.gnu.escher.x11.enums.Format;
 import org.gnu.escher.x11.enums.X11CoreCommand;
-import org.gnu.escher.x11.geometric.Arc;
-import org.gnu.escher.x11.geometric.Point;
-import org.gnu.escher.x11.geometric.Rectangle;
-import org.gnu.escher.x11.geometric.Segment;
-import org.gnu.escher.x11.geometric.Size;
 import org.gnu.escher.x11.image.*;
+import org.gnu.escher.x11.types.Arc;
+import org.gnu.escher.x11.types.Point;
+import org.gnu.escher.x11.types.Rectangle;
+import org.gnu.escher.x11.types.Segment;
+import org.gnu.escher.x11.types.Size;
 
 /** X drawable. */
 public abstract class Drawable extends Resource {

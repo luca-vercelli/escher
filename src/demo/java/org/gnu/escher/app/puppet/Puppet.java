@@ -37,9 +37,9 @@ import org.gnu.escher.x11.event.PropertyNotify;
 import org.gnu.escher.x11.event.UnmapNotify;
 import org.gnu.escher.x11.extension.ExtensionNotFoundException;
 import org.gnu.escher.x11.extension.XTest;
-import org.gnu.escher.x11.geometric.Point;
-import org.gnu.escher.x11.geometric.Rectangle;
 import org.gnu.escher.x11.keysym.Misc;
+import org.gnu.escher.x11.types.Point;
+import org.gnu.escher.x11.types.Rectangle;
 
 /**
  * Window manager.

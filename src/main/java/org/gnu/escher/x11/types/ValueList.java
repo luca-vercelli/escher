@@ -1,5 +1,6 @@
-package org.gnu.escher.x11;
+package org.gnu.escher.x11.types;
 
+import org.gnu.escher.x11.OutputStreamObject;
 import org.gnu.escher.x11.core.RequestOutputStream;
 
 /**

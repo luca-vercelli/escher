@@ -17,7 +17,7 @@ import org.gnu.escher.x11.event.ClientMessage;
 import org.gnu.escher.x11.event.ConfigureNotify;
 import org.gnu.escher.x11.event.Event;
 import org.gnu.escher.x11.event.KeyPress;
-import org.gnu.escher.x11.geometric.Rectangle;
+import org.gnu.escher.x11.types.Rectangle;
 
 /**
  * Base class for display hacks.

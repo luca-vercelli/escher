@@ -4,7 +4,7 @@ import org.gnu.escher.x11.Drawable;
 import org.gnu.escher.x11.Pixmap;
 import org.gnu.escher.x11.core.Atom;
 import org.gnu.escher.x11.core.RequestOutputStream;
-import org.gnu.escher.x11.geometric.Rectangle;
+import org.gnu.escher.x11.types.Rectangle;
 
 /** Picture in RENDER. */
 public class DrawablePicture extends Picture {
@@ -13,7 +13,7 @@ public class DrawablePicture extends Picture {
 	public Drawable drawable;
 
 	/** ValueList for {@link DrawablePicture}. */
-	public static class Attributes extends org.gnu.escher.x11.ValueList {
+	public static class Attributes extends org.gnu.escher.x11.types.ValueList {
 		public final static Attributes EMPTY = new Attributes();
 
 		public Attributes() {

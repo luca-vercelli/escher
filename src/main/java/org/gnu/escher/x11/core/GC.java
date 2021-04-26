@@ -6,7 +6,6 @@ import org.gnu.escher.x11.Font;
 import org.gnu.escher.x11.Fontable;
 import org.gnu.escher.x11.Pixmap;
 import org.gnu.escher.x11.RequestObject;
-import org.gnu.escher.x11.ValueList;
 import org.gnu.escher.x11.core.GC.Values.ArcMode;
 import org.gnu.escher.x11.core.GC.Values.CapStyle;
 import org.gnu.escher.x11.core.GC.Values.FillRule;
@@ -16,7 +15,8 @@ import org.gnu.escher.x11.core.GC.Values.JoinStyle;
 import org.gnu.escher.x11.core.GC.Values.LineStyle;
 import org.gnu.escher.x11.core.GC.Values.RectangleOrder;
 import org.gnu.escher.x11.core.GC.Values.SubWindowMode;
-import org.gnu.escher.x11.geometric.Rectangle;
+import org.gnu.escher.x11.types.Rectangle;
+import org.gnu.escher.x11.types.ValueList;
 
 /**
  * X graphics context. This is used to change settings for drawing.
