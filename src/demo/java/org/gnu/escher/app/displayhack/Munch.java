@@ -1,6 +1,7 @@
 package org.gnu.escher.app.displayhack;
 
 import org.gnu.escher.x11.core.GC.Values.*;
+import org.gnu.escher.x11.enums.FunctionValues;
 
 /**
  * Munching squares. It performs the munching squares hack until killed. It

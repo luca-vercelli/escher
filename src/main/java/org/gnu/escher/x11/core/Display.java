@@ -605,7 +605,8 @@ public class Display implements AutoCloseable {
 	 * the extension. The name should use ISO-Latin1 encoding, and uppercase and
 	 * lowercase do matter.
 	 * 
-	 * @param name the name of the extension to query
+	 * @param name
+	 *            the name of the extension to query
 	 * @return
 	 * @see <a href="XQueryExtension.html">XQueryExtension</a>
 	 */
@@ -617,7 +618,7 @@ public class Display implements AutoCloseable {
 		ExtensionInfo info;
 		RequestOutputStream o = outputStream;
 		synchronized (o) {
-			o.beginRequest(98, 0, 2 + (n + p) / 4);
+			o.beginRequest(X11CoreRequest.QueryExtension.getOpcode(), 0, 2 + (n + p) / 4);
 			o.writeInt16(n);
 			o.skip(2);
 			o.writeString8(name);
@@ -645,7 +646,7 @@ public class Display implements AutoCloseable {
 		String[] exts;
 		RequestOutputStream o = outputStream;
 		synchronized (o) {
-			o.beginRequest(99, 9, 1);
+			o.beginRequest(X11CoreRequest.ListExtensions.getOpcode(), 9, 1);
 			ResponseInputStream i = inputStream;
 			synchronized (i) {
 				i.readReply(o);
@@ -675,7 +676,8 @@ public class Display implements AutoCloseable {
 	 * nonnegative is: base - [(base * percent) / 100] + percent When percent is
 	 * negative, it is: base + [(base * percent) / 100]
 	 * 
-	 * @param percent, see above
+	 * @param percent,
+	 *            see above
 	 * @see <a href="XBell.html">XBell</a>
 	 */
 	public void bell(int percent) {

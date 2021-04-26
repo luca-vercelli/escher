@@ -2,15 +2,15 @@ package org.gnu.escher.x11.core;
 
 import org.gnu.escher.x11.Color;
 import org.gnu.escher.x11.RequestObject;
-import org.gnu.escher.x11.core.GC.Values.ArcMode;
-import org.gnu.escher.x11.core.GC.Values.CapStyle;
-import org.gnu.escher.x11.core.GC.Values.FillRule;
-import org.gnu.escher.x11.core.GC.Values.FillStyle;
-import org.gnu.escher.x11.core.GC.Values.FunctionValues;
-import org.gnu.escher.x11.core.GC.Values.JoinStyle;
-import org.gnu.escher.x11.core.GC.Values.LineStyle;
-import org.gnu.escher.x11.core.GC.Values.RectangleOrder;
-import org.gnu.escher.x11.core.GC.Values.SubWindowMode;
+import org.gnu.escher.x11.enums.ArcMode;
+import org.gnu.escher.x11.enums.CapStyle;
+import org.gnu.escher.x11.enums.FillRule;
+import org.gnu.escher.x11.enums.FillStyle;
+import org.gnu.escher.x11.enums.FunctionValues;
+import org.gnu.escher.x11.enums.JoinStyle;
+import org.gnu.escher.x11.enums.LineStyle;
+import org.gnu.escher.x11.enums.RectangleOrder;
+import org.gnu.escher.x11.enums.SubWindowMode;
 import org.gnu.escher.x11.enums.X11CoreRequest;
 import org.gnu.escher.x11.resource.Drawable;
 import org.gnu.escher.x11.resource.Font;
@@ -88,133 +88,6 @@ public class GC extends Fontable {
 
 		public Values() {
 			super(23);
-		}
-
-		public enum FunctionValues {
-			CLEAR(0), AND(1), AND_REVERSE(2), COPY(3), AND_INVERTED(4), NOOP(5), XOR(6), OR(7), NOR(8), EQUIV(
-					9), INVERT(10), OR_REVERSE(11), COPY_INVERTED(12), OR_INVERTED(13), NAND(14), SET(15);
-
-			private int code;
-
-			FunctionValues(int cd) {
-				this.code = cd;
-			}
-
-			public int getCode() {
-				return code;
-			}
-		}
-
-		public enum LineStyle {
-			SOLID(0), DOUBLEDASH(1), ONOFFDASH(2);
-
-			private int code;
-
-			LineStyle(int cd) {
-				this.code = cd;
-			}
-
-			public int getCode() {
-				return code;
-			}
-		}
-
-		public enum CapStyle {
-			NOT_LAST(0), BUTT(1), CAP_ROUND(2), PROJECTING(3);
-
-			private int code;
-
-			CapStyle(int cd) {
-				this.code = cd;
-			}
-
-			public int getCode() {
-				return code;
-			}
-		}
-
-		public enum JoinStyle {
-			MITER(0), JOIN_ROUND(1), BEVEL(2);
-
-			private int code;
-
-			JoinStyle(int cd) {
-				this.code = cd;
-			}
-
-			public int getCode() {
-				return code;
-			}
-		}
-
-		public enum FillStyle {
-			TILED(0), OPAQUE_STIPPLED(1), STIPPLED(2);
-
-			private int code;
-
-			FillStyle(int cd) {
-				this.code = cd;
-			}
-
-			public int getCode() {
-				return code;
-			}
-		}
-
-		public enum FillRule {
-			EVEN_ODD(0), WINDING(1);
-
-			private int code;
-
-			FillRule(int cd) {
-				this.code = cd;
-			}
-
-			public int getCode() {
-				return code;
-			}
-		}
-
-		public enum SubWindowMode {
-			CLIP_BY_CHILDREN(0), INCLUDE_INTERIORS(1);
-
-			private int code;
-
-			SubWindowMode(int cd) {
-				this.code = cd;
-			}
-
-			public int getCode() {
-				return code;
-			}
-		}
-
-		public enum ArcMode {
-			CHORD(0), PIE_SLICE(1);
-
-			private int code;
-
-			ArcMode(int cd) {
-				this.code = cd;
-			}
-
-			public int getCode() {
-				return code;
-			}
-		}
-
-		public enum RectangleOrder {
-			UN_SORTED(0), Y_SORTED(1), YX_SORTED(2), YX_BANDED(3);
-
-			private int code;
-
-			RectangleOrder(int cd) {
-				this.code = cd;
-			}
-
-			public int getCode() {
-				return code;
-			}
 		}
 
 		public void setFunction(FunctionValues fv) {

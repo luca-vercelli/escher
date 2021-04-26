@@ -14,6 +14,8 @@ import org.gnu.escher.x11.X11Command;
  * See <a href='http://www.x.org/wiki/'> http://www.x.org/wiki/</a> for details.
  * 
  * @author Mario Torre neugens@aicas.com
+ * 
+ * @see https://www.x.org/releases/X11R7.7/doc/xproto/x11protocol.html
  */
 public enum X11CoreRequest implements X11Command {
 
@@ -33,7 +35,7 @@ public enum X11CoreRequest implements X11Command {
 	UnmapSubwindows(11, 2), //
 	ConfigureWindow(12, 3), //
 	CirculateWindow(13, 2), //
-	GetGeometry(14, -1), // in Drawable ?!?
+	GetGeometry(14, -1), // in Drawable
 	QueryTree(15, 2), //
 	InternAtom(16, 2), //
 	GetAtomName(17, 2), //
@@ -92,7 +94,7 @@ public enum X11CoreRequest implements X11Command {
 	SetClipRectangles(59, 3), //
 	FreeGC(60, 2), //
 
-	ClearArea(61, 4), // in Window?!?
+	ClearArea(61, 4), // in Window
 
 	// in Drawable
 	CopyArea(62, 7), //
@@ -136,8 +138,8 @@ public enum X11CoreRequest implements X11Command {
 	RecolorCursor(96, 5), //
 
 	QueryBestSize(97, -1), // in Drawable ?!
-	QueryExtension(98, -1), // in Display
-	ListExtensions(99, -1), // in Display
+	QueryExtension(98, 2), // in Display
+	ListExtensions(99, 1), // in Display
 
 	// in Input
 	SetModifierMapping(118, 2), //
