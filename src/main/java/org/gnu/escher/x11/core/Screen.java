@@ -3,7 +3,6 @@ package org.gnu.escher.x11.core;
 
 import org.gnu.escher.x11.Colormap;
 import org.gnu.escher.x11.InputStreamObject;
-import org.gnu.escher.x11.core.GC.Values;
 import org.gnu.escher.x11.enums.BackingStore;
 
 /** X Screen. */
