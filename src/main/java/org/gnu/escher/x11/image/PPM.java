@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.core.Display;
+import org.gnu.escher.x11.core.VisualInfo;
+import org.gnu.escher.x11.core.X11ClientException;
 
 public class PPM extends ZPixmap { // TODO
 

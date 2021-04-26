@@ -1,7 +1,7 @@
 package org.gnu.escher.x11.extension;
 
-import org.gnu.escher.x11.RequestOutputStream;
-import org.gnu.escher.x11.ResponseInputStream;
+import org.gnu.escher.x11.core.RequestOutputStream;
+import org.gnu.escher.x11.core.ResponseInputStream;
 
 /**
  * XC-MISC Extension. The specification can be found
@@ -20,7 +20,7 @@ public class XCMisc extends Extension {
 	private int serverMajorVersion, serverMinorVersion;
 
 	// xc-misc opcode 0 - get version
-	public XCMisc(org.gnu.escher.x11.Display display) throws ExtensionNotFoundException {
+	public XCMisc(org.gnu.escher.x11.core.Display display) throws ExtensionNotFoundException {
 		super(display, "XC-MISC", MINOR_OPCODE_STRINGS);
 
 		// check version before any other operations

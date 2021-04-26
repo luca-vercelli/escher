@@ -1,8 +1,8 @@
 package org.gnu.escher.x11.event;
 
-import org.gnu.escher.x11.Atom;
-import org.gnu.escher.x11.Display;
-import org.gnu.escher.x11.ResponseInputStream;
+import org.gnu.escher.x11.core.Atom;
+import org.gnu.escher.x11.core.Display;
+import org.gnu.escher.x11.core.ResponseInputStream;
 import org.gnu.escher.x11.enums.PropertyState;
 
 /** X property notify event. */

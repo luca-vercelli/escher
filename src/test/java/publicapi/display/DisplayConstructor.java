@@ -6,6 +6,8 @@ import java.util.Optional;
 import mockit.*;
 
 import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.core.Display;
+import org.gnu.escher.x11.core.X11ClientException;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 

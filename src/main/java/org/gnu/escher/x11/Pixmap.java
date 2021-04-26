@@ -1,6 +1,10 @@
 
 package org.gnu.escher.x11;
 
+import org.gnu.escher.x11.core.Display;
+import org.gnu.escher.x11.core.RequestOutputStream;
+import org.gnu.escher.x11.core.ResponseInputStream;
+
 /** X pixmap. */
 public class Pixmap extends Drawable {
 

@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import org.gnu.escher.utils.Math;
 import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.core.DisplayName;
 import org.gnu.escher.x11.geometric.Rectangle;
 
 /**

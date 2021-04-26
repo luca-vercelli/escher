@@ -3,7 +3,7 @@ package org.gnu.escher.x11;
 import com.github.moaxcp.xephyr.*;
 import org.junit.jupiter.api.*;
 
-import static org.gnu.escher.x11.DisplayName.*;
+import static org.gnu.escher.x11.core.DisplayName.*;
 
 import java.io.*;
 import java.util.ArrayList;

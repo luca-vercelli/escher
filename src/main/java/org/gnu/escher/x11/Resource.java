@@ -1,5 +1,7 @@
 package org.gnu.escher.x11;
 
+import org.gnu.escher.x11.core.Display;
+
 /** X ID resource. */
 public abstract class Resource {
 	protected Display display;

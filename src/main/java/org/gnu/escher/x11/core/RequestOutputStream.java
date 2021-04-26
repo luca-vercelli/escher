@@ -1,4 +1,4 @@
-package org.gnu.escher.x11;
+package org.gnu.escher.x11.core;
 
 import java.io.FilterOutputStream;
 import java.io.IOException;
@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.gnu.escher.x11.RequestObject;
 import org.gnu.escher.x11.enums.X11CoreCommand;
 import org.gnu.escher.x11.extension.glx.GLXCommand;
 

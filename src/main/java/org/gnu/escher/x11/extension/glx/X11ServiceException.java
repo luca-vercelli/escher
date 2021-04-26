@@ -3,7 +3,7 @@ package org.gnu.escher.x11.extension.glx;
 import org.gnu.escher.x11.enums.ErrorCode;
 
 /** GLX Error. */
-public class X11ServiceException extends org.gnu.escher.x11.X11ServiceException {
+public class X11ServiceException extends org.gnu.escher.x11.core.X11ServiceException {
 	private static final long serialVersionUID = -1895295851827247185L;
 
 	public static final int BAD_CONTEXT = 0;
@@ -32,7 +32,7 @@ public class X11ServiceException extends org.gnu.escher.x11.X11ServiceException 
 			"BAD_GLX_PBUFFER: parameter not a GLX pbuffer", "BAD_GLX_CURRENT_DRAWABLE: current GLX drawable invalid",
 			"BAD_GLX_WINDOW: parameter not a GLX window" };
 
-	public X11ServiceException(org.gnu.escher.x11.Display display, int code, int seq_no, int bad, int minor_opcode,
+	public X11ServiceException(org.gnu.escher.x11.core.Display display, int code, int seq_no, int bad, int minor_opcode,
 			int major_opcode) {
 
 		super(display, ERROR_STRINGS[code], ErrorCode.getError(code), seq_no, bad, minor_opcode, major_opcode);

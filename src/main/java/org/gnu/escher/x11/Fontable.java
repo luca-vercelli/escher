@@ -1,5 +1,10 @@
 package org.gnu.escher.x11;
 
+import org.gnu.escher.x11.core.Atom;
+import org.gnu.escher.x11.core.Display;
+import org.gnu.escher.x11.core.RequestOutputStream;
+import org.gnu.escher.x11.core.ResponseInputStream;
+
 /** X fontable. */
 public abstract class Fontable extends Resource {
 	/** Predefined. */

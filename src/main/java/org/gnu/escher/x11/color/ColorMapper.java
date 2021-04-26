@@ -1,6 +1,6 @@
 package org.gnu.escher.x11.color;
 
-import org.gnu.escher.x11.VisualInfo;
+import org.gnu.escher.x11.core.VisualInfo;
 
 /**
  * Contains method to allow conversion between pixel formats to use between

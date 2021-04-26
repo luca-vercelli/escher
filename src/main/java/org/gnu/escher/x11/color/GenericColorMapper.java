@@ -1,6 +1,7 @@
 package org.gnu.escher.x11.color;
 
 import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.core.VisualInfo;
 
 /**
  * Implements default conversion from ARGB to 16 bits RGB.

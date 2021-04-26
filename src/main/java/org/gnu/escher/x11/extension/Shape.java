@@ -1,10 +1,10 @@
 package org.gnu.escher.x11.extension;
 
-import org.gnu.escher.x11.Display;
 import org.gnu.escher.x11.Pixmap;
-import org.gnu.escher.x11.RequestOutputStream;
-import org.gnu.escher.x11.ResponseInputStream;
 import org.gnu.escher.x11.Window;
+import org.gnu.escher.x11.core.Display;
+import org.gnu.escher.x11.core.RequestOutputStream;
+import org.gnu.escher.x11.core.ResponseInputStream;
 import org.gnu.escher.x11.event.Event;
 import org.gnu.escher.x11.geometric.Rectangle;
 

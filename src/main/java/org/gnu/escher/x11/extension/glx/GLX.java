@@ -1,6 +1,9 @@
 package org.gnu.escher.x11.extension.glx;
 
 import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.core.Display;
+import org.gnu.escher.x11.core.RequestOutputStream;
+import org.gnu.escher.x11.core.ResponseInputStream;
 
 /**
  * OpenGL GLX Extension. The specification can be found <a href=
@@ -255,7 +258,7 @@ public class GLX extends org.gnu.escher.x11.extension.Extension implements
     /**
      * Initialize a new GLX context to the given display.
      */
-    public GLX(org.gnu.escher.x11.Display display)
+    public GLX(org.gnu.escher.x11.core.Display display)
         throws org.gnu.escher.x11.extension.ExtensionNotFoundException {
 
         super(display, "GLX", MINOR_OPCODE_STRINGS, 13, 1);

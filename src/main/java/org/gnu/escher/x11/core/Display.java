@@ -1,5 +1,5 @@
 
-package org.gnu.escher.x11;
+package org.gnu.escher.x11.core;
 
 import static org.gnu.escher.utils.Validation.requiresNonNull;
 
@@ -19,6 +19,18 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import org.gnu.escher.x11.Color;
+import org.gnu.escher.x11.Colormap;
+import org.gnu.escher.x11.Data;
+import org.gnu.escher.x11.Font;
+import org.gnu.escher.x11.Input;
+import org.gnu.escher.x11.Pixmap;
+import org.gnu.escher.x11.Resource;
+import org.gnu.escher.x11.StreamObject;
+import org.gnu.escher.x11.VisualInfoMask;
+import org.gnu.escher.x11.Window;
+import org.gnu.escher.x11.XAuthority;
+import org.gnu.escher.x11.Pixmap.Format;
 import org.gnu.escher.x11.enums.AccessControl;
 import org.gnu.escher.x11.enums.ChangeOperation;
 import org.gnu.escher.x11.enums.ForceScreenSaver;
@@ -834,7 +846,7 @@ public class Display implements AutoCloseable {
 		RequestOutputStream o = outputStream;
 		synchronized (o) {
 			o.beginRequest(113, 0, 2);
-			o.writeInt32(resource.id);
+			o.writeInt32(resource.getID());
 			o.send();
 		}
 	}
@@ -1213,11 +1225,11 @@ public class Display implements AutoCloseable {
 		this.atoms.put(name, atom);
 	}
 
-	synchronized Atom getAtom(int id) {
+	synchronized public Atom getAtom(int id) {
 		return atomIDs.get(id);
 	}
 
-	synchronized Atom getAtom(String name) {
+	synchronized public Atom getAtom(String name) {
 		return atomIDs.get(name);
 	}
 

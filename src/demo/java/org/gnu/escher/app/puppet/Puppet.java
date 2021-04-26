@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Vector;
 
 import org.gnu.escher.app.Application;
-import org.gnu.escher.x11.Atom;
 import org.gnu.escher.x11.Cursor;
-import org.gnu.escher.x11.Display;
 import org.gnu.escher.x11.Window;
-import org.gnu.escher.x11.X11ServiceException;
+import org.gnu.escher.x11.core.Atom;
+import org.gnu.escher.x11.core.Display;
+import org.gnu.escher.x11.core.X11ServiceException;
 import org.gnu.escher.x11.enums.ErrorCode;
 import org.gnu.escher.x11.enums.EventCode;
 import org.gnu.escher.x11.enums.EventMask;

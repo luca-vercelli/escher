@@ -1,6 +1,7 @@
 package org.gnu.escher.x11.extension.glx;
 
 import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.core.ResponseInputStream;
 
 /**
  *

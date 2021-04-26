@@ -1,6 +1,7 @@
 package publicapi;
 
 import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.core.X11ClientException;
 import org.junit.jupiter.api.*;
 
 import java.io.*;

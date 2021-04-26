@@ -1,5 +1,7 @@
 package org.gnu.escher.x11;
 
+import org.gnu.escher.x11.core.RequestOutputStream;
+
 /** X value list. */
 public class ValueList {
 	public static final int ALL = 0xffff;

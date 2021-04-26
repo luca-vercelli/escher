@@ -1,6 +1,6 @@
 package org.gnu.escher.x11.extension.render;
 
-import org.gnu.escher.x11.RequestOutputStream;
+import org.gnu.escher.x11.core.RequestOutputStream;
 
 /** GlyphSet in RENDER. */
 public class GlyphSet extends org.gnu.escher.x11.Resource {

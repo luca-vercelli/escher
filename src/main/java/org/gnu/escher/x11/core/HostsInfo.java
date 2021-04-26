@@ -1,5 +1,6 @@
-package org.gnu.escher.x11;
+package org.gnu.escher.x11.core;
 
+import org.gnu.escher.x11.StreamObject;
 import org.gnu.escher.x11.enums.AccessControl;
 
 public class HostsInfo implements StreamObject {
