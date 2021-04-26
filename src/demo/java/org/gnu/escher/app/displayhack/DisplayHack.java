@@ -10,6 +10,7 @@ import org.gnu.escher.app.displayhack.eraser.Eraser;
 import org.gnu.escher.x11.Color;
 import org.gnu.escher.x11.WindowAttributes;
 import org.gnu.escher.x11.core.GC;
+import org.gnu.escher.x11.core.GCValues;
 import org.gnu.escher.x11.enums.EventMask;
 import org.gnu.escher.x11.event.ButtonPress;
 import org.gnu.escher.x11.event.ClientMessage;
@@ -37,7 +38,7 @@ public abstract class DisplayHack extends Application implements Runnable {
 	public long delay, eraser_delay;
 	public Color[] colors;
 	public GC gc, eraser_gc;
-	public GC.Values gc_values = new GC.Values();
+	public GCValues gc_values = new GCValues();
 	public Window window;
 	public Thread thread = new Thread(this);
 

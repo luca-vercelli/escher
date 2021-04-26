@@ -1,19 +1,27 @@
 package publicapi.display;
 
-import java.io.*;
-import java.net.*;
-import mockit.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.gnu.escher.x11.core.DisplayName.getFromConventionalString;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.gnu.escher.x11.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
 import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.DisplayName;
 import org.gnu.escher.x11.core.X11ClientException;
-import org.junit.jupiter.api.*;
-import org.newsclub.net.unix.*;
+import org.junit.jupiter.api.Test;
+import org.newsclub.net.unix.AFUNIXSocket;
+import org.newsclub.net.unix.AFUNIXSocketAddress;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.gnu.escher.x11.core.DisplayName.*;
-import static org.junit.jupiter.api.Assertions.*;
+import mockit.Expectations;
+import mockit.Mock;
+import mockit.MockUp;
+import mockit.Mocked;
+import mockit.Verifications;
 
 public class DisplayNameTest {
 	@Test

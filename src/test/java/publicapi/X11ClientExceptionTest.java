@@ -1,13 +1,12 @@
 package publicapi;
 
-import org.gnu.escher.x11.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.io.IOException;
+
 import org.gnu.escher.x11.core.X11ClientException;
-import org.junit.jupiter.api.*;
-
-import java.io.*;
-
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class X11ClientExceptionTest {
 	@Test

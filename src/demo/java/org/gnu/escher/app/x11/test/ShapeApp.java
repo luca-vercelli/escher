@@ -1,6 +1,7 @@
 package org.gnu.escher.app.x11.test;
 
 import org.gnu.escher.x11.core.GC;
+import org.gnu.escher.x11.core.GCValues;
 import org.gnu.escher.x11.extension.ExtensionNotFoundException;
 import org.gnu.escher.x11.extension.Shape;
 import org.gnu.escher.x11.image.XBM;
@@ -50,7 +51,7 @@ public class ShapeApp extends Graphics {
 		Pixmap mask = new Pixmap(window, 32, 32, 1);
 		XBM xbm = new XBM(display, 32, 32, xbm_data);
 
-		GC.Values gv = new GC.Values();
+		GCValues gv = new GCValues();
 		gv.setBackground(display.getDefaultWhite());
 		gv.setForeground(display.getDefaultBlack());
 		GC gc = new GC(mask, gv);

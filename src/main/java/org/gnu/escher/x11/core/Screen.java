@@ -76,7 +76,7 @@ public class Screen implements InputStreamObject {
 	public GC defaultGC() {
 
 		if (defaultGCCache == null) {
-			GC.Values gv = new GC.Values();
+			GCValues gv = new GCValues();
 			gv.setForeground(blackPixel);
 			gv.setBackground(whitePixel);
 

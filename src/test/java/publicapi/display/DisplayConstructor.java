@@ -1,18 +1,26 @@
 package publicapi.display;
 
-import java.io.*;
-import java.net.*;
-import java.util.Optional;
-import mockit.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.gnu.escher.x11.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Optional;
+
+import org.gnu.escher.x11.XAuthority;
 import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.X11ClientException;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import mockit.Expectations;
+import mockit.Injectable;
+import mockit.Mock;
+import mockit.MockUp;
 
 public class DisplayConstructor {
 	@Test
