@@ -1782,8 +1782,8 @@ public class Puppet extends Application {
 		if (client.early_unmapped || client.early_destroyed)
 			return;
 
-		Atom type = event.type();
-		if (event.format() == 32 && type.getName().equals("WM_CHANGE_STATE")
+		Atom type = event.getType();
+		if (event.getFormat() == 32 && type.getName().equals("WM_CHANGE_STATE")
 				&& event.wm_data() == WMInitialState.ICONIC.getCode()) {
 
 			hide(client);

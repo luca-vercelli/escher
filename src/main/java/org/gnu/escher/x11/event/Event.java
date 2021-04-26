@@ -12,12 +12,10 @@ import org.gnu.escher.x11.enums.EventCode;
 public abstract class Event implements InputStreamObject {
 
 	private Display display;
-
 	private EventCode code;
-
-	private int detail; // todo temp for demo
-
+	private int detail;
 	private int sequenceNumber;
+	private int syntheticFlag;
 
 	/**
 	 * Creates an event without reading. This is used in subclasses that don't use
@@ -32,7 +30,9 @@ public abstract class Event implements InputStreamObject {
 	 */
 	public Event(Display display, ResponseInputStream in) {
 		this.display = display;
-		code = EventCode.of(in.readInt8());
+		int firstByte = in.readInt8();
+		syntheticFlag = firstByte >> 7;
+		code = EventCode.of(firstByte & 0x7f);
 		detail = in.readInt8();
 		sequenceNumber = in.readInt16();
 	}
@@ -65,16 +65,8 @@ public abstract class Event implements InputStreamObject {
 		return display;
 	}
 
-	public void setDisplay(Display display) {
-		this.display = display;
-	}
-
 	public EventCode getCode() {
 		return code;
-	}
-
-	public void setCode(EventCode code) {
-		this.code = code;
 	}
 
 	public int getDetail() {
@@ -89,8 +81,8 @@ public abstract class Event implements InputStreamObject {
 		return sequenceNumber;
 	}
 
-	public void setSequenceNumber(int sequenceNumber) {
-		this.sequenceNumber = sequenceNumber;
+	public int getSyntheticFlag() {
+		return syntheticFlag;
 	}
 
 }

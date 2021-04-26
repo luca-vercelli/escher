@@ -1,6 +1,5 @@
 package org.gnu.escher.x11.extension.glx;
 
-import org.gnu.escher.x11.*;
 import org.gnu.escher.x11.core.ResponseInputStream;
 
 /**
@@ -33,7 +32,7 @@ public class VisualConfig {
 	private int visual_id = (int) GLXConstants.GLX_DONT_CARE;
 	private int clazz = (int) GLXConstants.GLX_DONT_CARE;
 	private boolean rgba = false;
-	private boolean careRGBA = false;
+	private boolean careRGBA = false;				
 	private int red_size = (int) GLXConstants.GLX_DONT_CARE;
 	private int green_size = (int) GLXConstants.GLX_DONT_CARE;
 	private int blue_size = (int) GLXConstants.GLX_DONT_CARE;
@@ -163,20 +162,14 @@ public class VisualConfig {
 
 	// -- reading
 
-	@Deprecated
-	public int visual_id() {
-
-		return visual_id;
-	}
-
 	/**
 	 * Return the visual ID of thios VisualConfig.
 	 * 
 	 * @return
 	 */
-	public int getVisualID() {
+	public int getVisualId() {
 
-		return this.visual_id();
+		return this.visual_id;
 	}
 
 	/**
@@ -593,7 +586,7 @@ public class VisualConfig {
 
 	public String toString() {
 
-		return "#VisualConfig" + "\n  visual-id: " + visual_id() + "\n  class: " + getVisualClass() + "\n  rgba: "
+		return "#VisualConfig" + "\n  visual-id: " + visual_id + "\n  class: " + getVisualClass() + "\n  rgba: "
 				+ getRGBA() + "\n  red-size: " + getRedSize() + "\n  green-size: " + getGreenSize() + "\n  blue-size: "
 				+ getBlueSize() + "\n  alpha-size: " + getAlphaSize() + "\n  accum-red-size: " + accum_red_size()
 				+ "\n  accum-green-size: " + accum_green_size() + "\n  accum-blue-size: " + accum_blue_size()

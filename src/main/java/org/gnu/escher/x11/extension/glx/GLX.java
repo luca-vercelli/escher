@@ -573,7 +573,7 @@ public class GLX extends org.gnu.escher.x11.extension.Extension implements
         // then build an XVisualInfo object from the attribute list
         if (bestMatch != null) {
             XVisualInfo visual = new XVisualInfo();
-            visual.setID(bestMatch.getVisualID());
+            visual.setID(bestMatch.getVisualId());
             return visual; 
         }
         

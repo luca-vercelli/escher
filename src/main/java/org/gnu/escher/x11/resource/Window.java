@@ -772,7 +772,7 @@ public class Window extends Drawable implements GLXDrawable {
 		super(id);
 	}
 
-	/** Intern.  Create empty Resource with given id */
+	/** Intern. Create empty Resource with given id */
 	public Window(Display display, int id) {
 		super(display, id);
 	}
@@ -1946,7 +1946,7 @@ public class Window extends Drawable implements GLXDrawable {
 
 		String resClass = app.getClass().getName();
 		setWMClassHint(topic, resClass);
-		setWMName(topic + " - " + resClass);
+		setWMName(topic);
 	}
 
 	/**
@@ -2086,6 +2086,8 @@ public class Window extends Drawable implements GLXDrawable {
 	}
 
 	/**
+	 * Set window title
+	 * 
 	 * @see <a href="XSetWMName.html">XSetWMName</a>
 	 */
 	public void setWMName(String wmName) {
@@ -2095,6 +2097,10 @@ public class Window extends Drawable implements GLXDrawable {
 	}
 
 	/**
+	 * Set WM protocol to WM_DELETE_WINDOW. When the user press "X" close button,
+	 * the window will not be closed. Instead, a WM_DELETE_WINDOW client message
+	 * should be sent.
+	 * 
 	 * @see #setWMProtocol(String)
 	 */
 	public void setWMDeleteWindow() {
@@ -2103,6 +2109,9 @@ public class Window extends Drawable implements GLXDrawable {
 	}
 
 	/**
+	 * Known protocols: WM_TAKE_FOCUS, WM_SAVE_YOURSELF (deprecated),
+	 * WM_DELETE_WINDOW
+	 * 
 	 * @see #changeProperty(Atom, Atom, int)
 	 */
 	public void setWMProtocol(String name) {

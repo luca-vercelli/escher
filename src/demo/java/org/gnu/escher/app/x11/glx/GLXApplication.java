@@ -1,20 +1,27 @@
 package org.gnu.escher.app.x11.glx;
 
-import java.lang.*;
-import java.lang.Error;
-
-import org.gnu.escher.x11.*;
+import org.gnu.escher.x11.WindowAttributes;
 import org.gnu.escher.x11.enums.EventMask;
 import org.gnu.escher.x11.enums.WinClass;
-import org.gnu.escher.x11.event.*;
-import org.gnu.escher.x11.extension.glx.*;
+import org.gnu.escher.x11.event.ButtonPress;
+import org.gnu.escher.x11.event.ClientMessage;
+import org.gnu.escher.x11.event.ConfigureNotify;
+import org.gnu.escher.x11.event.Event;
+import org.gnu.escher.x11.event.Expose;
+import org.gnu.escher.x11.event.KeyPress;
+import org.gnu.escher.x11.event.MotionNotify;
+import org.gnu.escher.x11.extension.glx.GL;
+import org.gnu.escher.x11.extension.glx.GLU;
+import org.gnu.escher.x11.extension.glx.GLUT;
+import org.gnu.escher.x11.extension.glx.GLX;
+import org.gnu.escher.x11.extension.glx.VisualConfig;
 import org.gnu.escher.x11.resource.Colormap;
 import org.gnu.escher.x11.resource.Window;
 
 /** OpenGL application. */
 public abstract class GLXApplication extends org.gnu.escher.app.Application {
-	protected static final int EVENT_BIT = 1 << EventMask.LAST_MASK_INDEX.getMask() + 1;
-	protected static final int DELETE_BIT = 1 << EventMask.LAST_MASK_INDEX.getMask() + 2;
+	protected static final int EVENT_BIT = 1 << EventMask.LAST_MASK_INDEX + 1;
+	protected static final int DELETE_BIT = 1 << EventMask.LAST_MASK_INDEX + 2;
 
 	protected static final int BUTTON_PRESS_BIT = EventMask.BUTTON_PRESS_MASK.getMask();
 	protected static final int BUTTON_MOTION_BIT = EventMask.BUTTON_MOTION_MASK.getMask();
@@ -100,7 +107,7 @@ public abstract class GLXApplication extends org.gnu.escher.app.Application {
 
 	protected void init_window(int width, int height) {
 		visual_config = glx.visualConfig(display.getDefaultScreenNumber(), visual_config, true);
-		int vid = visual_config.visual_id();
+		int vid = visual_config.getVisualId();
 		gl = glx.create_context(vid, display.getDefaultScreenNumber(), GL.NONE0);
 
 		// FIXME share colormap
@@ -150,7 +157,7 @@ public abstract class GLXApplication extends org.gnu.escher.app.Application {
 	}
 
 	private void dispatch_client_message() {
-		if (!((ClientMessage) event).deleteWindow())
+		if (!((ClientMessage) event).isDeleteWindow())
 			return;
 		if ((event_mask & DELETE_BIT) != 0 && handle_delete())
 			return;
@@ -190,6 +197,8 @@ public abstract class GLXApplication extends org.gnu.escher.app.Application {
 			break;
 		case MOTION_NOTIFY:
 			dispatch_motion_notify();
+			break;
+		default:
 			break;
 		}
 	}

@@ -387,8 +387,6 @@ public class ResponseInputStream extends FilterInputStream {
 		} catch (IOException ex) {
 			this.handleException(ex);
 		}
-		// System.err.println("reading code: " + code + " masked: " + (code &
-		// 0x7f));
 		code = code & 0x7f; // Remove synthetic mask.
 
 		Event ev = null;

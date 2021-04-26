@@ -44,7 +44,7 @@ public class Sync extends Graphics implements Runnable {
 			break;
 
 		case CLIENT_MESSAGE:
-			if (((ClientMessage) event).deleteWindow())
+			if (((ClientMessage) event).isDeleteWindow())
 				exit();
 			break;
 

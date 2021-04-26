@@ -61,7 +61,7 @@ public abstract class Graphics extends Application {
       break;
 
     case CLIENT_MESSAGE:
-      if (((ClientMessage) event).deleteWindow ()) exit ();
+      if (((ClientMessage) event).isDeleteWindow ()) exit ();
       break;
 
     case EXPOSE:

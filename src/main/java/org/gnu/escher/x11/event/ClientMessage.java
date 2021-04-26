@@ -15,13 +15,13 @@ public final class ClientMessage extends Event {
 		super(display, in);
 		windowID = in.readInt32();
 		typeAtomID = in.readInt32();
-		data = new byte[20];
+		data = new byte[20]; // content depends on message type
 		in.readData(data);
 	}
 
 	// -- reading
 
-	public int format() {
+	public int getFormat() {
 		return getDetail();
 	}
 
@@ -29,26 +29,38 @@ public final class ClientMessage extends Event {
 		return typeAtomID;
 	}
 
+	/**
+	 * Return bytes 0-3 of data as int
+	 * @return
+	 */
 	public int wm_data() {
 		return ((((int) data[0]) & 0xff) << 24 | (((int) data[1]) & 0xff) << 16 | (((int) data[2]) & 0xff) << 8
 				| (((int) data[3]) & 0xff));
 	}
 
+	/**
+	 * Return bytes 4-7 of data as int
+	 * @return
+	 */
 	public int wm_time() {
 		return ((((int) data[4]) & 0xff) << 24 | (((int) data[5]) & 0xff) << 16 | (((int) data[6]) & 0xff) << 8
 				| (((int) data[7]) & 0xff));
 	}
 
+	/**
+	 * Is this a "Close window" message?
+	 * @return
+	 */
 	// todo seems to return if this message is for a deleted window this is not
 	// obvious from the method name
-	public boolean deleteWindow() {
+	public boolean isDeleteWindow() {
 		Atom wm_protocols = (Atom) Atom.intern(getDisplay(), "WM_PROTOCOLS");
 		Atom wm_delete_window = (Atom) Atom.intern(getDisplay(), "WM_DELETE_WINDOW");
 
-		return format() == 32 && type() == wm_protocols && wm_data() == wm_delete_window.getId();
+		return getFormat() == 32 && getType() == wm_protocols && wm_data() == wm_delete_window.getId();
 	}
 
-	public Atom type() {
+	public Atom getType() {
 		return (Atom) Atom.intern(getDisplay(), getTypeId(), true);
 	}
 

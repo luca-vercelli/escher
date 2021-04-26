@@ -152,7 +152,7 @@ public abstract class DisplayHack extends Application implements Runnable {
 
 		}
 		case CLIENT_MESSAGE:
-			if (((ClientMessage) event).deleteWindow())
+			if (((ClientMessage) event).isDeleteWindow())
 				exit();
 			break;
 		}

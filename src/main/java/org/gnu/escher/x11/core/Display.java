@@ -605,8 +605,7 @@ public class Display implements AutoCloseable {
 	 * the extension. The name should use ISO-Latin1 encoding, and uppercase and
 	 * lowercase do matter.
 	 * 
-	 * @param name
-	 *            the name of the extension to query
+	 * @param name the name of the extension to query
 	 * @return
 	 * @see <a href="XQueryExtension.html">XQueryExtension</a>
 	 */
@@ -676,8 +675,7 @@ public class Display implements AutoCloseable {
 	 * nonnegative is: base - [(base * percent) / 100] + percent When percent is
 	 * negative, it is: base + [(base * percent) / 100]
 	 * 
-	 * @param percent,
-	 *            see above
+	 * @param percent, see above
 	 * @see <a href="XBell.html">XBell</a>
 	 */
 	public void bell(int percent) {
@@ -1130,8 +1128,12 @@ public class Display implements AutoCloseable {
 		input.keyboardMapping();
 	}
 
+	/**
+	 * Lock until next event
+	 * 
+	 * @return
+	 */
 	public Event nextEvent() {
-
 		return inputStream.readEvent();
 	}
 

@@ -54,8 +54,8 @@ public enum EventCode {
 	CLIENT_MESSAGE(33), //
 	MAPPING_NOTIFY(34), //
 
-	// What about this?
-	LAST_EVENT(36);
+	// Window closed, or "other"
+	UNKNOWN(36);
 
 	private static final Map<Integer, EventCode> fromCodes;
 
@@ -76,8 +76,9 @@ public enum EventCode {
 	 * @return matching EventCode or LAST_EVENT if no match
 	 */
 	public static EventCode of(int code) {
+		code = code & 0x7f; // remove synthetic mask
 		EventCode event = fromCodes.get(code);
-		return (event != null) ? event : LAST_EVENT;
+		return (event != null) ? event : UNKNOWN;
 	}
 
 	/**

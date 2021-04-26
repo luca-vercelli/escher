@@ -35,17 +35,18 @@ public class Hello extends Application {
 		WindowAttributes win_attr = new WindowAttributes();
 		win_attr.setBackground(display.getDefaultWhite());
 		win_attr.setBorder(display.getDefaultBlack());
-		win_attr.setEventMask(
-				EventMask.BUTTON_PRESS_MASK.or(EventMask.EXPOSURE_MASK.or(EventMask.KEY_PRESS_MASK)));
-		Window window = new Window(display.getDefaultRoot(), 10, 10, 100, 50, 5, win_attr);
+		win_attr.setEventMask(EventMask.BUTTON_PRESS_MASK.or(EventMask.EXPOSURE_MASK.or(EventMask.KEY_PRESS_MASK)));
+		Window window = new Window(display.getDefaultRoot(), 10, 10, 300, 150, 5, win_attr);
 
-		window.setWM(this, "main");
+		window.setWM(this, "main"); // window title
 		window.setWMDeleteWindow();
 		window.map();
+
 		display.flush();
 
 		while (!exit_now) {
 			Event event = display.nextEvent();
+			System.out.println("Received event " + event.getCode());
 
 			switch (event.getCode()) {
 			case BUTTON_PRESS:
@@ -53,7 +54,7 @@ public class Hello extends Application {
 				break;
 
 			case CLIENT_MESSAGE:
-				if (((ClientMessage) event).deleteWindow())
+				if (((ClientMessage) event).isDeleteWindow())
 					exit();
 				break;
 
