@@ -4,7 +4,7 @@ package org.gnu.escher.x11.keysym;
  * Miscellaneous keyboard symbols. Imported from <code>XK_MISCELLANY</code>
  * section of <code>/usr/include/X11/keysymdef.h</code>.
  */
-public class Misc {
+public class MiscKeySym {
 	/*
 	 * I use the following emacs lisp code together with some other (dirty) keyboard
 	 * macro hack to convert `/usr/include/X11/*keysym*.h' to java defintions.

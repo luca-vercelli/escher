@@ -37,7 +37,7 @@ import org.gnu.escher.x11.event.PropertyNotify;
 import org.gnu.escher.x11.event.UnmapNotify;
 import org.gnu.escher.x11.extension.ExtensionNotFoundException;
 import org.gnu.escher.x11.extension.XTest;
-import org.gnu.escher.x11.keysym.Misc;
+import org.gnu.escher.x11.keysym.MiscKeySym;
 import org.gnu.escher.x11.types.Point;
 import org.gnu.escher.x11.types.Rectangle;
 
@@ -555,8 +555,8 @@ import org.gnu.escher.x11.types.Rectangle;
  */
 public class Puppet extends Application {
 	public static final int SYSTEM_MODIFIER = KeyMask.CONTROL_MASK.getCode();
-	public static final int SYSTEM_KEYSYM = Misc.DELETE;
-	public static final int SWITCH_KEYSYM = Misc.TAB;
+	public static final int SYSTEM_KEYSYM = MiscKeySym.DELETE;
+	public static final int SWITCH_KEYSYM = MiscKeySym.TAB;
 
 	// internal state
 	public static final int UNMANAGED = 0;
@@ -850,19 +850,19 @@ public class Puppet extends Application {
 		int delta = shift_down ? 0 : DELTA_LARGE;
 
 		switch (keysym) {
-		case Misc.LEFT: // `gravitate' or `gravitate-absolute'
+		case MiscKeySym.LEFT: // `gravitate' or `gravitate-absolute'
 			focus.move(space.getX() + delta, focus.getY());
 			return false;
 
-		case Misc.RIGHT:
+		case MiscKeySym.RIGHT:
 			focus.move(space.getX() + space.getWidth() - focus.width - delta, focus.getY());
 			return false;
 
-		case Misc.UP:
+		case MiscKeySym.UP:
 			focus.move(focus.getX(), space.getY() + delta);
 			return false;
 
-		case Misc.DOWN:
+		case MiscKeySym.DOWN:
 			focus.move(focus.getX(), space.getY() + space.getHeight() - focus.height - delta);
 			return false;
 
@@ -1018,23 +1018,23 @@ public class Puppet extends Application {
 		 * register.
 		 */
 		switch (keysym) {
-		case Misc.RETURN: // `finish'
-		case Misc.KP_ENTER:
-		case Misc.ESCAPE:
+		case MiscKeySym.RETURN: // `finish'
+		case MiscKeySym.KP_ENTER:
+		case MiscKeySym.ESCAPE:
 			return true;
 
-		case Misc.SHIFT_L: // ignore
-		case Misc.SHIFT_R:
-		case Misc.CONTROL_L:
-		case Misc.CONTROL_R:
-		case Misc.META_L:
-		case Misc.META_R:
-		case Misc.ALT_L:
-		case Misc.ALT_R:
-		case Misc.SUPER_L:
-		case Misc.SUPER_R:
-		case Misc.HYPER_L:
-		case Misc.HYPER_R:
+		case MiscKeySym.SHIFT_L: // ignore
+		case MiscKeySym.SHIFT_R:
+		case MiscKeySym.CONTROL_L:
+		case MiscKeySym.CONTROL_R:
+		case MiscKeySym.META_L:
+		case MiscKeySym.META_R:
+		case MiscKeySym.ALT_L:
+		case MiscKeySym.ALT_R:
+		case MiscKeySym.SUPER_L:
+		case MiscKeySym.SUPER_R:
+		case MiscKeySym.HYPER_L:
+		case MiscKeySym.HYPER_R:
 			if (prefix0 != ' ' && prefix0 != 'j')
 				return false;
 		}
@@ -1048,7 +1048,7 @@ public class Puppet extends Application {
 
 	public boolean key_process_no_prefix() {
 		switch (keysym) {
-		case Misc.BACKSPACE: // prefix of critical operation
+		case MiscKeySym.BACKSPACE: // prefix of critical operation
 		case ' ': // prefix of client to register
 		case 'j': // prefix of jump to register
 		case 'g': // prefix of change geometry
@@ -1057,71 +1057,71 @@ public class Puppet extends Application {
 			prefix0 = keysym;
 			return false;
 
-		case Misc.PAGE_UP: // `raise'
+		case MiscKeySym.PAGE_UP: // `raise'
 			focus.raise();
 			return true;
 
-		case Misc.PAGE_DOWN: // `lower'
+		case MiscKeySym.PAGE_DOWN: // `lower'
 			focus.lower();
 			return true;
 
-		case Misc.LEFT:
+		case MiscKeySym.LEFT:
 			key_move_or_resize(-1, 0);
 			return false;
 
-		case Misc.RIGHT:
+		case MiscKeySym.RIGHT:
 			key_move_or_resize(1, 0);
 			return false;
 
-		case Misc.UP:
+		case MiscKeySym.UP:
 			key_move_or_resize(0, -1);
 			return false;
 
-		case Misc.DOWN:
+		case MiscKeySym.DOWN:
 			key_move_or_resize(0, 1);
 			return false;
 
-		case Misc.KP_HOME:
+		case MiscKeySym.KP_HOME:
 			key_move_pointer(-1, -1);
 			return false;
 
-		case Misc.KP_UP:
+		case MiscKeySym.KP_UP:
 			key_move_pointer(0, -1);
 			return false;
 
-		case Misc.KP_PAGE_UP:
+		case MiscKeySym.KP_PAGE_UP:
 			key_move_pointer(1, -1);
 			return false;
 
-		case Misc.KP_LEFT:
+		case MiscKeySym.KP_LEFT:
 			key_move_pointer(-1, 0);
 			return false;
 
-		case Misc.KP_RIGHT:
+		case MiscKeySym.KP_RIGHT:
 			key_move_pointer(1, 0);
 			return false;
 
-		case Misc.KP_END:
+		case MiscKeySym.KP_END:
 			key_move_pointer(-1, 1);
 			return false;
 
-		case Misc.KP_DOWN:
+		case MiscKeySym.KP_DOWN:
 			key_move_pointer(0, 1);
 			return false;
 
-		case Misc.KP_PAGE_DOWN:
+		case MiscKeySym.KP_PAGE_DOWN:
 			key_move_pointer(1, 1);
 			return false;
 
-		case Misc.KP_BEGIN:
+		case MiscKeySym.KP_BEGIN:
 			key_click_button(KeyMask.BUTTON1.getCode());
 			return true;
 
-		case Misc.KP_DIVIDE:
+		case MiscKeySym.KP_DIVIDE:
 			key_click_button(KeyMask.BUTTON2.getCode());
 			return true;
 
-		case Misc.KP_MULTIPLY:
+		case MiscKeySym.KP_MULTIPLY:
 			key_click_button(KeyMask.BUTTON3.getCode());
 			return true;
 
@@ -1191,7 +1191,7 @@ public class Puppet extends Application {
 
 	public boolean key_process_prefix0() {
 		switch (prefix0) {
-		case Misc.BACKSPACE:
+		case MiscKeySym.BACKSPACE:
 			return key_do_critical_operation();
 
 		case ' ': // `client-to-register KEY'
@@ -1863,7 +1863,7 @@ public class Puppet extends Application {
 			if (status != GrabStatus.SUCCESS)
 				throw new RuntimeException("Failed to grab keyboard");
 
-			focus_key_pressed = keysym == Misc.TAB;
+			focus_key_pressed = keysym == MiscKeySym.TAB;
 			system_key_pressed = !focus_key_pressed;
 			if (system_key_pressed)
 				return;
@@ -1876,11 +1876,11 @@ public class Puppet extends Application {
 		}
 
 		if (focus_key_pressed) {
-			if (keysym == Misc.ESCAPE) { // abort-switch-focus
+			if (keysym == MiscKeySym.ESCAPE) { // abort-switch-focus
 				focus_key_pressed = false;
 				set_focus(focusBase, true);
 
-			} else if (keysym == Misc.TAB)
+			} else if (keysym == MiscKeySym.TAB)
 				key_switch_focus();
 
 			return;
@@ -1903,8 +1903,8 @@ public class Puppet extends Application {
 		int keystate = event.getState();
 		keysym = display.getInput().keycodeToKeysym(keycode, keystate);
 
-		if (!focus_key_pressed || !(keysym == Misc.META_L || keysym == Misc.META_R || keysym == Misc.ALT_L
-				|| keysym == Misc.ALT_R || keysym == Misc.SUPER_L || keysym == Misc.SUPER_R))
+		if (!focus_key_pressed || !(keysym == MiscKeySym.META_L || keysym == MiscKeySym.META_R || keysym == MiscKeySym.ALT_L
+				|| keysym == MiscKeySym.ALT_R || keysym == MiscKeySym.SUPER_L || keysym == MiscKeySym.SUPER_R))
 			return;
 
 		display.getInput().ungrabKeyboard();

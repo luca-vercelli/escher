@@ -42,7 +42,7 @@ public enum EventMask {
 		return this.mask == mask;
 	}
 
-	public int logicOr(EventMask em) {
+	public int or(EventMask em) {
 		return this.getMask() | em.getMask();
 	}
 
@@ -50,7 +50,7 @@ public enum EventMask {
 		return mask;
 	}
 
-	public int logicOr(int i) {
+	public int or(int i) {
 		return this.getMask() | i;
 	}
 

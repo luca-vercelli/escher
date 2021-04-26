@@ -2,7 +2,7 @@ package org.gnu.escher.app.glxdemo;
 
 import org.gnu.escher.app.x11.glx.*;
 import org.gnu.escher.x11.extension.glx.GL;
-import org.gnu.escher.x11.keysym.Misc;
+import org.gnu.escher.x11.keysym.MiscKeySym;
 
 
 /**
@@ -100,12 +100,12 @@ public class Point extends GLXApplication {
     switch (key) {
     case 's':                   // fall through
     case 'S': smoothing = !smoothing; break;
-    case Misc.PAGE_UP: point_size++; break;
-    case Misc.PAGE_DOWN: point_size--; break;
-    case Misc.LEFT: position [0] -= DELTA; break;
-    case Misc.RIGHT: position [0] += DELTA; break;
-    case Misc.UP: position [1] += DELTA; break;
-    case Misc.DOWN: position [1] -= DELTA; break;      
+    case MiscKeySym.PAGE_UP: point_size++; break;
+    case MiscKeySym.PAGE_DOWN: point_size--; break;
+    case MiscKeySym.LEFT: position [0] -= DELTA; break;
+    case MiscKeySym.RIGHT: position [0] += DELTA; break;
+    case MiscKeySym.UP: position [1] += DELTA; break;
+    case MiscKeySym.DOWN: position [1] -= DELTA; break;      
     default: return;
     }
 

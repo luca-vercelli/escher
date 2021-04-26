@@ -5,6 +5,7 @@ import org.gnu.escher.x11.WindowAttributes;
 import org.gnu.escher.x11.core.Window;
 import org.gnu.escher.x11.enums.EventMask;
 import org.gnu.escher.x11.event.*;
+import org.gnu.escher.x11.keysym.MiscKeySym;
 
 /**
  * Hello World.
@@ -35,7 +36,7 @@ public class Hello extends Application {
 		win_attr.setBackground(display.getDefaultWhite());
 		win_attr.setBorder(display.getDefaultBlack());
 		win_attr.setEventMask(
-				EventMask.BUTTON_PRESS_MASK.logicOr(EventMask.EXPOSURE_MASK.logicOr(EventMask.KEY_PRESS_MASK)));
+				EventMask.BUTTON_PRESS_MASK.or(EventMask.EXPOSURE_MASK.or(EventMask.KEY_PRESS_MASK)));
 		Window window = new Window(display.getDefaultRoot(), 10, 10, 100, 50, 5, win_attr);
 
 		window.setWM(this, "main");
@@ -70,7 +71,7 @@ public class Hello extends Application {
 				int keystate = e.getState();
 				int keysym = display.getInput().keycodeToKeysym(keycode, keystate);
 
-				if (keysym == 'q' || keysym == 'Q' || keysym == org.gnu.escher.x11.keysym.Misc.ESCAPE)
+				if (keysym == 'q' || keysym == 'Q' || keysym == MiscKeySym.ESCAPE)
 					exit();
 				break;
 			}

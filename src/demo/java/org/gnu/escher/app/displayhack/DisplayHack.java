@@ -146,7 +146,7 @@ public abstract class DisplayHack extends Application implements Runnable {
 
 			if (keysym == ' ')
 				restart();
-			else if (keysym == 'q' || keysym == 'Q' || keysym == org.gnu.escher.x11.keysym.Misc.ESCAPE)
+			else if (keysym == 'q' || keysym == 'Q' || keysym == org.gnu.escher.x11.keysym.MiscKeySym.ESCAPE)
 				exit();
 			break;
 

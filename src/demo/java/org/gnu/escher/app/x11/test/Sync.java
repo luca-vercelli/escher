@@ -60,7 +60,7 @@ public class Sync extends Graphics implements Runnable {
 			int keystate = e.getState();
 			int keysym = display.getInput().keycodeToKeysym(keycode, keystate);
 
-			if (keysym == 'q' || keysym == 'Q' || keysym == org.gnu.escher.x11.keysym.Misc.ESCAPE)
+			if (keysym == 'q' || keysym == 'Q' || keysym == org.gnu.escher.x11.keysym.MiscKeySym.ESCAPE)
 				exit();
 			break;
 

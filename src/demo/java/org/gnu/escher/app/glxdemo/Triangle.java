@@ -2,7 +2,7 @@ package org.gnu.escher.app.glxdemo;
 
 import org.gnu.escher.app.x11.glx.*;
 import org.gnu.escher.x11.extension.glx.GL;
-import org.gnu.escher.x11.keysym.Misc;
+import org.gnu.escher.x11.keysym.MiscKeySym;
 
 
 /**
@@ -224,8 +224,8 @@ public class Triangle extends GLXApplication {
     case 's':                   // fall through
     case 'S': shading = !shading; break;
     case 'Z': zoom *= 0.75f; break;
-    case Misc.LEFT: z_angle += 0.5f; break;
-    case Misc.RIGHT: z_angle -= 0.5f; break;
+    case MiscKeySym.LEFT: z_angle += 0.5f; break;
+    case MiscKeySym.RIGHT: z_angle -= 0.5f; break;
 
     case 'z': 
       zoom /= 0.75f; 

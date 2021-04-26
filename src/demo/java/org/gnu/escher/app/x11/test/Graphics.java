@@ -76,7 +76,7 @@ public abstract class Graphics extends Application {
       int keysym = display.getInput().keycodeToKeysym (keycode, keystate);
 
       if (keysym == 'q' || keysym == 'Q' 
-        || keysym == org.gnu.escher.x11.keysym.Misc.ESCAPE) exit ();
+        || keysym == org.gnu.escher.x11.keysym.MiscKeySym.ESCAPE) exit ();
       break;
     }
     }

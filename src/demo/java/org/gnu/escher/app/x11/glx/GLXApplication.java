@@ -207,7 +207,7 @@ public abstract class GLXApplication extends org.gnu.escher.app.Application {
 		if ((event_mask & KEYBOARD_BIT) != 0)
 			handle_keyboard(keysym, keystate, e.getEventX(), e.getEventY());
 
-		if (keysym == org.gnu.escher.x11.keysym.Misc.ESCAPE)
+		if (keysym == org.gnu.escher.x11.keysym.MiscKeySym.ESCAPE)
 			exit();
 	}
 

@@ -2,7 +2,7 @@ package org.gnu.escher.app.glxdemo;
 
 import org.gnu.escher.app.x11.glx.*;
 import org.gnu.escher.x11.extension.glx.GL;
-import org.gnu.escher.x11.keysym.Misc;
+import org.gnu.escher.x11.keysym.MiscKeySym;
 
 
 /**
@@ -101,9 +101,9 @@ public class Line extends GLXApplication {
     case 'P': stippling = !stippling; break;
     case 's':                   // fall through
     case 'S': smoothing = !smoothing; break;
-    case Misc.UP: draw_size++; break;
+    case MiscKeySym.UP: draw_size++; break;
 
-    case Misc.DOWN: 
+    case MiscKeySym.DOWN: 
       draw_size--;
       if (draw_size < 1) draw_size = 1;
       break;
