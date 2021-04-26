@@ -1,4 +1,4 @@
-package org.gnu.escher.x11;
+package org.gnu.escher.x11.resource;
 
 import org.gnu.escher.x11.core.Display;
 

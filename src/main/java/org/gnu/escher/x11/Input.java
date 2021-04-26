@@ -3,11 +3,12 @@ package org.gnu.escher.x11;
 import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.RequestOutputStream;
 import org.gnu.escher.x11.core.ResponseInputStream;
-import org.gnu.escher.x11.core.Window;
 import org.gnu.escher.x11.enums.InputEvent;
 import org.gnu.escher.x11.enums.InputStatus;
 import org.gnu.escher.x11.enums.KeyMask;
 import org.gnu.escher.x11.enums.X11CoreRequest;
+import org.gnu.escher.x11.resource.Cursor;
+import org.gnu.escher.x11.resource.Window;
 import org.gnu.escher.x11.types.ValueList;
 
 /** X keyboard and pointer. */
@@ -66,7 +67,7 @@ public class Input {
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
 			o.beginRequest(X11CoreRequest.ChangeActivePointerGrab.getOpcode(), 0, 4);
-			o.writeInt32(cursor.id);
+			o.writeInt32(cursor.getId());
 			o.writeInt32(time);
 			o.writeInt16(event_mask);
 			o.send();

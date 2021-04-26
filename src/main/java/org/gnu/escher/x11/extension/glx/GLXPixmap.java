@@ -3,14 +3,14 @@ package org.gnu.escher.x11.extension.glx;
 import org.gnu.escher.x11.core.RequestOutputStream;
 
 /** GLX pixmap. */
-public class GLXPixmap extends org.gnu.escher.x11.Resource implements GLXDrawable {
+public class GLXPixmap extends org.gnu.escher.x11.resource.Resource implements GLXDrawable {
 	public GLX glx;
 
 	// glx opcode 13 - create glx pixmap
 	/**
 	 * @see <a href="glXCreateGLXPixmap.html">glXCreateGLXPixmap</a>
 	 */
-	public GLXPixmap(GLX glx, int screen_no, XVisualInfo visual, org.gnu.escher.x11.Pixmap pixmap) {
+	public GLXPixmap(GLX glx, int screen_no, XVisualInfo visual, org.gnu.escher.x11.resource.Pixmap pixmap) {
 
 		super(glx.getDisplay());
 		this.glx = glx;

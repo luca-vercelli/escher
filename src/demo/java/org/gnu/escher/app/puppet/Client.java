@@ -1,7 +1,7 @@
 package org.gnu.escher.app.puppet;
 
 import org.gnu.escher.x11.core.Display;
-import org.gnu.escher.x11.core.Window;
+import org.gnu.escher.x11.resource.Window;
 
 /** Wrapper of {@link Window} for {@link Puppet}. */
 public class Client extends Window {

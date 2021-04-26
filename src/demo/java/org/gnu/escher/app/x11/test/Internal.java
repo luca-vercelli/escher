@@ -1,9 +1,9 @@
 package org.gnu.escher.app.x11.test;
 
 import org.gnu.escher.app.Application;
-import org.gnu.escher.x11.Cursor;
 import org.gnu.escher.x11.enums.CursorShape;
 import org.gnu.escher.x11.keysym.MiscKeySym;
+import org.gnu.escher.x11.resource.Cursor;
 
 /**
  * Test internal workings of <code>gnu.x11</code>.

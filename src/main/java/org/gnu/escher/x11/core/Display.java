@@ -20,13 +20,9 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.gnu.escher.x11.Color;
-import org.gnu.escher.x11.Colormap;
 import org.gnu.escher.x11.Data;
-import org.gnu.escher.x11.Font;
 import org.gnu.escher.x11.Input;
 import org.gnu.escher.x11.InputStreamObject;
-import org.gnu.escher.x11.Pixmap;
-import org.gnu.escher.x11.Resource;
 import org.gnu.escher.x11.XAuthority;
 import org.gnu.escher.x11.enums.AccessControl;
 import org.gnu.escher.x11.enums.ChangeOperation;
@@ -42,6 +38,11 @@ import org.gnu.escher.x11.extension.ErrorFactory;
 import org.gnu.escher.x11.extension.EventFactory;
 import org.gnu.escher.x11.extension.ExtensionNotFoundException;
 import org.gnu.escher.x11.extension.XCMisc;
+import org.gnu.escher.x11.resource.Colormap;
+import org.gnu.escher.x11.resource.Font;
+import org.gnu.escher.x11.resource.Pixmap;
+import org.gnu.escher.x11.resource.Resource;
+import org.gnu.escher.x11.resource.Window;
 
 /** X server connection. */
 // TODO Support Multiple Screens

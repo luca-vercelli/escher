@@ -1,10 +1,6 @@
 package org.gnu.escher.x11.core;
 
 import org.gnu.escher.x11.Color;
-import org.gnu.escher.x11.Drawable;
-import org.gnu.escher.x11.Font;
-import org.gnu.escher.x11.Fontable;
-import org.gnu.escher.x11.Pixmap;
 import org.gnu.escher.x11.RequestObject;
 import org.gnu.escher.x11.core.GC.Values.ArcMode;
 import org.gnu.escher.x11.core.GC.Values.CapStyle;
@@ -15,6 +11,10 @@ import org.gnu.escher.x11.core.GC.Values.JoinStyle;
 import org.gnu.escher.x11.core.GC.Values.LineStyle;
 import org.gnu.escher.x11.core.GC.Values.RectangleOrder;
 import org.gnu.escher.x11.core.GC.Values.SubWindowMode;
+import org.gnu.escher.x11.resource.Drawable;
+import org.gnu.escher.x11.resource.Font;
+import org.gnu.escher.x11.resource.Fontable;
+import org.gnu.escher.x11.resource.Pixmap;
 import org.gnu.escher.x11.types.Rectangle;
 import org.gnu.escher.x11.types.ValueList;
 

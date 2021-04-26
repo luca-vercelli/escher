@@ -4,11 +4,12 @@ import java.lang.*;
 import java.lang.Error;
 
 import org.gnu.escher.x11.*;
-import org.gnu.escher.x11.core.Window;
 import org.gnu.escher.x11.enums.EventMask;
 import org.gnu.escher.x11.enums.WinClass;
 import org.gnu.escher.x11.event.*;
 import org.gnu.escher.x11.extension.glx.*;
+import org.gnu.escher.x11.resource.Colormap;
+import org.gnu.escher.x11.resource.Window;
 
 /** OpenGL application. */
 public abstract class GLXApplication extends org.gnu.escher.app.Application {

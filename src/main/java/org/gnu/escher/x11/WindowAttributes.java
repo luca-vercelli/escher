@@ -2,6 +2,9 @@ package org.gnu.escher.x11;
 
 import org.gnu.escher.x11.enums.BackingStore;
 import org.gnu.escher.x11.enums.Gravity;
+import org.gnu.escher.x11.resource.Colormap;
+import org.gnu.escher.x11.resource.Cursor;
+import org.gnu.escher.x11.resource.Pixmap;
 import org.gnu.escher.x11.types.ValueList;
 
 /** X window attributes. */
@@ -19,12 +22,13 @@ public class WindowAttributes extends ValueList {
 	}
 
 	/**
-	 * @param p possible: {@link Pixmap#NONE} (default),
-	 *          {@link Pixmap#PARENT_RELATIVE}
+	 * @param p
+	 *            possible: {@link Pixmap#NONE} (default),
+	 *            {@link Pixmap#PARENT_RELATIVE}
 	 */
 	public void setBackground(Pixmap p) {
 
-		set(0, p.id);
+		set(0, p.getId());
 	}
 
 	/**
@@ -41,11 +45,12 @@ public class WindowAttributes extends ValueList {
 	}
 
 	/**
-	 * @param p possible: {@link Pixmap#COPY_FROM_PARENT} (default)
+	 * @param p
+	 *            possible: {@link Pixmap#COPY_FROM_PARENT} (default)
 	 */
 	public void setBorder(Pixmap p) {
 
-		set(2, p.id);
+		set(2, p.getId());
 	}
 
 	/**
@@ -75,7 +80,8 @@ public class WindowAttributes extends ValueList {
 	}
 
 	/**
-	 * @param i default: all ones
+	 * @param i
+	 *            default: all ones
 	 */
 	public void setBackingPlane(int i) {
 
@@ -96,7 +102,8 @@ public class WindowAttributes extends ValueList {
 	}
 
 	/**
-	 * @param b default: false
+	 * @param b
+	 *            default: false
 	 */
 	public void setOverrideRedirect(boolean b) {
 
@@ -104,7 +111,8 @@ public class WindowAttributes extends ValueList {
 	}
 
 	/**
-	 * @param b default: false
+	 * @param b
+	 *            default: false
 	 */
 	public void setSaveUnder(boolean b) {
 
@@ -112,7 +120,8 @@ public class WindowAttributes extends ValueList {
 	}
 
 	/**
-	 * @param i default: {}
+	 * @param i
+	 *            default: {}
 	 */
 	public void setEventMask(int i) { // todo should use Event.EventMask
 
@@ -130,7 +139,8 @@ public class WindowAttributes extends ValueList {
 	}
 
 	/**
-	 * @param i default: {}
+	 * @param i
+	 *            default: {}
 	 */
 	public void setDoNotPropagateMask(int i) {
 
@@ -138,19 +148,21 @@ public class WindowAttributes extends ValueList {
 	}
 
 	/**
-	 * @param c possible: {@link Colormap#COPY_FROM_PARENT} (default)
+	 * @param c
+	 *            possible: {@link Colormap#COPY_FROM_PARENT} (default)
 	 */
 	public void setColormap(Colormap c) {
 
-		set(13, c.id);
+		set(13, c.getId());
 	}
 
 	/**
-	 * @param c possible: {@link Cursor#NONE}
+	 * @param c
+	 *            possible: {@link Cursor#NONE}
 	 */
 	public void setCursor(Cursor c) {
 
-		set(14, c.id);
+		set(14, c.getId());
 	}
 
 	public Object clone() {

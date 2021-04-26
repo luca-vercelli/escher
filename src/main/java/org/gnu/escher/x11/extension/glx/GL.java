@@ -33,7 +33,7 @@ import java.nio.DoubleBuffer;
  * 
  * </ul>
  */
-public class GL extends org.gnu.escher.x11.Resource implements GLConstant {
+public class GL extends org.gnu.escher.x11.resource.Resource implements GLConstant {
 
 	/**
 	 * A helper for sending large render requests.
@@ -236,7 +236,7 @@ public class GL extends org.gnu.escher.x11.Resource implements GLConstant {
 	/**
 	 * Predefined context.
 	 * 
-	 * @see org.gnu.escher.x11.core.Window#NONE
+	 * @see org.gnu.escher.x11.resource.Window#NONE
 	 */
 	public static final GL NONE0 = new GL(0);
 
@@ -541,7 +541,7 @@ public class GL extends org.gnu.escher.x11.Resource implements GLConstant {
 	/**
 	 * @see <a href="glXUseXFont.html">glXUseXFont</a>
 	 */
-	public void use_x_font(org.gnu.escher.x11.Font font, int first, int count, int base) {
+	public void use_x_font(org.gnu.escher.x11.resource.Font font, int first, int count, int base) {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {

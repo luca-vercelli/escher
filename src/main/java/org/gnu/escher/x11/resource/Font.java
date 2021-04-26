@@ -1,8 +1,7 @@
-package org.gnu.escher.x11;
+package org.gnu.escher.x11.resource;
 
 import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.RequestOutputStream;
-import org.gnu.escher.x11.core.Window;
 import org.gnu.escher.x11.enums.X11CoreRequest;
 
 /** X font. */

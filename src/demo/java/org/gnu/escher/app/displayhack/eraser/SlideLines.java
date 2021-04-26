@@ -1,7 +1,7 @@
 package org.gnu.escher.app.displayhack.eraser;
 
 import org.gnu.escher.app.displayhack.DisplayHack;
-import org.gnu.escher.x11.core.Window;
+import org.gnu.escher.x11.resource.Window;
 
 
 /**

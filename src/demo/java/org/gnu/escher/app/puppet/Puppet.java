@@ -10,10 +10,8 @@ import java.util.List;
 import java.util.Vector;
 
 import org.gnu.escher.app.Application;
-import org.gnu.escher.x11.Cursor;
 import org.gnu.escher.x11.core.Atom;
 import org.gnu.escher.x11.core.Display;
-import org.gnu.escher.x11.core.Window;
 import org.gnu.escher.x11.core.X11ServiceException;
 import org.gnu.escher.x11.enums.ErrorCode;
 import org.gnu.escher.x11.enums.EventCode;
@@ -38,6 +36,8 @@ import org.gnu.escher.x11.event.UnmapNotify;
 import org.gnu.escher.x11.extension.ExtensionNotFoundException;
 import org.gnu.escher.x11.extension.XTest;
 import org.gnu.escher.x11.keysym.MiscKeySym;
+import org.gnu.escher.x11.resource.Cursor;
+import org.gnu.escher.x11.resource.Window;
 import org.gnu.escher.x11.types.Point;
 import org.gnu.escher.x11.types.Rectangle;
 

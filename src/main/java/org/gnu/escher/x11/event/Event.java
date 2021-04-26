@@ -49,7 +49,7 @@ public abstract class Event implements InputStreamObject {
 
 	/**
 	 * Writes this event into a request. This is used in
-	 * {@link org.gnu.escher.x11.core.Window#sendEvent(boolean, int, Event)}.
+	 * {@link org.gnu.escher.x11.resource.Window#sendEvent(boolean, int, Event)}.
 	 *
 	 * @param o the output stream to write to
 	 */

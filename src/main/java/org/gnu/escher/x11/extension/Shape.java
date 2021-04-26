@@ -1,11 +1,11 @@
 package org.gnu.escher.x11.extension;
 
-import org.gnu.escher.x11.Pixmap;
 import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.RequestOutputStream;
 import org.gnu.escher.x11.core.ResponseInputStream;
-import org.gnu.escher.x11.core.Window;
 import org.gnu.escher.x11.event.Event;
+import org.gnu.escher.x11.resource.Pixmap;
+import org.gnu.escher.x11.resource.Window;
 import org.gnu.escher.x11.types.Rectangle;
 
 /** 
@@ -170,7 +170,7 @@ public class Shape extends Extension implements EventFactory {
    * @param operation valid:
    * {@link Operation}
    * 
-   * @param src possible: {@link org.gnu.escher.x11.Pixmap#NONE}
+   * @param src possible: {@link org.gnu.escher.x11.resource.Pixmap#NONE}
    * @see <a href="XShapeCombineMask.html">XShapeCombineMask</a>
    */
   public void combineMask(Window dest, Kind destKind, int xOffset, 

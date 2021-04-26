@@ -10,6 +10,7 @@ import org.gnu.escher.x11.core.X11ClientException;
 import org.gnu.escher.x11.core.X11ServiceException;
 import org.gnu.escher.x11.core.X11ServiceException.*;
 import org.gnu.escher.x11.enums.ErrorCode;
+import org.gnu.escher.x11.resource.Drawable;
 
 /**
  * X Rendering Extension.

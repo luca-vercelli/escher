@@ -13,7 +13,7 @@ public class ThreeCircles extends Eraser {
 
 
   public void erase (org.gnu.escher.app.displayhack.DisplayHack hack) {
-    org.gnu.escher.x11.core.Window window = hack.window;
+    org.gnu.escher.x11.resource.Window window = hack.window;
 
     /* Minimum radius = L/sqrt(2) ~= 0.707*L,
      *   where L = max(width, heigth)

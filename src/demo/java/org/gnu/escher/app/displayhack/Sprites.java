@@ -1,12 +1,12 @@
 package org.gnu.escher.app.displayhack;
 
-import org.gnu.escher.x11.Pixmap;
 import org.gnu.escher.x11.core.GC;
 import org.gnu.escher.x11.extension.render.DrawablePicture;
 import org.gnu.escher.x11.extension.render.PictFormat;
 import org.gnu.escher.x11.extension.render.Picture;
 import org.gnu.escher.x11.extension.render.Render;
 import org.gnu.escher.x11.extension.render.PictFormat.*;
+import org.gnu.escher.x11.resource.Pixmap;
 
 /**
  * Moving sprites to blend colors.

@@ -10,13 +10,13 @@ import org.gnu.escher.app.displayhack.eraser.Eraser;
 import org.gnu.escher.x11.Color;
 import org.gnu.escher.x11.WindowAttributes;
 import org.gnu.escher.x11.core.GC;
-import org.gnu.escher.x11.core.Window;
 import org.gnu.escher.x11.enums.EventMask;
 import org.gnu.escher.x11.event.ButtonPress;
 import org.gnu.escher.x11.event.ClientMessage;
 import org.gnu.escher.x11.event.ConfigureNotify;
 import org.gnu.escher.x11.event.Event;
 import org.gnu.escher.x11.event.KeyPress;
+import org.gnu.escher.x11.resource.Window;
 import org.gnu.escher.x11.types.Rectangle;
 
 /**

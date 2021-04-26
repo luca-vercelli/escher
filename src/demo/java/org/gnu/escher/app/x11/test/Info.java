@@ -5,11 +5,12 @@ import java.util.Arrays;
 import org.gnu.escher.app.Application;
 import org.gnu.escher.x11.*;
 import org.gnu.escher.x11.core.Atom;
-import org.gnu.escher.x11.core.Window;
 import org.gnu.escher.x11.extension.ExtensionNotFoundException;
 import org.gnu.escher.x11.extension.glx.GL;
 import org.gnu.escher.x11.extension.glx.GLX;
 import org.gnu.escher.x11.extension.render.Render;
+import org.gnu.escher.x11.resource.Font;
+import org.gnu.escher.x11.resource.Window;
 
 
 /** 

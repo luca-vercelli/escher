@@ -1,5 +1,6 @@
-package org.gnu.escher.x11;
+package org.gnu.escher.x11.resource;
 
+import org.gnu.escher.x11.InputStreamObject;
 import org.gnu.escher.x11.core.Atom;
 import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.RequestOutputStream;

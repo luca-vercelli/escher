@@ -1,6 +1,8 @@
 
-package org.gnu.escher.x11;
+package org.gnu.escher.x11.resource;
 
+import org.gnu.escher.x11.InputStreamObject;
+import org.gnu.escher.x11.Text;
 import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.GC;
 import org.gnu.escher.x11.core.RequestOutputStream;
@@ -946,5 +948,16 @@ public abstract class Drawable extends Resource {
 		for (int i = 0; i < texts.length; i++)
 			n += texts[i].length(bit);
 		return n;
+	}
+
+	/**
+	 * Draw or fill a rectangle
+	 */
+	public void rectangle(GC xgc, int x, int y, int w, int h, boolean fill) {
+
+		if (fill)
+			fillRectangle(xgc, x, y, w, h);
+		else
+			rectangle(xgc, x, y, w, h);
 	}
 }

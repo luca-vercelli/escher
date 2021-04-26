@@ -1,5 +1,7 @@
 package org.gnu.escher.x11;
 
+import org.gnu.escher.x11.resource.Font;
+
 /** Text item for drawing text to X server. */
 public class Text {
 	private String str;
