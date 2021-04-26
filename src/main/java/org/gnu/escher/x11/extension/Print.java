@@ -1,6 +1,7 @@
 package org.gnu.escher.x11.extension;
 
 import org.gnu.escher.x11.Data;
+import org.gnu.escher.x11.Resource;
 import org.gnu.escher.x11.core.Display;
 import org.gnu.escher.x11.core.RequestOutputStream;
 import org.gnu.escher.x11.core.ResponseInputStream;
@@ -19,7 +20,8 @@ import org.gnu.escher.x11.enums.ErrorCode;
  */
 public class Print extends Extension implements ErrorFactory, EventFactory {
 
-	private static final String[] MINOR_OPCODE_STRINGS = { "QueryVersion", // 0
+	private static final String[] MINOR_OPCODE_STRINGS = { //
+			"QueryVersion", // 0
 			"GetPrinterList", // 1
 			"CreateContext", // 2
 			"SetContext", // 3
@@ -85,8 +87,13 @@ public class Print extends Extension implements ErrorFactory, EventFactory {
 	}
 
 	public enum Attributes {
-		JOB_ATTRIBUTE_POOL(1), DOC_ATTRIBUTE_POOL(2), PAGE_ATTRIBUTE_POOL(3), PRINTER_ATTRIBUTE_POOL(4),
-		SERVER_ATTRIBUTE_POOL(5), MEDIUM_ATTRIBUTE_POOL(6), SPOOLER_ATTRIBUTE_POOL(7);
+		JOB_ATTRIBUTE_POOL(1), //
+		DOC_ATTRIBUTE_POOL(2), //
+		PAGE_ATTRIBUTE_POOL(3), //
+		PRINTER_ATTRIBUTE_POOL(4), //
+		SERVER_ATTRIBUTE_POOL(5), //
+		MEDIUM_ATTRIBUTE_POOL(6), //
+		SPOOLER_ATTRIBUTE_POOL(7);
 
 		private int code;
 
@@ -114,7 +121,11 @@ public class Print extends Extension implements ErrorFactory, EventFactory {
 	}
 
 	public enum Notify {
-		START_JOB_NOTIFY(0), END_JOB_NOTIFY(1), START_DOC_NOTIFY(2), END_DOC_NOTIFY(3), START_PAGE_NOTIFY(4),
+		START_JOB_NOTIFY(0), //
+		END_JOB_NOTIFY(1), //
+		START_DOC_NOTIFY(2), //
+		END_DOC_NOTIFY(3), //
+		START_PAGE_NOTIFY(4), //
 		END_PAGE_NOTIFY(5);
 
 		private int code;
@@ -128,7 +139,8 @@ public class Print extends Extension implements ErrorFactory, EventFactory {
 		}
 	}
 
-	public class Context extends org.gnu.escher.x11.Resource {
+	public class Context extends Resource {
+
 		/** Intern. */
 		Context(int id) {
 			super(Print.this.display, id);
@@ -258,7 +270,8 @@ public class Print extends Extension implements ErrorFactory, EventFactory {
 
 		// print 17 - get attributes
 		/**
-		 * @param pool valid: {@link Attributes}
+		 * @param pool
+		 *            valid: {@link Attributes}
 		 *
 		 * @see <a href="XpGetAttributes.html">XpGetAttributes</a>
 		 */
@@ -284,7 +297,8 @@ public class Print extends Extension implements ErrorFactory, EventFactory {
 
 		// print 18 - set attributes
 		/**
-		 * @param pool valid: {@link Attributes}
+		 * @param pool
+		 *            valid: {@link Attributes}
 		 *
 		 * @see <a href="XpSetAttributes.html">XpSetAttributes</a>
 		 */
@@ -558,8 +572,8 @@ public class Print extends Extension implements ErrorFactory, EventFactory {
 				int num = i.readInt32();
 				printers = new Printer[num];
 
-				for (Printer p : printers)
-					p = new Printer(i);
+				for (int j = 0; j < num; ++j)
+					printers[j] = new Printer(i);
 			}
 		}
 		return printers;
@@ -587,7 +601,8 @@ public class Print extends Extension implements ErrorFactory, EventFactory {
 
 	// print 7 - start job
 	/**
-	 * @param outputMode valid: {@link OutputMode}
+	 * @param outputMode
+	 *            valid: {@link OutputMode}
 	 * 
 	 * @see <a href="XpStartJob.html">XpStartJob</a>
 	 */
@@ -781,7 +796,8 @@ public class Print extends Extension implements ErrorFactory, EventFactory {
 	/**
 	 * Create print context.
 	 *
-	 * @param name if zero-length, default (first) printer name is used
+	 * @param name
+	 *            if zero-length, default (first) printer name is used
 	 *
 	 * @see Context
 	 */
