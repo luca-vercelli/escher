@@ -43,7 +43,7 @@ public enum X11CoreRequest implements X11Command {
 	RotateProperties(114, -1), //
 	ListProperties(21, -1), //
 	SetSelectionOwner(22, -1), //
-	GetSelectionOwner(23, -1), //
+	GetSelectionOwner(23, -1), // in Display
 	ConvertSelection(24, -1), //
 	SendEvent(25, -1), //
 	GrabPointer(26, -1), //
@@ -56,8 +56,8 @@ public enum X11CoreRequest implements X11Command {
 	GrabKey(33, 4), //
 	UngrabKey(34, -1), //
 	AllowEvents(35, 2), // in Input
-	GrabServer(36, -1), //
-	UngrabServer(37, -1), //
+	GrabServer(36, -1), // in Display
+	UngrabServer(37, -1), // in Display
 	QueryPointer(38, 2), //
 	GetMotionEvents(39, 4), //
 	TranslateCoordinates(40, -1), //
@@ -74,10 +74,12 @@ public enum X11CoreRequest implements X11Command {
 	QueryFont(47, 2), //
 	QueryTextExtents(48, 2), //
 
-	ListFonts(49, 2), // in Display ?!?
+	// in Display
+	ListFonts(49, 2), //
 	ListFontsWithInfo(50, -1), //
 	SetFontPath(51, -1), //
 	GetFontPath(52, -1), //
+
 	CreatePixmap(53, -1), //
 	FreePixmap(54, -1), //
 	CreateGC(55, -1), //
@@ -87,7 +89,9 @@ public enum X11CoreRequest implements X11Command {
 	SetClipRectangles(59, -1), //
 	FreeGC(60, -1), //
 	ClearArea(61, 4), // in Window...
-	CopyArea(62, -1), //
+
+	// in Drawable
+	CopyArea(62, 7), //
 	CopyPlane(63, -1), //
 	PolyPoint(64, -1), //
 	PolyLine(65, -1), //
@@ -103,12 +107,14 @@ public enum X11CoreRequest implements X11Command {
 	PolyText16(75, -1), //
 	ImageText8(76, -1), //
 	ImageText16(77, -1), //
+
+	// in ColorMap
 	CreateColormap(78, -1), //
 	FreeColormap(79, -1), //
 	CopyColormapAndFree(80, -1), //
 	InstallColormap(81, -1), //
 	UninstallColormap(82, -1), //
-	ListInstalledColormaps(83, 2), //
+	ListInstalledColormaps(83, 2), // this is in Window !?!?
 	AllocColor(84, -1), //
 	AllocNamedColor(85, -1), //
 	AllocColorCells(86, -1), //
@@ -125,20 +131,24 @@ public enum X11CoreRequest implements X11Command {
 	FreeCursor(95, 2), //
 	RecolorCursor(96, 5), //
 
-	QueryBestSize(97, -1), //
-	QueryExtension(98, -1), //
-	ListExtensions(99, -1), //
-	SetModifierMapping(118, -1), //
+	QueryBestSize(97, -1), // in Drawable ?!
+	QueryExtension(98, -1), // in Display
+	ListExtensions(99, -1), // in Display
+
+	// in Input
+	SetModifierMapping(118, 2), //
 	GetModifierMapping(119, -1), //
 	ChangeKeyboardMapping(100, -1), //
 	GetKeyboardMapping(101, -1), //
 	ChangeKeyboardControl(102, -1), //
-	GetKeyboardControl(103, -1), //
+	GetKeyboardControl(103, 1), //
+	SetPointerMapping(116, 1), //
+	GetPointerMapping(117, 1), //
+	ChangePointerControl(105, 3), //
+	GetPointerControl(106, 1), //
+
+	// in Display
 	Bell(104, -1), //
-	SetPointerMapping(116, -1), //
-	GetPointerMapping(117, -1), //
-	ChangePointerControl(105, -1), //
-	GetPointerControl(106, -1), //
 	SetScreenSaver(107, -1), //
 	GetScreenSaver(108, -1), //
 	ForceScreenSaver(115, -1), //
@@ -147,6 +157,7 @@ public enum X11CoreRequest implements X11Command {
 	SetAccessControl(111, -1), //
 	SetCloseDownMode(112, -1), //
 	KillClient(113, -1), //
+
 	NoOperation(127, -1);
 
 	private final int opcode;

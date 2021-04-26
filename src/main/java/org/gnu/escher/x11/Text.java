@@ -21,6 +21,14 @@ public class Text {
 		this.font = font;
 	}
 
+	/**
+	 * Lenght (in bytes), to be used in a X11 request, considering str, delta, font.
+	 * If str is 16-bit, this is twice its length
+	 * 
+	 * @param bit
+	 *            bits per character, either 8 or 16
+	 * @return
+	 */
 	public int length(int bit) {
 
 		// 2 = length of string field and delta field

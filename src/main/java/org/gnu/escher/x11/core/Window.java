@@ -772,7 +772,7 @@ public class Window extends Drawable implements GLXDrawable {
 		super(id);
 	}
 
-	/** Intern. */
+	/** Intern.  Create empty Resource with given id */
 	public Window(Display display, int id) {
 		super(display, id);
 	}
@@ -1759,6 +1759,9 @@ public class Window extends Drawable implements GLXDrawable {
 		// | Event.SUBSTRUCTURE_NOTIFY_MASK, event);
 	}
 
+	/**
+	 * Get Resource with give id, or create it
+	 */
 	public static Object intern(Display display, int id) {
 
 		Object value = display.getResources().get(new Integer(id));

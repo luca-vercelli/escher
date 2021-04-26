@@ -24,7 +24,7 @@ public class Colormap extends Resource {
 		super(display);
 	}
 
-	/** Intern. */
+	/** Intern. Create empty resource with given id */
 	public Colormap(Display display, int id) {
 		super(display, id);
 	}
@@ -42,18 +42,21 @@ public class Colormap extends Resource {
 	 * Match error results). For the other classes, if alloc is <code>NONE</code>
 	 * the colormap initially has no allocated entries, and clients can allocate
 	 * entries. If alloc is <code>ALL</code>, then the entire colormap is allocated
-	 * writable. The initial values of all allocated entries are undeﬁned. For
+	 * writable. The initial values of all allocated entries are undeï¬�ned. For
 	 * GrayScale and PseudoColor, the effect is as if an AllocColorCells request
-	 * returned all pixel values from zero to N − 1, where N is the colormap-entries
-	 * value in the speciﬁed visual. For DirectColor, the effect is as if an
-	 * AllocColorPlanes request returned a pixel value of zero and red-mask,
-	 * green-mask, and blue-mask values containing the same bits as the
-	 * corresponding masks in the speciﬁed visual. However, in all cases, none of
+	 * returned all pixel values from zero to N âˆ’ 1, where N is the
+	 * colormap-entries value in the speciï¬�ed visual. For DirectColor, the effect
+	 * is as if an AllocColorPlanes request returned a pixel value of zero and
+	 * red-mask, green-mask, and blue-mask values containing the same bits as the
+	 * corresponding masks in the speciï¬�ed visual. However, in all cases, none of
 	 * these entries can be freed with FreeColors.
 	 *
-	 * @param window   the window for which the colormap is allocated
-	 * @param visualId the visual type
-	 * @param alloc    one of {@link #NONE}, {@link #ALL}, see above for explanation
+	 * @param window
+	 *            the window for which the colormap is allocated
+	 * @param visualId
+	 *            the visual type
+	 * @param alloc
+	 *            one of {@link #NONE}, {@link #ALL}, see above for explanation
 	 *
 	 * @see <a href="XCreateColormap.html">XCreateColormap</a>
 	 */
@@ -124,6 +127,9 @@ public class Colormap extends Resource {
 		}
 	}
 
+	/**
+	 * Get Resource with given id if exists, or create it
+	 */
 	public static Object intern(Display display, int id) {
 		Object value = display.getResources().get(new Integer(id));
 		if (value != null)
@@ -138,9 +144,12 @@ public class Colormap extends Resource {
 	 * used. Multiple clients requesting the same effective RGB values can be
 	 * assigned the same read-only entry, allowing entries to be shared.
 	 *
-	 * @param red   the red component
-	 * @param green the green component
-	 * @param blue  the blue component
+	 * @param red
+	 *            the red component
+	 * @param green
+	 *            the green component
+	 * @param blue
+	 *            the blue component
 	 *
 	 * @return the closest pixel and RGB value of the requested entry
 	 *
@@ -181,7 +190,8 @@ public class Colormap extends Resource {
 	 * values specify the true values for the color, and the visual values specify
 	 * the values actually used in the colormap.
 	 * 
-	 * @param name the name of the color
+	 * @param name
+	 *            the name of the color
 	 *
 	 * @return the allocated color
 	 *
@@ -421,7 +431,8 @@ public class Colormap extends Resource {
 	 * Returns the hardware specific color values stored in this colormap for the
 	 * specified pixels. The values returned for an unallocated entry are undefined.
 	 *
-	 * @param pixels the pixels for which to return the color values
+	 * @param pixels
+	 *            the pixels for which to return the color values
 	 *
 	 * @return the hardware specific color values of this colormap
 	 *
@@ -465,7 +476,8 @@ public class Colormap extends Resource {
 	 * The name should use the ISO Latin-1 encoding, and uppercase and lowercase do
 	 * not matter.
 	 *
-	 * @param name the color name to lookup
+	 * @param name
+	 *            the color name to lookup
 	 *
 	 * @return the color
 	 *

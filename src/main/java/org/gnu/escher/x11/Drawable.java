@@ -36,14 +36,13 @@ public abstract class Drawable extends Resource {
 		super(display);
 	}
 
-	/** Intern. */
+	/** Intern. Create empty Resource with given id */
 	public Drawable(Display display, int id) {
 
 		super(display, id);
 	}
 
 	public static class GeometryInfo implements InputStreamObject {
-		// TODO: To private??
 		public int depth;
 
 		public int rootWindowID;
@@ -99,14 +98,22 @@ public abstract class Drawable extends Resource {
 	/**
 	 * Copies a specified rectangular area to another location.
 	 * 
-	 * @param src    the source drawable
-	 * @param gc     the GC for the operation
-	 * @param srcX   the source rectangle, x coordinate
-	 * @param srcY   the source rectangle, y coordinate
-	 * @param width  the width of the area to copy
-	 * @param height the height of the area to copy
-	 * @param dstX   the destination rectangle, x coordinate
-	 * @param dstY   the destination rectangle, y coordinate
+	 * @param src
+	 *            the source drawable
+	 * @param gc
+	 *            the GC for the operation
+	 * @param srcX
+	 *            the source rectangle, x coordinate
+	 * @param srcY
+	 *            the source rectangle, y coordinate
+	 * @param width
+	 *            the width of the area to copy
+	 * @param height
+	 *            the height of the area to copy
+	 * @param dstX
+	 *            the destination rectangle, x coordinate
+	 * @param dstY
+	 *            the destination rectangle, y coordinate
 	 * 
 	 * @see <a href="XCopyArea.html">XCopyArea</a>
 	 */
@@ -114,7 +121,7 @@ public abstract class Drawable extends Resource {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(62, 0, 7);
+			o.beginRequest(X11CoreRequest.CopyArea.getOpcode(), 0, 7);
 			o.writeInt32(src.id); // Src-drawable.
 			o.writeInt32(id); // Dst-drawable.
 			o.writeInt32(gc.id); // GC.
@@ -156,12 +163,17 @@ public abstract class Drawable extends Resource {
 	/**
 	 * Draws multiple points.
 	 * 
-	 * @param gc             the GC to use
-	 * @param xpoints        the points' x coordinates
-	 * @param ypoints        the points' y coodinates
-	 * @param npoints        the number of points
-	 * @param coordinateMode valid: {@link CoordinateMode#ORIGIN},
-	 *                       {@link CoordinateMode#PREVIOUS}
+	 * @param gc
+	 *            the GC to use
+	 * @param xpoints
+	 *            the points' x coordinates
+	 * @param ypoints
+	 *            the points' y coodinates
+	 * @param npoints
+	 *            the number of points
+	 * @param coordinateMode
+	 *            valid: {@link CoordinateMode#ORIGIN},
+	 *            {@link CoordinateMode#PREVIOUS}
 	 * 
 	 * @see <a href="XDrawPoints.html">XDrawPoints</a>
 	 */
@@ -207,10 +219,14 @@ public abstract class Drawable extends Resource {
 	/**
 	 * Draws multiple lines that connect the specified points.
 	 * 
-	 * @param gc             the GC to use
-	 * @param xpoints        the points' x coordinates
-	 * @param ypoints        the points' y coodinates
-	 * @param npoints        the number of points
+	 * @param gc
+	 *            the GC to use
+	 * @param xpoints
+	 *            the points' x coordinates
+	 * @param ypoints
+	 *            the points' y coodinates
+	 * @param npoints
+	 *            the number of points
 	 * @param coordinateMode
 	 * 
 	 * @see <a href="XDrawLines.html">XDrawLines</a>
@@ -255,8 +271,10 @@ public abstract class Drawable extends Resource {
 	/**
 	 * Draws multiple lines which connect the specified points.
 	 * 
-	 * @param gc             the GC to use
-	 * @param points         the points that make up the lines
+	 * @param gc
+	 *            the GC to use
+	 * @param points
+	 *            the points that make up the lines
 	 * @param coordinateMode
 	 * 
 	 * @see <a href="XDrawLines.html">XDrawLines</a>
@@ -282,8 +300,10 @@ public abstract class Drawable extends Resource {
 	/**
 	 * Draws multiple line segments
 	 * 
-	 * @param gc       the GC to use
-	 * @param segments the line segments to draw
+	 * @param gc
+	 *            the GC to use
+	 * @param segments
+	 *            the line segments to draw
 	 * 
 	 * @see <a href="XDrawSegments.html">XDrawSegments</a>
 	 */
@@ -312,8 +332,10 @@ public abstract class Drawable extends Resource {
 	/**
 	 * Draws the outline of multiple rectangles.
 	 * 
-	 * @param gc         the GC to use
-	 * @param rectangles the rectangles to draw
+	 * @param gc
+	 *            the GC to use
+	 * @param rectangles
+	 *            the rectangles to draw
 	 * 
 	 * @see <a href="XDrawRectangles.html">XDrawRectangles</a>
 	 * @see <a href="XFillRectangles.html">XFillRectangles</a>
@@ -472,7 +494,7 @@ public abstract class Drawable extends Resource {
 			synchronized (i) {
 				i.readReply(o);
 				i.skip(1);
-				int depth = i.readInt8();
+				i.readInt8(); // depth
 				i.skip(2);
 				int len = i.readInt32() * 4;
 				int visualID = i.readInt32();
@@ -655,13 +677,20 @@ public abstract class Drawable extends Resource {
 	/**
 	 * Draws the outline of a single arc.
 	 * 
-	 * @param gc     the GC to use
-	 * @param x      the bounding rectangle, x coordinate
-	 * @param y      the bounding rectangle, y coordinate
-	 * @param width  the bounding rectangle, width
-	 * @param height the bounding rectangle, height
-	 * @param angle1 the start angle, from 3 o'clock ccw, in degrees
-	 * @param angle2 the span angle, from angle1 ccw, in degrees
+	 * @param gc
+	 *            the GC to use
+	 * @param x
+	 *            the bounding rectangle, x coordinate
+	 * @param y
+	 *            the bounding rectangle, y coordinate
+	 * @param width
+	 *            the bounding rectangle, width
+	 * @param height
+	 *            the bounding rectangle, height
+	 * @param angle1
+	 *            the start angle, from 3 o'clock ccw, in degrees
+	 * @param angle2
+	 *            the span angle, from angle1 ccw, in degrees
 	 * 
 	 * @see #polyArc(GC, Arc[])
 	 */
@@ -688,13 +717,20 @@ public abstract class Drawable extends Resource {
 	/**
 	 * Fills a single arc.
 	 * 
-	 * @param gc     the GC to use
-	 * @param x      the bounding rectangle, x coordinate
-	 * @param y      the bounding rectangle, y coordinate
-	 * @param width  the bounding rectangle, width
-	 * @param height the bounding rectangle, height
-	 * @param angle1 the start angle, from 3 o'clock ccw, in degrees
-	 * @param angle2 the span angle, from angle1 ccw, in degrees
+	 * @param gc
+	 *            the GC to use
+	 * @param x
+	 *            the bounding rectangle, x coordinate
+	 * @param y
+	 *            the bounding rectangle, y coordinate
+	 * @param width
+	 *            the bounding rectangle, width
+	 * @param height
+	 *            the bounding rectangle, height
+	 * @param angle1
+	 *            the start angle, from 3 o'clock ccw, in degrees
+	 * @param angle2
+	 *            the span angle, from angle1 ccw, in degrees
 	 * 
 	 * @see #polyArc(GC, Arc[])
 	 */
@@ -721,11 +757,16 @@ public abstract class Drawable extends Resource {
 	/**
 	 * Draws a single line.
 	 * 
-	 * @param gc the GC to use
-	 * @param x1 the start point, x coordinate
-	 * @param y1 the start point, y coordinate
-	 * @param x2 the end point, x coordinate
-	 * @param y2 the end point, y coordinate
+	 * @param gc
+	 *            the GC to use
+	 * @param x1
+	 *            the start point, x coordinate
+	 * @param y1
+	 *            the start point, y coordinate
+	 * @param x2
+	 *            the end point, x coordinate
+	 * @param y2
+	 *            the end point, y coordinate
 	 */
 	public void line(GC gc, int x1, int y1, int x2, int y2) {
 
@@ -768,8 +809,10 @@ public abstract class Drawable extends Resource {
 	/**
 	 * Draws a single point.
 	 * 
-	 * @param x the x coordinate
-	 * @param y the y coordinate
+	 * @param x
+	 *            the x coordinate
+	 * @param y
+	 *            the y coordinate
 	 */
 	public void point(GC gc, int x, int y) {
 
@@ -803,11 +846,16 @@ public abstract class Drawable extends Resource {
 	/**
 	 * Draws a single rectangle.
 	 *
-	 * @param gc     the graphic context
-	 * @param x      the upper left corner, x coordinate
-	 * @param y      the upper left corner, y coordinate
-	 * @param width  the width
-	 * @param height the height
+	 * @param gc
+	 *            the graphic context
+	 * @param x
+	 *            the upper left corner, x coordinate
+	 * @param y
+	 *            the upper left corner, y coordinate
+	 * @param width
+	 *            the width
+	 * @param height
+	 *            the height
 	 *
 	 * @see #polyRectangle(GC, Rectangle[])
 	 */
@@ -831,14 +879,19 @@ public abstract class Drawable extends Resource {
 	/**
 	 * Fills a single rectangle.
 	 *
-	 * @param gc     the graphic context
-	 * @param x      the upper left corner, x coordinate
-	 * @param y      the upper left corner, y coordinate
-	 * @param width  the width
-	 * @param height the height
+	 * @param gc
+	 *            the graphic context
+	 * @param x
+	 *            the upper left corner, x coordinate
+	 * @param y
+	 *            the upper left corner, y coordinate
+	 * @param width
+	 *            the width
+	 * @param height
+	 *            the height
 	 *
 	 */
-	public void fill_rectangle(GC gc, int x, int y, int width, int height) {
+	public void fillRectangle(GC gc, int x, int y, int width, int height) {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
@@ -879,22 +932,19 @@ public abstract class Drawable extends Resource {
 		polyText16(gc, x, y, new Text[] { new Text(s, 0, null) });
 	}
 
+	/**
+	 * Lenght (in bytes) of all Text's, to be used in a X11 request
+	 * 
+	 * @param texts
+	 * @param bit
+	 *            bits per character, either 8 or 16
+	 * @return
+	 */
 	private int length(Text[] texts, int bit) {
 
 		int n = 0;
 		for (int i = 0; i < texts.length; i++)
 			n += texts[i].length(bit);
 		return n;
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public void rectangle(GC xgc, int x, int y, int w, int h, boolean fill) {
-
-		if (fill)
-			fill_rectangle(xgc, x, y, w, h);
-		else
-			rectangle(xgc, x, y, w, h);
 	}
 }

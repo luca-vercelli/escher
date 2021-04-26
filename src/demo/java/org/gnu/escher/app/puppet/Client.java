@@ -5,6 +5,7 @@ import org.gnu.escher.x11.core.Window;
 
 /** Wrapper of {@link Window} for {@link Puppet}. */
 public class Client extends Window {
+
 	// system attributes
 	public AttributesReply attributes;
 	public WMClassHint class_hint;
@@ -17,7 +18,7 @@ public class Client extends Window {
 	public int saved_width, saved_height;
 	public int state;
 
-	/** Intern. */
+	/** Intern. Create empty resource with given id */
 	public Client(Display display, int id) {
 		super(display, id);
 	}
@@ -26,6 +27,7 @@ public class Client extends Window {
 		return intern(window.getDisplay(), window.getId());
 	}
 
+	/** Get resource with given id if exists, or create it */
 	public static Object intern(Display display, int id) {
 		Object value = display.getResources().get(id);
 		if (value instanceof Client)

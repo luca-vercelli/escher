@@ -18,7 +18,7 @@ public abstract class Resource {
 		id = display.allocateID(this);
 	}
 
-	/** Intern. */
+	/** Intern. Create empty resource with given id */
 	public Resource(Display display, int id) {
 		this.display = display;
 		this.id = id;

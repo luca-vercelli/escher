@@ -111,7 +111,7 @@ public class Sprites extends DisplayHack {
 		back_buffer_gc = new GC(window);
 		back_buffer_gc.setForeground(display.getDefaultWhite());
 		back_buffer = new Pixmap(window, depth);
-		back_buffer.fill_rectangle(back_buffer_gc, 0, 0, back_buffer.width, back_buffer.height);
+		back_buffer.fillRectangle(back_buffer_gc, 0, 0, back_buffer.width, back_buffer.height);
 
 		// back buffer picture (TODO: find visual)
 		pf0.clear();
