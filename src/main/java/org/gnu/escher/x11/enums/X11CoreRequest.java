@@ -50,12 +50,12 @@ public enum X11CoreRequest implements X11Command {
 	UngrabPointer(27, -1), //
 	GrabButton(28, -1), //
 	UngrabButton(29, -1), //
-	ChangeActivePointerGrab(30, -1), //
+	ChangeActivePointerGrab(30, 2), // in Input
 	GrabKeyboard(31, 4), //
-	UngrabKeyboard(32, -1), //
+	UngrabKeyboard(32, 2), // in Input
 	GrabKey(33, 4), //
 	UngrabKey(34, -1), //
-	AllowEvents(35, -1), //
+	AllowEvents(35, 2), // in Input
 	GrabServer(36, -1), //
 	UngrabServer(37, -1), //
 	QueryPointer(38, 2), //
@@ -63,8 +63,8 @@ public enum X11CoreRequest implements X11Command {
 	TranslateCoordinates(40, -1), //
 	WarpPointer(41, -1), //
 	SetInputFocus(42, 3), //
-	GetInputFocus(43, -1), //
-	QueryKeymap(44, -1), //
+	GetInputFocus(43, 1), // in Input
+	QueryKeymap(44, 1), // in Input
 
 	// in Font
 	OpenFont(45, 3), //

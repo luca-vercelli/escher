@@ -27,7 +27,7 @@ public class Pixmap extends Drawable {
 	}
 
 	/** X pixmap format. */
-	public static class Format {
+	public static class Format implements InputStreamObject {
 
 		private int depth;
 

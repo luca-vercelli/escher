@@ -7,6 +7,7 @@ import org.gnu.escher.x11.core.Window;
 import org.gnu.escher.x11.enums.InputEvent;
 import org.gnu.escher.x11.enums.InputStatus;
 import org.gnu.escher.x11.enums.KeyMask;
+import org.gnu.escher.x11.enums.X11CoreRequest;
 import org.gnu.escher.x11.types.ValueList;
 
 /** X keyboard and pointer. */
@@ -48,7 +49,7 @@ public class Input {
 	public void ungrabPointer(int time) {
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(27, 0, 2);
+			o.beginRequest(X11CoreRequest.UngrabPointer.getOpcode(), 0, 2);
 			o.writeInt32(time);
 			o.send();
 		}
@@ -64,7 +65,7 @@ public class Input {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(30, 0, 4);
+			o.beginRequest(X11CoreRequest.ChangeActivePointerGrab.getOpcode(), 0, 4);
 			o.writeInt32(cursor.id);
 			o.writeInt32(time);
 			o.writeInt16(event_mask);
@@ -81,7 +82,7 @@ public class Input {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(32, 0, 2);
+			o.beginRequest(X11CoreRequest.UngrabKeyboard.getOpcode(), 0, 2);
 			o.writeInt32(time);
 			o.send();
 		}
@@ -96,14 +97,14 @@ public class Input {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(35, evt.getCode(), 2);
+			o.beginRequest(X11CoreRequest.AllowEvents.getOpcode(), evt.getCode(), 2);
 			o.writeInt32(time);
 			o.send();
 		}
 	}
 
 	/** Reply of {@link #inputFocus()} */
-	public class InputFocusInfo {
+	public class InputFocusInfo implements InputStreamObject {
 
 		public int revert_to;
 		public int focus_id;
@@ -127,7 +128,7 @@ public class Input {
 		InputFocusInfo info;
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(43, 0, 1);
+			o.beginRequest(X11CoreRequest.GetInputFocus.getOpcode(), 0, 1);
 			ResponseInputStream i = display.getResponseInputStream();
 			synchronized (i) {
 				i.readReply(o);
@@ -147,7 +148,7 @@ public class Input {
 		RequestOutputStream o = display.getResponseOutputStream();
 		byte[] data = new byte[32];
 		synchronized (o) {
-			o.beginRequest(44, 0, 1);
+			o.beginRequest(X11CoreRequest.QueryKeymap.getOpcode(), 0, 1);
 			ResponseInputStream i = display.getResponseInputStream();
 			synchronized (i) {
 				i.readReply(o);
