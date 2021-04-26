@@ -24,11 +24,10 @@ import org.gnu.escher.x11.Colormap;
 import org.gnu.escher.x11.Data;
 import org.gnu.escher.x11.Font;
 import org.gnu.escher.x11.Input;
+import org.gnu.escher.x11.InputStreamObject;
 import org.gnu.escher.x11.Pixmap;
 import org.gnu.escher.x11.Resource;
-import org.gnu.escher.x11.InputStreamObject;
 import org.gnu.escher.x11.XAuthority;
-import org.gnu.escher.x11.Pixmap.Format;
 import org.gnu.escher.x11.enums.AccessControl;
 import org.gnu.escher.x11.enums.ChangeOperation;
 import org.gnu.escher.x11.enums.ForceScreenSaver;
@@ -1229,7 +1228,7 @@ public class Display implements AutoCloseable {
 	}
 
 	synchronized public Atom getAtom(String name) {
-		return atomIDs.get(name);
+		return atoms.get(name);
 	}
 
 	public ResponseInputStream getResponseInputStream() {
