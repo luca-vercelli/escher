@@ -24,9 +24,10 @@ import mockit.Mocked;
 import mockit.Verifications;
 
 public class DisplayNameTest {
+
 	@Test
 	void parse_null_fails() {
-		NullPointerException exception = assertThrows(NullPointerException.class,
+		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
 				() -> getFromConventionalString(null));
 		assertThat(exception).hasMessage("convention is marked non-null but is null");
 	}
@@ -35,7 +36,7 @@ public class DisplayNameTest {
 	void parse_empty_fails() {
 		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
 				() -> getFromConventionalString(""));
-		assertThat(exception).hasMessage("convention must not be blank.");
+		assertThat(exception).hasMessage("convention must not be blank");
 	}
 
 	@Test
