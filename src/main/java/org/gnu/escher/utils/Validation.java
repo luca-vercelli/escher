@@ -10,10 +10,10 @@ public class Validation {
 	 */
 	public static String requiresNonBlank(String name, String value) {
 		if (name == null || name.trim().isEmpty()) {
-			throw new IllegalArgumentException("name must not be blank");
+			throw new IllegalArgumentException("name must not be blank.");
 		}
 		if (value == null || value.trim().isEmpty()) {
-			throw new IllegalArgumentException(String.format("%s must not be blank", name));
+			throw new IllegalArgumentException(String.format("%s must not be blank.", name));
 		}
 		return value;
 	}
@@ -45,7 +45,7 @@ public class Validation {
 			throw new IllegalArgumentException("name must not be blank.");
 		}
 		if (value < 0) {
-			throw new IllegalArgumentException(String.format("%s was %d expected >=0.", name, value));
+			throw new IllegalArgumentException(String.format("%s was %d expected >= 0.", name, value));
 		}
 		return value;
 	}

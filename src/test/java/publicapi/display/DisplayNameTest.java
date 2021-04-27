@@ -29,14 +29,14 @@ public class DisplayNameTest {
 	void parse_null_fails() {
 		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
 				() -> getFromConventionalString(null));
-		assertThat(exception).hasMessage("convention is marked non-null but is null");
+		assertThat(exception).hasMessage("convention must not be blank.");
 	}
 
 	@Test
 	void parse_empty_fails() {
 		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
 				() -> getFromConventionalString(""));
-		assertThat(exception).hasMessage("convention must not be blank");
+		assertThat(exception).hasMessage("convention must not be blank.");
 	}
 
 	@Test

@@ -22,30 +22,30 @@ public class XAuthorityTest {
 
 	@Test
 	void constructor_fails_on_null_family() {
-		NullPointerException exception = assertThrows(NullPointerException.class,
+		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
 				() -> new XAuthority(null, "hostName".getBytes(), 0, "magic", new byte[1]));
-		assertThat(exception).hasMessage("family is marked non-null but is null");
+		assertThat(exception).hasMessage("family must not be null.");
 	}
 
 	@Test
 	void constructor_fails_on_null_address() {
-		NullPointerException exception = assertThrows(NullPointerException.class,
+		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
 				() -> new XAuthority(XAuthorityFamily.LOCAL, null, 0, "magic", new byte[1]));
-		assertThat(exception).hasMessage("address is marked non-null but is null");
+		assertThat(exception).hasMessage("address must not be null.");
 	}
 
 	@Test
 	void constructor_fails_on_negative_displayNumber() {
 		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
 				() -> new XAuthority(XAuthorityFamily.LOCAL, "host".getBytes(), -1, "magic", new byte[1]));
-		assertThat(exception).hasMessage("displayNumber was \"-1\" expected >= 0.");
+		assertThat(exception).hasMessage("displayNumber was -1 expected >= 0.");
 	}
 
 	@Test
 	void constructor_fails_on_null_protocolName() {
-		NullPointerException exception = assertThrows(NullPointerException.class,
+		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
 				() -> new XAuthority(XAuthorityFamily.LOCAL, "host".getBytes(), 0, null, new byte[1]));
-		assertThat(exception).hasMessage("protocolName is marked non-null but is null");
+		assertThat(exception).hasMessage("protocolName must not be blank.");
 	}
 
 	@Test
@@ -57,14 +57,15 @@ public class XAuthorityTest {
 
 	@Test
 	void constructor_fails_on_null_protocolData() {
-		NullPointerException exception = assertThrows(NullPointerException.class,
+		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
 				() -> new XAuthority(XAuthorityFamily.LOCAL, "host".getBytes(), 0, "magic", null));
-		assertThat(exception).hasMessage("protocolData is marked non-null but is null");
+		assertThat(exception).hasMessage("protocolData must not be null.");
 	}
 
 	@Test
 	void constructor() {
-		XAuthority xAuthority = new XAuthority(XAuthorityFamily.LOCAL, "host".getBytes(), 0, "magic", new byte[] { 1, 2, 3 });
+		XAuthority xAuthority = new XAuthority(XAuthorityFamily.LOCAL, "host".getBytes(), 0, "magic",
+				new byte[] { 1, 2, 3 });
 		assertThat(xAuthority.getFamily()).isEqualTo(XAuthorityFamily.LOCAL);
 		assertThat(xAuthority.getAddress()).isEqualTo("host".getBytes());
 		assertThat(xAuthority.getDisplayNumber()).isEqualTo(0);
