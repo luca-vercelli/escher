@@ -2,13 +2,12 @@ package org.gnu.escher.x11.extension.glx;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
+import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 
 import org.gnu.escher.x11.RequestObject;
 import org.gnu.escher.x11.core.RequestOutputStream;
 import org.gnu.escher.x11.core.ResponseInputStream;
-
-import java.nio.DoubleBuffer;
 
 /**
  * GLX rendering context. The specification can be found
@@ -733,7 +732,6 @@ public class GL extends org.gnu.escher.x11.resource.Resource implements GLConsta
 	public RenderModeData render_mode(int mode) {
 
 		RenderModeData d = new RenderModeData();
-		int new_mode = render_mode;
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
 			o.beginRequest(glx.getMajorOpcode(), 107, 3);
@@ -748,7 +746,7 @@ public class GL extends org.gnu.escher.x11.resource.Resource implements GLConsta
 					i.skip(8);
 					d.ret_val = i.readInt32();
 					int num_data = i.readInt32();
-					new_mode = i.readInt32();
+					i.readInt32(); // new mode
 					i.skip(12);
 					if (render_mode == FEEDBACK) {
 						d.feedback_data = new float[num_data];
@@ -1628,7 +1626,6 @@ public class GL extends org.gnu.escher.x11.resource.Resource implements GLConsta
 		}
 
 		int p = RequestOutputStream.pad(length);
-		int req_length = 12 + length + p;
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
 			large_render_request.begin(o, 2, 12, length + p);
@@ -6351,24 +6348,6 @@ public class GL extends org.gnu.escher.x11.resource.Resource implements GLConsta
 
 		tex_coord4s(v[0], v[1], v[2], v[3]);
 	}
-
-	private void flush_render_request() {
-
-		RequestOutputStream o = display.getResponseOutputStream();
-		if (o.index > 0 && o.opcode() == 1) {
-			o.updateLength();
-			o.flush();
-		}
-	}
-
-	// private Enum read_enum (Request request) {
-	// Data reply = display.read_reply (request);
-	// int n = reply.read4 (12);
-	//
-	// if (n == 0) return null;
-	// if (n == 1) return new Enum (reply, 16, 1);
-	// return new Enum (reply, 32, n);
-	// }
 
 	public boolean support(int major, int minor) {
 

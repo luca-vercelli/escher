@@ -1,16 +1,16 @@
 package org.gnu.escher.x11;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.File;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
-import org.gnu.escher.x11.XAuthority;
 import org.gnu.escher.x11.enums.XAuthorityFamily;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class XAuthorityFile {
 	@Test
