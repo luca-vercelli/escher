@@ -1,12 +1,13 @@
 package org.gnu.escher.app.displayhack;
 
-import org.gnu.escher.x11.core.GC;
+import org.gnu.escher.x11.extension.ExtensionNotFoundException;
 import org.gnu.escher.x11.extension.render.DrawablePicture;
 import org.gnu.escher.x11.extension.render.PictFormat;
+import org.gnu.escher.x11.extension.render.PictFormat.Template;
+import org.gnu.escher.x11.extension.render.PictFormatType;
 import org.gnu.escher.x11.extension.render.Picture;
 import org.gnu.escher.x11.extension.render.Render;
-import org.gnu.escher.x11.extension.render.PictFormat.*;
-import org.gnu.escher.x11.extension.render.PictFormatType;
+import org.gnu.escher.x11.resource.GC;
 import org.gnu.escher.x11.resource.Pixmap;
 
 /**
@@ -94,7 +95,7 @@ public class Sprites extends DisplayHack {
 		}
 	}
 
-	public Sprites(String[] args) throws org.gnu.escher.x11.extension.ExtensionNotFoundException {
+	public Sprites(String[] args) throws ExtensionNotFoundException {
 		super(args, false, false, false, 64, 1000);
 
 		about("0.1", "moving sprites to blend colors", "Stephen Tse <stephent@sfu.ca>",

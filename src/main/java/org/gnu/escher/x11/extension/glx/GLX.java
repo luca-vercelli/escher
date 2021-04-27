@@ -1,8 +1,8 @@
 package org.gnu.escher.x11.extension.glx;
 
-import org.gnu.escher.x11.core.Display;
-import org.gnu.escher.x11.core.RequestOutputStream;
-import org.gnu.escher.x11.core.ResponseInputStream;
+import org.gnu.escher.x11.Display;
+import org.gnu.escher.x11.RequestOutputStream;
+import org.gnu.escher.x11.ResponseInputStream;
 import org.gnu.escher.x11.extension.ErrorFactory;
 import org.gnu.escher.x11.extension.EventFactory;
 import org.gnu.escher.x11.extension.Extension;
@@ -253,7 +253,7 @@ public class GLX extends Extension implements ErrorFactory, EventFactory {
 	/**
 	 * Initialize a new GLX context to the given display.
 	 */
-	public GLX(org.gnu.escher.x11.core.Display display) throws org.gnu.escher.x11.extension.ExtensionNotFoundException {
+	public GLX(org.gnu.escher.x11.Display display) throws org.gnu.escher.x11.extension.ExtensionNotFoundException {
 
 		super(display, "GLX", MINOR_OPCODE_STRINGS, 13, 1);
 

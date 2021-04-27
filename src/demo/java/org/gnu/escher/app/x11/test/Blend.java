@@ -1,11 +1,11 @@
 package org.gnu.escher.app.x11.test;
 
-import org.gnu.escher.x11.core.GC;
 import org.gnu.escher.x11.extension.render.DrawablePicture;
 import org.gnu.escher.x11.extension.render.PictFormat;
 import org.gnu.escher.x11.extension.render.PictFormatType;
 import org.gnu.escher.x11.extension.render.Picture;
 import org.gnu.escher.x11.extension.render.Render;
+import org.gnu.escher.x11.resource.GC;
 import org.gnu.escher.x11.resource.Pixmap;
 
 /**

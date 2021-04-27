@@ -1,6 +1,6 @@
 package org.gnu.escher.x11;
 
-import static org.gnu.escher.x11.core.DisplayName.getFromConventionalString;
+import static org.gnu.escher.x11.DisplayName.getFromConventionalString;
 
 import java.io.IOException;
 import java.util.ArrayList;

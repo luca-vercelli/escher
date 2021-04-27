@@ -1,4 +1,4 @@
-package org.gnu.escher.x11.core;
+package org.gnu.escher.x11;
 
 import static org.gnu.escher.utils.Validation.requiresNonBlank;
 

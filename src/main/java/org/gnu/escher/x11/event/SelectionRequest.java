@@ -1,7 +1,7 @@
 package org.gnu.escher.x11.event;
 
-import org.gnu.escher.x11.core.Display;
-import org.gnu.escher.x11.core.ResponseInputStream;
+import org.gnu.escher.x11.Display;
+import org.gnu.escher.x11.ResponseInputStream;
 
 /** X selection request event. */
 public final class SelectionRequest extends Event {

@@ -1,6 +1,6 @@
 package org.gnu.escher.x11.image;
 
-import org.gnu.escher.x11.core.Display;
+import org.gnu.escher.x11.Display;
 import org.gnu.escher.x11.enums.Format;
 
 public class Bitmap extends Image {

@@ -59,6 +59,7 @@ public class Main {
 	}
 
 	@Test
+	// lv 2021 -  on my PC this test fails, picture template is not supported
 	void sprites() throws Exception {
 		Sprites.main(args);
 	}

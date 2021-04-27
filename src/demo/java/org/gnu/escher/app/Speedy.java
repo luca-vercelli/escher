@@ -9,11 +9,11 @@
 
 package org.gnu.escher.app;
 
-import static org.gnu.escher.x11.core.DisplayName.getFromConventionalString;
+import static org.gnu.escher.x11.DisplayName.getFromConventionalString;
 
+import org.gnu.escher.x11.Display;
 import org.gnu.escher.x11.WindowAttributes;
-import org.gnu.escher.x11.core.Display;
-import org.gnu.escher.x11.core.GC;
+import org.gnu.escher.x11.resource.GC;
 import org.gnu.escher.x11.resource.Window;
 
 /**

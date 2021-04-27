@@ -1,16 +1,16 @@
 
 package org.gnu.escher.x11.resource;
 
+import org.gnu.escher.x11.Atom;
 import org.gnu.escher.x11.Color;
 import org.gnu.escher.x11.Data;
+import org.gnu.escher.x11.Display;
 import org.gnu.escher.x11.Input;
 import org.gnu.escher.x11.InputStreamObject;
+import org.gnu.escher.x11.RequestOutputStream;
+import org.gnu.escher.x11.ResponseInputStream;
+import org.gnu.escher.x11.Screen;
 import org.gnu.escher.x11.WindowAttributes;
-import org.gnu.escher.x11.core.Atom;
-import org.gnu.escher.x11.core.Display;
-import org.gnu.escher.x11.core.RequestOutputStream;
-import org.gnu.escher.x11.core.ResponseInputStream;
-import org.gnu.escher.x11.core.Screen;
 import org.gnu.escher.x11.enums.BackingStore;
 import org.gnu.escher.x11.enums.ChangeOperation;
 import org.gnu.escher.x11.enums.CirculateDirection;

@@ -1,7 +1,7 @@
 package org.gnu.escher.x11.types;
 
 import org.gnu.escher.x11.OutputStreamObject;
-import org.gnu.escher.x11.core.RequestOutputStream;
+import org.gnu.escher.x11.RequestOutputStream;
 
 /**
  * X value list.

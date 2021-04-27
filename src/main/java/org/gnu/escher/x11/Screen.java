@@ -1,9 +1,9 @@
 
-package org.gnu.escher.x11.core;
+package org.gnu.escher.x11;
 
-import org.gnu.escher.x11.InputStreamObject;
 import org.gnu.escher.x11.enums.BackingStore;
 import org.gnu.escher.x11.resource.Colormap;
+import org.gnu.escher.x11.resource.GC;
 import org.gnu.escher.x11.resource.Window;
 
 /** X Screen. */

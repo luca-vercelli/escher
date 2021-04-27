@@ -1,6 +1,6 @@
 package org.gnu.escher.x11.extension;
 
-import org.gnu.escher.x11.core.Display;
+import org.gnu.escher.x11.Display;
 
 /** Base class for X extension. */
 abstract public class Extension {

@@ -1,6 +1,6 @@
 package org.gnu.escher.x11.extension.glx;
 
-import org.gnu.escher.x11.core.RequestOutputStream;
+import org.gnu.escher.x11.RequestOutputStream;
 
 /** GLX pixmap. */
 public class GLXPixmap extends org.gnu.escher.x11.resource.Resource implements GLXDrawable {

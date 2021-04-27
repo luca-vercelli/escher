@@ -1,5 +1,5 @@
 
-package org.gnu.escher.x11.core;
+package org.gnu.escher.x11;
 
 import static org.gnu.escher.utils.Validation.requiresNonNull;
 
@@ -19,11 +19,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import org.gnu.escher.x11.Color;
-import org.gnu.escher.x11.Data;
-import org.gnu.escher.x11.Input;
-import org.gnu.escher.x11.InputStreamObject;
-import org.gnu.escher.x11.XAuthority;
 import org.gnu.escher.x11.enums.AccessControl;
 import org.gnu.escher.x11.enums.ChangeOperation;
 import org.gnu.escher.x11.enums.ForceScreenSaver;
@@ -41,6 +36,7 @@ import org.gnu.escher.x11.extension.ExtensionNotFoundException;
 import org.gnu.escher.x11.extension.XCMisc;
 import org.gnu.escher.x11.resource.Colormap;
 import org.gnu.escher.x11.resource.Font;
+import org.gnu.escher.x11.resource.GC;
 import org.gnu.escher.x11.resource.Pixmap;
 import org.gnu.escher.x11.resource.Resource;
 import org.gnu.escher.x11.resource.Window;

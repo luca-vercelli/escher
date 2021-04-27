@@ -1,7 +1,7 @@
 package publicapi.display;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.gnu.escher.x11.core.DisplayName.getFromConventionalString;
+import static org.gnu.escher.x11.DisplayName.getFromConventionalString;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
@@ -10,9 +10,9 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import org.gnu.escher.x11.core.Display;
-import org.gnu.escher.x11.core.DisplayName;
-import org.gnu.escher.x11.core.X11ClientException;
+import org.gnu.escher.x11.Display;
+import org.gnu.escher.x11.DisplayName;
+import org.gnu.escher.x11.X11ClientException;
 import org.junit.jupiter.api.Test;
 import org.newsclub.net.unix.AFUNIXSocket;
 import org.newsclub.net.unix.AFUNIXSocketAddress;
@@ -53,7 +53,7 @@ public class DisplayNameTest {
 
 	@Test
 	void parse_hostName() {
-		org.gnu.escher.x11.core.DisplayName name = getFromConventionalString("hostName");
+		org.gnu.escher.x11.DisplayName name = getFromConventionalString("hostName");
 		assertThat(name.getHostName()).isEqualTo("hostName");
 		assertThat(name.getDisplayNumber()).isEqualTo(0);
 		assertThat(name.getScreenNumber()).isEqualTo(0);
@@ -63,7 +63,7 @@ public class DisplayNameTest {
 
 	@Test
 	void parse_hostName_displayNumber() {
-		org.gnu.escher.x11.core.DisplayName name = getFromConventionalString("hostName:2");
+		org.gnu.escher.x11.DisplayName name = getFromConventionalString("hostName:2");
 		assertThat(name.getHostName()).isEqualTo("hostName");
 		assertThat(name.getDisplayNumber()).isEqualTo(2);
 		assertThat(name.getScreenNumber()).isEqualTo(0);
@@ -73,7 +73,7 @@ public class DisplayNameTest {
 
 	@Test
 	void parse_hostName_displayNumber_screenNumber() {
-		org.gnu.escher.x11.core.DisplayName name = getFromConventionalString("hostName:2.1");
+		org.gnu.escher.x11.DisplayName name = getFromConventionalString("hostName:2.1");
 		assertThat(name.getHostName()).isEqualTo("hostName");
 		assertThat(name.getDisplayNumber()).isEqualTo(2);
 		assertThat(name.getScreenNumber()).isEqualTo(1);
@@ -83,7 +83,7 @@ public class DisplayNameTest {
 
 	@Test
 	void parse_displayNumber() {
-		org.gnu.escher.x11.core.DisplayName name = getFromConventionalString(":2");
+		org.gnu.escher.x11.DisplayName name = getFromConventionalString(":2");
 		assertThat(name.getHostName()).isNull();
 		assertThat(name.getDisplayNumber()).isEqualTo(2);
 		assertThat(name.getScreenNumber()).isEqualTo(0);

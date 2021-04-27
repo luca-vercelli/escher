@@ -1,7 +1,5 @@
 package org.gnu.escher.x11;
 
-import org.gnu.escher.x11.core.RequestOutputStream;
-
 /**
  * Objects that implement this interface can be written to a connection as part
  * of a request.

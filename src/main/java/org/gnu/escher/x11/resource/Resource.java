@@ -1,6 +1,6 @@
 package org.gnu.escher.x11.resource;
 
-import org.gnu.escher.x11.core.Display;
+import org.gnu.escher.x11.Display;
 
 /** X ID resource. */
 public abstract class Resource {

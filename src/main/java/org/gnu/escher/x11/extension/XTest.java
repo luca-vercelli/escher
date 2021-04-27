@@ -1,7 +1,7 @@
 package org.gnu.escher.x11.extension;
 
-import org.gnu.escher.x11.core.RequestOutputStream;
-import org.gnu.escher.x11.core.ResponseInputStream;
+import org.gnu.escher.x11.RequestOutputStream;
+import org.gnu.escher.x11.ResponseInputStream;
 import org.gnu.escher.x11.resource.Cursor;
 import org.gnu.escher.x11.resource.Window;
 
@@ -28,7 +28,7 @@ public class XTest extends Extension {
 	/**
 	 * @see <a href="XTestQueryExtension.html">XTestQueryExtension</a>
 	 */
-	public XTest(org.gnu.escher.x11.core.Display display) throws ExtensionNotFoundException {
+	public XTest(org.gnu.escher.x11.Display display) throws ExtensionNotFoundException {
 		super(display, "XTEST", MINOR_OPCODE_STRINGS);
 
 		RequestOutputStream o = display.getResponseOutputStream();

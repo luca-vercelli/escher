@@ -1,4 +1,4 @@
-package org.gnu.escher.x11.core;
+package org.gnu.escher.x11;
 
 /**
  * Base exception class for any errors that occur when sending request to X11 or

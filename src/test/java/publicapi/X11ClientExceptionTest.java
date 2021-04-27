@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 
-import org.gnu.escher.x11.core.X11ClientException;
+import org.gnu.escher.x11.X11ClientException;
 import org.junit.jupiter.api.Test;
 
 public class X11ClientExceptionTest {
