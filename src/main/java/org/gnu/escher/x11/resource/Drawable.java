@@ -81,6 +81,7 @@ public abstract class Drawable extends Resource {
 		GeometryInfo info;
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
+			o.beginRequest(X11CoreRequest.GetGeometry.getOpcode(), 0, 2);
 			o.writeInt32(id);
 			ResponseInputStream i = display.getResponseInputStream();
 			synchronized (i) {
@@ -412,7 +413,7 @@ public abstract class Drawable extends Resource {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(69, 0, 4 + points.length);
+			o.beginRequest(X11CoreRequest.FillPoly.getOpcode(), 0, 4 + points.length);
 			o.writeInt32(id);
 			o.writeInt32(gc.id);
 			o.writeInt8(shape.getCode());
@@ -430,7 +431,7 @@ public abstract class Drawable extends Resource {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(69, 0, 4 + npoints);
+			o.beginRequest(X11CoreRequest.FillPoly.getOpcode(), 0, 4 + npoints);
 			o.writeInt32(id);
 			o.writeInt32(gc.id);
 			o.writeInt8(shape.getCode());
@@ -453,7 +454,7 @@ public abstract class Drawable extends Resource {
 			int p = RequestOutputStream.pad(length);
 
 			Format format = image.getFormat();
-			o.beginRequest(72, format.getId(), 6 + (length + p) / 4);
+			o.beginRequest(X11CoreRequest.PutImage.getOpcode(), format.getId(), 6 + (length + p) / 4);
 			o.writeInt32(id);
 			o.writeInt32(gc.id);
 			o.writeInt16(image.getWidth());
@@ -538,7 +539,7 @@ public abstract class Drawable extends Resource {
 		int p = RequestOutputStream.pad(n);
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(74, 0, 4 + (n + p) / 4);
+			o.beginRequest(X11CoreRequest.PolyText8.getOpcode(), 0, 4 + (n + p) / 4);
 			o.writeInt32(id);
 			o.writeInt32(gc.id);
 			o.writeInt16(x);
@@ -574,7 +575,7 @@ public abstract class Drawable extends Resource {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(75, 0, 4 + (n + p) / 4);
+			o.beginRequest(X11CoreRequest.PolyText16.getOpcode(), 0, 4 + (n + p) / 4);
 
 			o.writeInt32(id);
 			o.writeInt32(gc.id);
@@ -615,7 +616,7 @@ public abstract class Drawable extends Resource {
 		int p = RequestOutputStream.pad(n);
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(76, n, 4 + (n + p) / 4);
+			o.beginRequest(X11CoreRequest.ImageText8.getOpcode(), n, 4 + (n + p) / 4);
 			o.writeInt32(id);
 			o.writeInt32(gc.id);
 			o.writeInt16(x);
@@ -636,7 +637,7 @@ public abstract class Drawable extends Resource {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(77, n, 4 + (2 * n + p) / 4);
+			o.beginRequest(X11CoreRequest.ImageText16.getOpcode(), n, 4 + (2 * n + p) / 4);
 			o.writeInt32(id);
 			o.writeInt32(gc.id);
 			o.writeInt16(x);
@@ -657,7 +658,7 @@ public abstract class Drawable extends Resource {
 		RequestOutputStream o = display.getResponseOutputStream();
 		int w, h;
 		synchronized (o) {
-			o.beginRequest(97, klass.getCode(), 3);
+			o.beginX11CoreRequest(X11CoreRequest.QueryBestSize, klass.getCode());
 			o.writeInt32(id);
 			o.writeInt16(width);
 			o.writeInt16(height);
@@ -701,7 +702,7 @@ public abstract class Drawable extends Resource {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(68, 0, 6);
+			o.beginX11CoreRequest(X11CoreRequest.PolyArc, 0);
 			o.writeInt32(id);
 			o.writeInt32(gc.id);
 
@@ -741,7 +742,7 @@ public abstract class Drawable extends Resource {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(71, 0, 6);
+			o.beginX11CoreRequest(X11CoreRequest.PolyFillArc, 0);
 			o.writeInt32(id);
 			o.writeInt32(gc.id);
 
@@ -774,7 +775,7 @@ public abstract class Drawable extends Resource {
 		// FIXME: Handle aggregation.
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(65, CoordinateMode.ORIGIN.getCode(), 5);
+			o.beginX11CoreRequest(X11CoreRequest.PolyLine, CoordinateMode.ORIGIN.getCode());
 			o.writeInt32(id);
 			o.writeInt32(gc.id);
 			o.writeInt16(x1);
@@ -796,7 +797,7 @@ public abstract class Drawable extends Resource {
 				o.writeInt16(x2);
 				o.writeInt16(y2);
 			} else {
-				o.beginRequest(66, CoordinateMode.ORIGIN.getCode(), 5);
+				o.beginX11CoreRequest(X11CoreRequest.PolySegment, CoordinateMode.ORIGIN.getCode());
 				o.writeInt32(id);
 				o.writeInt32(gc.id);
 				o.writeInt16(x1);
@@ -820,7 +821,7 @@ public abstract class Drawable extends Resource {
 		// FIXME: Handle aggregation.
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(64, CoordinateMode.ORIGIN.getCode(), 4);
+			o.beginX11CoreRequest(X11CoreRequest.PolyPoint, CoordinateMode.ORIGIN.getCode());
 			o.writeInt32(id);
 			o.writeInt32(gc.id);
 			o.writeInt16(x);
@@ -866,7 +867,7 @@ public abstract class Drawable extends Resource {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			o.beginRequest(67, 0, 5);
+			o.beginX11CoreRequest(X11CoreRequest.PolyRectangle, CoordinateMode.ORIGIN.getCode());
 			o.writeInt32(id);
 			o.writeInt32(gc.id);
 			o.writeInt16(x);
@@ -896,14 +897,15 @@ public abstract class Drawable extends Resource {
 
 		RequestOutputStream o = display.getResponseOutputStream();
 		synchronized (o) {
-			if (o.currentOpcode() == 70 && o.getInt32(4) == id && o.getInt32(8) == gc.id) {
+			if (o.currentOpcode() == X11CoreRequest.PolyFillRectangle.getOpcode() && o.getInt32(4) == id
+					&& o.getInt32(8) == gc.id) {
 				o.increaseLength(2);
 				o.writeInt16(x);
 				o.writeInt16(y);
 				o.writeInt16(width);
 				o.writeInt16(height);
 			} else {
-				o.beginRequest(70, 0, 5);
+				o.beginX11CoreRequest(X11CoreRequest.PolyFillRectangle, 0);
 				o.writeInt32(id);
 				o.writeInt32(gc.id);
 				o.writeInt16(x);

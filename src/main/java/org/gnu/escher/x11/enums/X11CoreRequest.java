@@ -35,7 +35,7 @@ public enum X11CoreRequest implements X11Command {
 	UnmapSubwindows(11, 2), //
 	ConfigureWindow(12, 3), //
 	CirculateWindow(13, 2), //
-	GetGeometry(14, -1), // in Drawable
+	GetGeometry(14, 2), // in Drawable
 	QueryTree(15, 2), //
 	InternAtom(16, 2), //
 	GetAtomName(17, 2), //
@@ -85,7 +85,7 @@ public enum X11CoreRequest implements X11Command {
 	// in Pixmap
 	CreatePixmap(53, 4), //
 	FreePixmap(54, 2), //
-	
+
 	// in GC
 	CreateGC(55, 4), //
 	ChangeGC(56, 0), //
@@ -99,20 +99,20 @@ public enum X11CoreRequest implements X11Command {
 	// in Drawable
 	CopyArea(62, 7), //
 	CopyPlane(63, -1), //
-	PolyPoint(64, -1), //
-	PolyLine(65, -1), //
-	PolySegment(66, -1), //
-	PolyRectangle(67, -1), //
-	PolyArc(68, -1), //
-	FillPoly(69, -1), //
-	PolyFillRectangle(70, -1), //
-	PolyFillArc(71, -1), //
-	PutImage(72, -1), //
+	PolyPoint(64, 4), //
+	PolyLine(65, 5), //
+	PolySegment(66, 5), //
+	PolyRectangle(67, 5), //
+	PolyArc(68, 6), //
+	FillPoly(69, 4), //
+	PolyFillRectangle(70, 5), //
+	PolyFillArc(71, 6), //
+	PutImage(72, 6), //
 	GetImage(73, 5), //
-	PolyText8(74, -1), //
-	PolyText16(75, -1), //
-	ImageText8(76, -1), //
-	ImageText16(77, -1), //
+	PolyText8(74, 4), //
+	PolyText16(75, 4), //
+	ImageText8(76, 4), //
+	ImageText16(77, 4), //
 
 	// in ColorMap
 	CreateColormap(78, -1), //
@@ -120,7 +120,7 @@ public enum X11CoreRequest implements X11Command {
 	CopyColormapAndFree(80, -1), //
 	InstallColormap(81, -1), //
 	UninstallColormap(82, -1), //
-	ListInstalledColormaps(83, 2), // this is in Window !?!?
+	ListInstalledColormaps(83, 2), // in Window
 	AllocColor(84, -1), //
 	AllocNamedColor(85, -1), //
 	AllocColorCells(86, -1), //
@@ -137,7 +137,7 @@ public enum X11CoreRequest implements X11Command {
 	FreeCursor(95, 2), //
 	RecolorCursor(96, 5), //
 
-	QueryBestSize(97, -1), // in Drawable ?!
+	QueryBestSize(97, 3), // in Drawable
 	QueryExtension(98, 2), // in Display
 	ListExtensions(99, 1), // in Display
 
